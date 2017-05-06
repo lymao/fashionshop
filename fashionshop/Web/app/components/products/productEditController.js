@@ -7,4 +7,4 @@
 
     }
 
-})(angular.module('shop.products'));
+})(angular.module('fashionshop.products'));

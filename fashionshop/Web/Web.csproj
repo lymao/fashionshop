@@ -228,6 +228,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infratructure\Core\ApiControllerBase.cs" />
+    <Compile Include="Infratructure\Core\ServiceFactory.cs" />
     <Compile Include="Infratructure\Extensions\EntityExtentions.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Models\ApplicationGroupViewModel.cs" />
@@ -259,6 +260,9 @@
     <Content Include="app\app.js" />
     <Content Include="app\components\home\homeController.js" />
     <Content Include="app\components\home\homeView.html" />
+    <Content Include="app\components\home\rootController.js" />
+    <Content Include="app\components\login\loginController.js" />
+    <Content Include="app\components\login\loginView.html" />
     <Content Include="app\components\products\productAddController.js" />
     <Content Include="app\components\products\productAddView.html" />
     <Content Include="app\components\products\productEditController.js" />
@@ -266,7 +270,13 @@
     <Content Include="app\components\products\productListController.js" />
     <Content Include="app\components\products\productListView.html" />
     <Content Include="app\components\products\products.module.js" />
+    <Content Include="app\shared\modules\apiService.js" />
+    <Content Include="app\shared\modules\authData.js" />
+    <Content Include="app\shared\modules\authenticationService.js" />
     <Content Include="app\shared\modules\fashionshop.common.js" />
+    <Content Include="app\shared\modules\loginService.js" />
+    <Content Include="app\shared\modules\notificationService.js" />
+    <Content Include="app\shared\views\baseView.html" />
     <Content Include="Assets\admin\css\AdminLTE.css" />
     <Content Include="Assets\admin\css\AdminLTE.min.css" />
     <Content Include="Assets\admin\css\alt\AdminLTE-bootstrap-social.css" />
@@ -336,6 +346,22 @@
     <Content Include="Assets\admin\js\demo.js" />
     <Content Include="Assets\admin\js\pages\dashboard.js" />
     <Content Include="Assets\admin\js\pages\dashboard2.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\build\loading-bar.css" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\build\loading-bar.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\build\loading-bar.min.css" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\build\loading-bar.min.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\Gruntfile.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\index.js" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\src\loading-bar.css" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\src\loading-bar.js" />
+    <Content Include="Assets\admin\libs\angular-local-storage\.gitattributes" />
+    <Content Include="Assets\admin\libs\angular-local-storage\.gitignore" />
+    <Content Include="Assets\admin\libs\angular-local-storage\demo\demo-app.js" />
+    <Content Include="Assets\admin\libs\angular-local-storage\demo\demo-style.css" />
+    <Content Include="Assets\admin\libs\angular-local-storage\demo\demo.html" />
+    <Content Include="Assets\admin\libs\angular-local-storage\dist\angular-local-storage.js" />
+    <Content Include="Assets\admin\libs\angular-local-storage\dist\angular-local-storage.min.js" />
+    <Content Include="Assets\admin\libs\angular-local-storage\index.js" />
     <Content Include="Assets\admin\libs\angular-ui-router\karma.conf.js" />
     <Content Include="Assets\admin\libs\angular-ui-router\migrate\migratewarn.js" />
     <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js" />
@@ -512,6 +538,10 @@
     <Content Include="Assets\admin\libs\slimScroll\examples\style.css" />
     <Content Include="Assets\admin\libs\slimScroll\jquery.slimscroll.js" />
     <Content Include="Assets\admin\libs\slimScroll\jquery.slimscroll.min.js" />
+    <Content Include="Assets\admin\libs\toastr\toastr.css" />
+    <Content Include="Assets\admin\libs\toastr\toastr.js" />
+    <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
+    <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -681,10 +711,40 @@
     <Content Include="Assets\admin\libs\slimScroll\bower.json" />
     <Content Include="Assets\admin\libs\slimScroll\package.json" />
     <Content Include="Assets\admin\libs\slimScroll\README.md" />
+    <Content Include="Assets\admin\libs\toastr\.bower.json" />
+    <Content Include="Assets\admin\libs\toastr\bower.json" />
+    <Content Include="Assets\admin\libs\toastr\LICENSE" />
+    <Content Include="Assets\admin\libs\toastr\README.md" />
+    <Content Include="Assets\admin\libs\toastr\toastr.js.map" />
+    <Content Include="Assets\admin\libs\toastr\toastr.less" />
+    <Content Include="Assets\admin\libs\toastr\toastr.scss" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\.bower.json" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\bower.json" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\CHANGELOG.md" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\CONTRIBUTING.md" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\ISSUE_TEMPLATE.md" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\LICENSE" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\package.json" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="Assets\admin\libs\angular-loading-bar\README.md" />
+    <Content Include="Assets\admin\libs\angular-local-storage\.bower.json" />
+    <Content Include="Assets\admin\libs\angular-local-storage\.bowerrc" />
+    <Content Include="Assets\admin\libs\angular-local-storage\.editorconfig" />
+    <Content Include="Assets\admin\libs\angular-local-storage\.travis.yml" />
+    <Content Include="Assets\admin\libs\angular-local-storage\bower.json" />
+    <Content Include="Assets\admin\libs\angular-local-storage\CHANGELOG.md" />
+    <Content Include="Assets\admin\libs\angular-local-storage\dist\angular-local-storage.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-local-storage\LICENSE" />
+    <Content Include="Assets\admin\libs\angular-local-storage\package.json" />
+    <Content Include="Assets\admin\libs\angular-local-storage\README.md" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{63C8B7FE-6649-44B9-9449-922DC3E7144D}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{18162CF3-BEFB-420C-A01C-4C0F01AD3BBB}</Project>
       <Name>Data</Name>

@@ -1,5 +1,8 @@
-namespace Data.Migrations
+﻿namespace Data.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Model.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +29,33 @@ namespace Data.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            // Update-database báo lỗi: Object reference not set to an instance of an object.
+            // Lưu ý: Khi đặt mật khẩu phải lớn hơn 5 chữ số
+            CreateUser(context);
+        }
+
+        private void CreateUser(FashionShopDbContext context)
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new FashionShopDbContext()));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new FashionShopDbContext()));
+            var user = new ApplicationUser()
+            {
+                UserName = "admin",
+                Email = "lymaodt@gmail.com",
+                EmailConfirmed = true,
+                BirthDay = DateTime.Now,
+                FullName = "lymao"
+            };
+            userManager.Create(user, "123456");
+            if (!roleManager.Roles.Any())
+            {
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                //roleManager.Create(new IdentityRole { Name = "User" });
+            };
+
+            var adminUser = userManager.FindByEmail("lymaodt@gmail.com");
+            userManager.AddToRole(adminUser.Id, "Admin");
         }
     }
 }

@@ -8,15 +8,18 @@
         $stateProvider.state('products', {
             url: '/products',
             templateUrl: '/app/components/products/productListView.html',
-            controller: 'productListController'
+            controller: 'productListController',
+            parent: 'base'
         }).state('product_add', {
             url: '/product_add',
             templateUrl: '/app/components/products/productAddView.html',
-            controller: 'productAddController'
+            controller: 'productAddController',
+            parent: 'base'
         }).state('product_edit', {
             url: '/product_edit',
             templateUrl: '/app/components/products/productEditView.html',
-            controller: 'productEditController'
+            controller: 'productEditController',
+            parent: 'base'
         });
     }
 })();
