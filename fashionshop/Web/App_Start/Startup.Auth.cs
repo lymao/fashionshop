@@ -126,7 +126,7 @@ namespace Web
                     // Chú ý: Thứ tự 2 phương thức(Rejected() phải trước SetError() thì 
                     // khi get result trả về lỗi ở client mới lấy được đối tượng data.error_description:'' để show ra thông báo lỗi )                  
                     context.Rejected();
-                    context.SetError("invalid_grant", "Tài khoản hoặc mật khẩu không đúng.'");
+                    context.SetError("invalid_grant", "Tài khoản hoặc mật khẩu không đúng.");
                 }
             }
         }

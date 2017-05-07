@@ -51,7 +51,7 @@
             if (!roleManager.Roles.Any())
             {
                 roleManager.Create(new IdentityRole { Name = "Admin" });
-                //roleManager.Create(new IdentityRole { Name = "User" });
+                roleManager.Create(new IdentityRole { Name = "User" });
             };
 
             var adminUser = userManager.FindByEmail("lymaodt@gmail.com");

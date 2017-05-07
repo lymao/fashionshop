@@ -60,6 +60,14 @@
       <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BotDetect, Version=4.2.0.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Captcha.4.2.0\lib\net45\BotDetect.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BotDetect.Web.Mvc, Version=4.2.0.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Captcha.4.2.0\lib\net45\BotDetect.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -223,7 +231,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -542,6 +552,131 @@
     <Content Include="Assets\admin\libs\toastr\toastr.js" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
+    <Content Include="Assets\client\css\bootstrap.css" />
+    <Content Include="Assets\client\css\coreSlider.css" />
+    <Content Include="Assets\client\css\flexslider.css" />
+    <Content Include="Assets\client\css\font-awesome.css" />
+    <Content Include="Assets\client\css\jquery-ui.css" />
+    <Content Include="Assets\client\css\jstarbox.css" />
+    <Content Include="Assets\client\css\owl.carousel.css" />
+    <Content Include="Assets\client\css\style.css" />
+    <Content Include="Assets\client\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\client\images\45.jpg" />
+    <Content Include="Assets\client\images\arrow_left.png" />
+    <Content Include="Assets\client\images\arrow_right.png" />
+    <Content Include="Assets\client\images\b1.jpg" />
+    <Content Include="Assets\client\images\b2.jpg" />
+    <Content Include="Assets\client\images\b3.jpg" />
+    <Content Include="Assets\client\images\b4.jpg" />
+    <Content Include="Assets\client\images\bag.png" />
+    <Content Include="Assets\client\images\ban1.jpg" />
+    <Content Include="Assets\client\images\card.png" />
+    <Content Include="Assets\client\images\circle.png" />
+    <Content Include="Assets\client\images\close_1.png" />
+    <Content Include="Assets\client\images\do.png" />
+    <Content Include="Assets\client\images\i1.jpg" />
+    <Content Include="Assets\client\images\i10.jpg" />
+    <Content Include="Assets\client\images\i11.jpg" />
+    <Content Include="Assets\client\images\i12.jpg" />
+    <Content Include="Assets\client\images\i13.jpg" />
+    <Content Include="Assets\client\images\i14.jpg" />
+    <Content Include="Assets\client\images\i2.jpg" />
+    <Content Include="Assets\client\images\i3.jpg" />
+    <Content Include="Assets\client\images\i4.jpg" />
+    <Content Include="Assets\client\images\i5.jpg" />
+    <Content Include="Assets\client\images\i6.jpg" />
+    <Content Include="Assets\client\images\i7.jpg" />
+    <Content Include="Assets\client\images\i8.jpg" />
+    <Content Include="Assets\client\images\i9.jpg" />
+    <Content Include="Assets\client\images\icons1.png" />
+    <Content Include="Assets\client\images\img-sprite.png" />
+    <Content Include="Assets\client\images\img1.jpg" />
+    <Content Include="Assets\client\images\img2.jpg" />
+    <Content Include="Assets\client\images\img3.jpg" />
+    <Content Include="Assets\client\images\img4.jpg" />
+    <Content Include="Assets\client\images\l1.jpg" />
+    <Content Include="Assets\client\images\l2.jpg" />
+    <Content Include="Assets\client\images\l3.jpg" />
+    <Content Include="Assets\client\images\l4.jpg" />
+    <Content Include="Assets\client\images\l5.jpg" />
+    <Content Include="Assets\client\images\l6.jpg" />
+    <Content Include="Assets\client\images\men3.jpg" />
+    <Content Include="Assets\client\images\menu.png" />
+    <Content Include="Assets\client\images\menu1.png" />
+    <Content Include="Assets\client\images\p1.jpg" />
+    <Content Include="Assets\client\images\p10.jpg" />
+    <Content Include="Assets\client\images\p11.jpg" />
+    <Content Include="Assets\client\images\p12.jpg" />
+    <Content Include="Assets\client\images\p13.jpg" />
+    <Content Include="Assets\client\images\p14.jpg" />
+    <Content Include="Assets\client\images\p15.jpg" />
+    <Content Include="Assets\client\images\p16.jpg" />
+    <Content Include="Assets\client\images\p17.jpg" />
+    <Content Include="Assets\client\images\p18.jpg" />
+    <Content Include="Assets\client\images\p19.jpg" />
+    <Content Include="Assets\client\images\p2.jpg" />
+    <Content Include="Assets\client\images\p20.jpg" />
+    <Content Include="Assets\client\images\p21.jpg" />
+    <Content Include="Assets\client\images\p22.jpg" />
+    <Content Include="Assets\client\images\p23.jpg" />
+    <Content Include="Assets\client\images\p24.jpg" />
+    <Content Include="Assets\client\images\p25.jpg" />
+    <Content Include="Assets\client\images\p26.jpg" />
+    <Content Include="Assets\client\images\p27.jpg" />
+    <Content Include="Assets\client\images\p28.jpg" />
+    <Content Include="Assets\client\images\p29.jpg" />
+    <Content Include="Assets\client\images\p3.jpg" />
+    <Content Include="Assets\client\images\p30.jpg" />
+    <Content Include="Assets\client\images\p4.jpg" />
+    <Content Include="Assets\client\images\p5.jpg" />
+    <Content Include="Assets\client\images\p6.jpg" />
+    <Content Include="Assets\client\images\p7.jpg" />
+    <Content Include="Assets\client\images\p8.jpg" />
+    <Content Include="Assets\client\images\p9.jpg" />
+    <Content Include="Assets\client\images\r.jpg" />
+    <Content Include="Assets\client\images\r1.jpg" />
+    <Content Include="Assets\client\images\r2.jpg" />
+    <Content Include="Assets\client\images\r3.jpg" />
+    <Content Include="Assets\client\images\r4.jpg" />
+    <Content Include="Assets\client\images\r5.jpg" />
+    <Content Include="Assets\client\images\s1.jpg" />
+    <Content Include="Assets\client\images\s10.jpg" />
+    <Content Include="Assets\client\images\s11.jpg" />
+    <Content Include="Assets\client\images\s12.jpg" />
+    <Content Include="Assets\client\images\s2.jpg" />
+    <Content Include="Assets\client\images\s3.jpg" />
+    <Content Include="Assets\client\images\s4.jpg" />
+    <Content Include="Assets\client\images\s5.jpg" />
+    <Content Include="Assets\client\images\s6.jpg" />
+    <Content Include="Assets\client\images\s7.jpg" />
+    <Content Include="Assets\client\images\s8.jpg" />
+    <Content Include="Assets\client\images\s9.jpg" />
+    <Content Include="Assets\client\images\search.png" />
+    <Content Include="Assets\client\images\si.jpg" />
+    <Content Include="Assets\client\images\si1.jpg" />
+    <Content Include="Assets\client\images\si2.jpg" />
+    <Content Include="Assets\client\images\woo.jpg" />
+    <Content Include="Assets\client\images\woo1.jpg" />
+    <Content Include="Assets\client\images\woo2.jpg" />
+    <Content Include="Assets\client\images\woo3.jpg" />
+    <Content Include="Assets\client\images\woo4.jpg" />
+    <Content Include="Assets\client\js\bootstrap-3.1.1.min.js" />
+    <Content Include="Assets\client\js\bootstrap.js" />
+    <Content Include="Assets\client\js\coreSlider.js" />
+    <Content Include="Assets\client\js\imagezoom.js" />
+    <Content Include="Assets\client\js\jquery-ui.js" />
+    <Content Include="Assets\client\js\jquery-ui.min.js" />
+    <Content Include="Assets\client\js\jquery.flexslider.js" />
+    <Content Include="Assets\client\js\jquery.jscrollpane.min.js" />
+    <Content Include="Assets\client\js\jquery.min.js" />
+    <Content Include="Assets\client\js\jquery.mousewheel.js" />
+    <Content Include="Assets\client\js\jquery.mycart.js" />
+    <Content Include="Assets\client\js\jstarbox.js" />
+    <Content Include="Assets\client\js\main.js" />
+    <Content Include="Assets\client\js\owl.carousel.js" />
+    <Content Include="Assets\client\js\responsiveslides.min.js" />
+    <Content Include="Assets\client\js\simpleCart.min.js" />
+    <Content Include="Assets\client\templates\newuser.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -559,7 +694,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\client\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -737,8 +871,19 @@
     <Content Include="Assets\admin\libs\angular-local-storage\LICENSE" />
     <Content Include="Assets\admin\libs\angular-local-storage\package.json" />
     <Content Include="Assets\admin\libs\angular-local-storage\README.md" />
+    <Content Include="Assets\client\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\client\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\client\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\client\fonts\FontAwesome.otf" />
+    <Content Include="Assets\client\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Assets\client\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\HeaderPartial.cshtml" />
+    <Content Include="Views\Home\FooterPartial.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
