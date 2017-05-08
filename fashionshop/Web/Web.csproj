@@ -884,6 +884,7 @@
     <Content Include="Views\Home\HeaderPartial.cshtml" />
     <Content Include="Views\Home\FooterPartial.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

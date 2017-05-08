@@ -48,6 +48,8 @@ namespace Web.Api
                 _userManager = value;
             }
         }
+
+        // Phương thức này chỉ dùng để test Login Api
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]

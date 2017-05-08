@@ -1,15 +1,34 @@
-﻿<div class="header">
+﻿@using Microsoft.AspNet.Identity
+
+<div class="header">
     <div class="header-top">
         <div class="container">
             <div class="top-left">
                 <a href="#"> Trợ giúp <i class="glyphicon glyphicon-phone" aria-hidden="true"></i> +0123-456-789</a>
             </div>
             <div class="top-right">
-                <ul>
-                    <li><a href="/thanh-toan.html">Thanh toán</a></li>
-                    <li><a href="/dang-nhap.html">Đăng nhập</a></li>
-                    <li><a href="/dang-ky.html"> Tạo tài khoản </a></li>
-                </ul>
+                @using (Html.BeginForm("LogOut", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    if (Request.IsAuthenticated)
+                    {
+                        <ul>
+                            <li><a href="/thanh-toan.html">Thanh toán</a></li>
+                            <li><a href="/tai-khoan.html">Xin chào: @User.Identity.GetUserName()</a></li>
+                            <li><button type="submit"> Thoát </button></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul>
+                            <li><a href="/thanh-toan.html">Thanh toán</a></li>
+                            <li><a href="@Url.Action("Login","Account",new { @returnUrl = Request.Url.ToString()})">Đăng nhập</a></li>
+                            <li><a href="/dang-ky.html"> Tạo tài khoản </a></li>
+                        </ul>
+                    }
+
+                }
+
             </div>
             <div class="clearfix"></div>
         </div>

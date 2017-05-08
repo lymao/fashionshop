@@ -1,0 +1,50 @@
+﻿@model Web.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<!--banner-->
+<div class="banner1">
+    <div class="container">
+        <h3><a href="/">Trang chủ</a> / <span>Đăng nhập</span></h3>
+    </div>
+</div>
+<!--banner-->
+<!--login-->
+<div class="login">
+    <div class="main-agileits">
+        <div class="form-w3agile">
+            <h3>Đăng nhập</h3>
+            @using (Html.BeginForm("Login", "Account", new { @returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken();
+                @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "list-style-type:none;" })
+                <br />
+                @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                <div class="key">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Tài khoản" })
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    <div class="clearfix"></div>
+                </div>
+
+                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                <div class="key">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    @Html.PasswordFor(m => m.Password, new { @placeholder = "Mật khẩu" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    <div class="clearfix"></div>
+                </div>
+
+                <input type="submit" value="Đăng nhập">
+            }
+        </div>
+        <div class="forg">
+            <a href="#" class="forg-left">Quên mật khẩu</a>
+            <a href="/dang-ky.html" class="forg-right">Đăng ký</a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!--login-->

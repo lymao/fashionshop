@@ -8,10 +8,10 @@ namespace Web.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Bạn cần nhập tài khoản")]
+        [Required(ErrorMessage = "Bạn cần nhập tài khoản"),Display(Name ="Tài khoản")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Bạn cần nhập mật khẩu")]
+        [Required(ErrorMessage = "Bạn cần nhập mật khẩu"),Display(Name ="Mật khẩu")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
