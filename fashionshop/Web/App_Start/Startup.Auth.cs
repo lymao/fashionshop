@@ -65,15 +65,15 @@ namespace Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1313514202077619",
+               appSecret: "9daa5a1be90fa605b3e10dc45aeb9321");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "486769096618-ijbc6qts1vr7a2u4pvnprbavkrj2c56j.apps.googleusercontent.com",
+                ClientSecret = "m_1QngCikd67ibPdSVk6CvJ-"
+            });
         }
 
         public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
