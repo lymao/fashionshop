@@ -289,12 +289,12 @@
     <Content Include="app\components\products\productListController.js" />
     <Content Include="app\components\products\productListView.html" />
     <Content Include="app\components\products\products.module.js" />
-    <Content Include="app\shared\modules\apiService.js" />
-    <Content Include="app\shared\modules\authData.js" />
-    <Content Include="app\shared\modules\authenticationService.js" />
+    <Content Include="app\shared\services\apiService.js" />
+    <Content Include="app\shared\services\authData.js" />
+    <Content Include="app\shared\services\authenticationService.js" />
     <Content Include="app\shared\modules\fashionshop.common.js" />
-    <Content Include="app\shared\modules\loginService.js" />
-    <Content Include="app\shared\modules\notificationService.js" />
+    <Content Include="app\shared\services\loginService.js" />
+    <Content Include="app\shared\services\notificationService.js" />
     <Content Include="app\shared\views\baseView.html" />
     <Content Include="Assets\admin\css\AdminLTE.css" />
     <Content Include="Assets\admin\css\AdminLTE.min.css" />
