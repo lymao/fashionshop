@@ -11,7 +11,7 @@
             $state.go('login');
         }
         $scope.authentication = authData.authenticationData;
-        //$scope.sideBar = "/app/shared/views/sideBar.html";
+        $scope.sideBar = "/app/shared/views/sideBar.html";
         //Lỗi ở hàm validateRequest() này khi refresh lại trang thì bị out ra trang login
         //authenticationService.validateRequest();
     }

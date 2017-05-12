@@ -15,6 +15,9 @@ namespace Web.Mappings
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<PostCategory, PostCategoryViewModel>();
+                cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
+                cfg.CreateMap<Product, ProductViewModel>();
+
 
             });
         }

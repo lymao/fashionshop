@@ -38,7 +38,7 @@ namespace Service
                 _unitOfWork.Commit();
                 return true;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 throw;
             }
