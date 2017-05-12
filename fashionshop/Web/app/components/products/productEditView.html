@@ -106,20 +106,20 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Mô tả ngắn</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control myClassName" name="description" ng-maxlength="500" ng-model="product.Description"></textarea>
+                        <textarea class="form-control" ckeditor="editorOptions" name="description" ng-maxlength="500" ng-model="product.Description"></textarea>
                         <span ng-show="frmAddProduct.description.$error.maxlength" class="has-error">Mô tả chỉ được 500 ký tự</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Chi tiết</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control myClassName" name="detail" ng-model="product.Detail"></textarea>
+                        <textarea class="form-control" ckeditor="editorOptions" name="detail" ng-model="product.Detail"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Mô tả sản phẩm</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control myClassName" name="content" ng-model="product.Content"></textarea>
+                        <textarea class="form-control" ckeditor="editorOptions" name="content" ng-model="product.Content"></textarea>
                     </div>
                 </div>
                 <div class="form-group">

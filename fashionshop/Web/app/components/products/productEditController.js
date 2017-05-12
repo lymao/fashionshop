@@ -52,7 +52,10 @@
             }
         };
 
-        CKEDITOR.replaceAll('myClassName');
+        // setup editor options
+        $scope.editorOptions = {
+            language: 'en'
+        };
 
         $scope.ChooseImage = function () {
             var finder = new CKFinder();
