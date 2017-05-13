@@ -22,6 +22,53 @@
             });
         }
 
+        $scope.GetSeoTitle = GetSeoTitle;
+        function GetSeoTitle() {
+            $scope.product.Alias = commonService.getSeoTitle($scope.product.Name);
+        }
+
+        // setup editor options
+        $scope.editorOptions = {
+            language: 'en'
+        };
+
+        $scope.ChooseImage = function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {
+                    $scope.product.Image = fileUrl;
+                });
+            }
+            finder.popup();
+        }
+
+        $scope.moreImages = [];
+        $scope.ChooseMoreImage = function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                var moreImg = $scope.moreImages.length;
+                var i;
+                for (i = 0; i < moreImg; i++) {
+                    var file = $scope.moreImages[i];
+                    var res = '';
+                    if (file == fileUrl) {
+                        res = 1; break;
+                    }
+                }
+                if (res !== 1) {
+                    $scope.$apply(function () {
+                        $scope.moreImages.push(fileUrl);
+                    });
+                }
+            }
+            finder.popup();
+        }
+
+        $scope.remove = remove;
+        function remove(index) {
+            $scope.moreImages.splice(index, 1);
+        }
+
         $scope.flatFolders = [];
         $scope.loadParentCategory = loadParentCategory;
         function loadParentCategory() {
@@ -45,7 +92,7 @@
         };
         function recur(item, level, arr) {
             arr.push({
-                Name: times(level, '-') + ' ' + item.Name,
+                Name: times(level, '\xa0 - \xa0') + ' ' + item.Name,// '\xa0' is '&nbsp;' in javascript
                 ID: item.ID,
                 Level: level,
                 Indent: times(level, '-')
@@ -56,34 +103,5 @@
                 });
             }
         };
-
-        $scope.GetSeoTitle = GetSeoTitle;
-        function GetSeoTitle() {
-            $scope.product.Alias = commonService.getSeoTitle($scope.product.Name);
-        }
-
-        // setup editor options
-        $scope.editorOptions = {
-            language: 'en'
-        };
-
-        $scope.ChooseImage = function () {
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (fileUrl) {
-                $scope.product.Image = fileUrl;
-            }
-            finder.popup();
-        }
-
-        $scope.moreImages = [];
-        $scope.ChooseMoreImage = function () {
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (fileUrl) {
-                $scope.$apply(function () {
-                    $scope.moreImages.push(fileUrl);
-                });
-            }
-            finder.popup();
-        }
     }
 })(angular.module('fashionshop.products'));

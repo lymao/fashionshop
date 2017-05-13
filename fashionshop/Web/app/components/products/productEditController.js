@@ -71,9 +71,20 @@
         $scope.ChooseMoreImage = function () {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
-                $scope.$apply(function () {
-                    $scope.moreImages.push(fileUrl);
-                });
+                var moreImg = $scope.moreImages.length;
+                var i;
+                for (i = 0; i < moreImg; i++) {
+                    var file = $scope.moreImages[i];
+                    var res = '';
+                    if (file == fileUrl) {
+                        res = 1; break;
+                    }
+                }
+                if (res !== 1) {
+                    $scope.$apply(function () {
+                        $scope.moreImages.push(fileUrl);
+                    });
+                }
             }
             finder.popup();
         }
@@ -85,6 +96,7 @@
 
         $scope.UpdateProduct = UpdateProduct;
         function UpdateProduct() {
+            //$scope.moreImages.splice(1, 2);
             $scope.product.MoreImages = JSON.stringify($scope.moreImages);
             apiService.put('api/product/update', $scope.product,
                 function (result) {
@@ -93,6 +105,11 @@
                 }, function (error) {
                     notificationService.displayError('Cập nhật không thành công.');
                 });
+        }
+
+        $scope.remove = remove;
+        function remove(index) {
+            $scope.moreImages.splice(index, 1);
         }
     }
 
