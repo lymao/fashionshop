@@ -26,6 +26,9 @@ namespace Model.Models
         [MaxLength(256)]
         public string Image { set; get; }
 
+        [MaxLength(256)]
+        public string Image1 { set; get; }
+
         [Column(TypeName = "xml")]
         public string MoreImages { set; get; }
 
@@ -38,12 +41,17 @@ namespace Model.Models
         [MaxLength(500)]
         public string Description { set; get; }
 
+        [MaxLength(50)]
+        [Column(TypeName = "varchar")]
+        public string Size { set; get; }
+
         public string Detail { set; get; }
 
         public string Content { set; get; }
 
         public bool? HomeFlag { set; get; }
         public bool? HotFlag { set; get; }
+        public bool? TrendFlag { set; get; }
         public int? ViewCount { set; get; }
 
         public string Tags { set; get; }

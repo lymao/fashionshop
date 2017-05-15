@@ -15,17 +15,30 @@ namespace Web.Controllers
         IProductCategoryService _productCategoryService;
         ICommonService _commonService;
         ISlideService _slideService;
-        public HomeController(IProductCategoryService productCategoryService,ICommonService commonService,ISlideService slideService)
+        IProductService _productService;
+        public HomeController(IProductCategoryService productCategoryService,ICommonService commonService,ISlideService slideService,IProductService productService)
         {
             this._productCategoryService = productCategoryService;
             this._commonService = commonService;
             this._slideService = slideService;
+            this._productService = productService;
         }
         // GET: Home
         public ActionResult Index()
         {
             var homeViewModel = new HomeViewModel();
 
+            var lastestProductModel = _productService.GetLastest(8);
+            var lastestProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestProductModel);
+            homeViewModel.LastestProducts = lastestProductViewModel;
+
+            var trendProductModel = _productService.GetHotProduct(6);
+            var trendProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(trendProductModel);
+            homeViewModel.TrendProducts = trendProductViewModel;
+
+            var topSaleProductModel = _productService.GetHotProduct(4);
+            var topSaleProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(topSaleProductModel);
+            homeViewModel.TopSaleProducts = topSaleProductViewModel;
 
             return View(homeViewModel);
         }

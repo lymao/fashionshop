@@ -69,6 +69,14 @@
     <Compile Include="Migrations\201705040930457_InitProject.Designer.cs">
       <DependentUpon>201705040930457_InitProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705150956585_AddColumnImage1AndTrendFlag.cs" />
+    <Compile Include="Migrations\201705150956585_AddColumnImage1AndTrendFlag.Designer.cs">
+      <DependentUpon>201705150956585_AddColumnImage1AndTrendFlag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705151042446_AddColumnSize.cs" />
+    <Compile Include="Migrations\201705151042446_AddColumnSize.Designer.cs">
+      <DependentUpon>201705151042446_AddColumnSize.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationGroupRepository.cs" />
@@ -113,6 +121,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705040930457_InitProject.resx">
       <DependentUpon>201705040930457_InitProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705150956585_AddColumnImage1AndTrendFlag.resx">
+      <DependentUpon>201705150956585_AddColumnImage1AndTrendFlag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705151042446_AddColumnSize.resx">
+      <DependentUpon>201705151042446_AddColumnSize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

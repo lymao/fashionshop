@@ -97,6 +97,10 @@ namespace Web.Infrastructure.Extensions
             product.MetaDescription = productVm.MetaDescription;
             product.Status = productVm.Status;
             product.Tags = productVm.Tags;
+
+            product.Image1 = productVm.Image1;
+            product.TrendFlag = productVm.TrendFlag;
+            product.Size = productVm.Size;
         }
 
         public static void UpdateSlide(this Slide slide, SlideViewModel slideVm)

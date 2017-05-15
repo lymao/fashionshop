@@ -67,6 +67,16 @@
             finder.popup();
         }
 
+        $scope.ChooseImage1 = function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {
+                    $scope.product.Image1 = fileUrl;
+                });
+            }
+            finder.popup();
+        }
+
         $scope.moreImages = [];
         $scope.ChooseMoreImage = function () {
             var finder = new CKFinder();

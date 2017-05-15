@@ -17,6 +17,8 @@ namespace Web.Models
 
         public string Image { set; get; }
 
+        public string Image1 { set; get; }
+
         public string MoreImages { set; get; }
 
         public decimal Price { set; get; }
@@ -27,6 +29,8 @@ namespace Web.Models
 
         public string Description { set; get; }
 
+        public string Size { set; get; }
+
         public string Detail { set; get; }
 
         public string Content { set; get; }
@@ -34,6 +38,8 @@ namespace Web.Models
         public bool? HomeFlag { set; get; }
 
         public bool? HotFlag { set; get; }
+
+        public bool? TrendFlag { set; get; }
 
         public int? ViewCount { set; get; }
 

@@ -26,6 +26,8 @@ namespace Service
 
         IEnumerable<Product> GetLastest(int top);
 
+        IEnumerable<Product> GetTrend(int top);
+
         IEnumerable<Product> GetHotProduct(int top);
 
         IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId,int page,int pageSize,string sort,out int totalRow);
@@ -260,6 +262,11 @@ namespace Service
             else
                 query = _productRepository.GetAll();
             return query;
+        }
+
+        public IEnumerable<Product> GetTrend(int top)
+        {
+            return _productRepository.GetMulti(x => x.Status && x.TrendFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
         }
     }
 }
