@@ -99,6 +99,18 @@ namespace Web.Infrastructure.Extensions
             product.Tags = productVm.Tags;
         }
 
+        public static void UpdateSlide(this Slide slide, SlideViewModel slideVm)
+        {
+            slide.ID = slideVm.ID;
+            slide.Name = slideVm.Name;
+            slide.Description = slideVm.Description;
+            slide.Image = slideVm.Image;
+            slide.Url = slideVm.Url;
+            slide.Status = slideVm.Status;
+            slide.DisplayOrder = slideVm.DisplayOrder;
+            slide.Content = slideVm.Content;
+        }
+
         public static void UpdatePage(this Page page, PageViewModel pageVm)
         {
             page.ID = pageVm.ID;

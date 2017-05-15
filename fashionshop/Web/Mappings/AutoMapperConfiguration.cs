@@ -18,7 +18,7 @@ namespace Web.Mappings
                 cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
                 cfg.CreateMap<Product, ProductViewModel>();
                 cfg.CreateMap<Footer, FooterViewModel>();
-
+                cfg.CreateMap<Slide, SlideViewModel>();
 
             });
         }

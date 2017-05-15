@@ -14,7 +14,6 @@ namespace Service
     public interface ICommonService
     {
         Footer GetFooter();
-        IEnumerable<Slide> GetSlides();
         SystemConfig GetSystemConfig(string code);
     }
     public class CommonService : ICommonService
@@ -33,11 +32,6 @@ namespace Service
         public Footer GetFooter()
         {
             return _footerRepository.GetSingleByCondition(x => x.ID == CommonConstants.DefaultFooterId);
-        }
-
-        public IEnumerable<Slide> GetSlides()
-        {
-            return _slideRepository.GetMulti(m=>m.Status);
         }
 
         public SystemConfig GetSystemConfig(string code)

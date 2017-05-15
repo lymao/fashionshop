@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Web.Models.ProductCategoryViewModel> 
+
+<div class="heder-bottom">
+    <div class="container">
+        <div class="logo-nav">
+            <div class="logo-nav-left">
+                <h1><a href="/">FashionShop <span>Shop anywhere</span></a></h1>
+            </div>
+            <div class="logo-nav-left1">
+                <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header nav_2">
+                        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="/" class="act">Trang chủ</a></li>
+                            <!-- Mega Menu -->
+                            @foreach (var item in Model.Where(x => x.ParentID == null))
+                            {
+                                var childProductCategory1 = Model.Where(x => x.ParentID == item.ID);
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.Name<b class="caret"></b></a>
+                                        <ul class="dropdown-menu multi-column columns-3">
+                                            @if (childProductCategory1.Count() > 0)
+                                            {                                              
+                                                    <div class="row">
+                                                        @foreach (var item1 in childProductCategory1)
+                                                        {
+                                                            var childProductCategory2 = Model.Where(x => x.ParentID == item1.ID);
+                                                            <div class="col-sm-3  multi-gd-img">
+                                                                <ul class="multi-column-dropdown">
+                                                                    <h6>@item1.Name</h6>
+                                                                    @foreach (var item2 in childProductCategory2)
+                                                                    {
+                                                                        <li><a href="products.html">@item2.Name</a></li>
+                                                                    }
+                                                                                                                                  
+                                                                </ul>
+                                                            </div>
+                                                        }
+                                                       @if (item.ID == 27)
+                                                       {
+                                                        <div class="col-sm-3  multi-gd-img">
+                                                            <a href="products.html"><img src="/Assets/client/images/woo.jpg" alt="" /></a>
+                                                        </div>
+                                                        <div class="col-sm-3  multi-gd-img">
+                                                            <a href="products.html"><img src="/Assets/client/images/woo1.jpg" alt="" /></a>
+                                                        </div>
+                                                       }
+                                                        @if (item.ID == 28)
+                                                        {
+                                                            <div class="col-sm-3  multi-gd-img">
+                                                                <a href="products.html"><img src="/Assets/client/images/woo3.jpg" alt="" /></a>
+                                                            </div>
+                                                            <div class="col-sm-3  multi-gd-img">
+                                                                <a href="products.html"><img src="/Assets/client/images/woo4.jpg" alt="" /></a>
+                                                            </div>
+                                                        }
+                                                        @if (item.ID == 29)
+                                                        {
+                                                            <div class="col-sm-3  multi-gd-img">
+                                                                <a href="products.html"><img src="/Assets/client/images/p23.jpg" alt="" /></a>
+                                                            </div>
+                                                            <div class="col-sm-3  multi-gd-img">
+                                                                <a href="products.html"><img src="/Assets/client/images/p25.jpg" alt="" /></a>
+                                                            </div>
+                                                        }
+                                                       
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                            }
+                                           
+                                        </ul>
+                                    </li>
+
+                            }
+                           
+                            <li><a href="#">Liên hệ</a></li>
+                            <li><a href="#">Khuyến mãi</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="logo-nav-right">
+                <ul class="cd-header-buttons">
+                    <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
+                </ul> <!-- cd-header-buttons -->
+                <div id="cd-search" class="cd-search">
+                    <form action="#" method="post">
+                        <input name="Search" type="search" placeholder="Search...">
+                    </form>
+                </div>
+            </div>
+            <div class="header-right2">
+                <div class="cart box_1">
+                    <a href="checkout.html">
+                        <h3>
+                            <div class="total">
+                                <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
+                            </div>
+                            <img src="/Assets/client/images/bag.png" alt="" />
+                        </h3>
+                    </a>
+                    <p><a href="javascript:;" class="simpleCart_empty">Xóa giỏ hàng</a></p>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

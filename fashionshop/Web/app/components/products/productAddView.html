@@ -112,11 +112,6 @@
                         <span ng-show="frmAddProduct.description.$error.maxlength" class="has-error">Mô tả chỉ được 500 ký tự</span>
                     </div>
                 </div>
-            <script>
-                var editor = CKEDITOR.replace('ckeditors', {
-                    customConfig:'/Assets/admin/libs/ckeditor/config.js',
-                });
-            </script>
                 <div class="form-group">
                     <label for="inputEmail3"  class="col-sm-2 control-label">Chi tiết</label>
                     <div class="col-sm-10">
@@ -168,7 +163,7 @@
                 </div>
             </div><!-- /.box-body -->
             <div class="box-footer">
-                <button ui-sref="product_categories" class="btn btn-default">Hủy</button>
+                <button ui-sref="products" class="btn btn-default">Hủy</button>
                 <button type="submit" ng-disabled="frmAddProduct.$invalid" class="btn btn-success pull-right">Lưu</button>
             </div><!-- /.box-footer -->
         </form>

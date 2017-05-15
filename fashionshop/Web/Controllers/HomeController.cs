@@ -14,15 +14,20 @@ namespace Web.Controllers
     {
         IProductCategoryService _productCategoryService;
         ICommonService _commonService;
-        public HomeController(IProductCategoryService productCategoryService,ICommonService commonService)
+        ISlideService _slideService;
+        public HomeController(IProductCategoryService productCategoryService,ICommonService commonService,ISlideService slideService)
         {
             this._productCategoryService = productCategoryService;
             this._commonService = commonService;
+            this._slideService = slideService;
         }
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            var homeViewModel = new HomeViewModel();
+
+
+            return View(homeViewModel);
         }
         [ChildActionOnly]
         public ActionResult HeaderPartial()
@@ -43,6 +48,14 @@ namespace Web.Controllers
             var listFooter = Mapper.Map<Footer, FooterViewModel>(model);
 
             return PartialView(listFooter);
+        }
+
+        [ChildActionOnly]
+        public ActionResult SlidePartial()
+        {
+            var slideModel = _slideService.GetSlides();
+            var slideView = Mapper.Map<IEnumerable<Slide>, IEnumerable<SlideViewModel>>(slideModel);
+            return PartialView(slideView);
         }
     }
 }

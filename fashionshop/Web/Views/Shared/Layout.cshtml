@@ -75,7 +75,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     @{ Html.RenderAction("HeaderPartial", "Home");}
     <!--header-->
     <!--content-->
+    @{ Html.RenderAction("SlidePartial", "Home");}
+    <!--index-->
     @RenderBody()
+    <!--index-->
     <!--content-->
     <!---footer--->
     @{Html.RenderAction("FooterPartial", "Home");}

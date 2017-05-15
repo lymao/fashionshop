@@ -1,6 +1,9 @@
 ﻿/// <reference path="D:\CSharp\shop\Web\Assets/admin/libs/angular/angular.min.js" />
 (function () {
-    angular.module('fashionshop', ['fashionshop.products', 'fashionshop.product_categories', 'fashionshop.common']).config(config).config(configAuthentication);
+    angular.module('fashionshop', ['fashionshop.products',
+        'fashionshop.product_categories',
+        'fashionshop.slides',
+        'fashionshop.common']).config(config).config(configAuthentication);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
 

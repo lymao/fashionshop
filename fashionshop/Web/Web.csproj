@@ -242,6 +242,7 @@
     <Compile Include="Api\PostCategoryController.cs" />
     <Compile Include="Api\ProductCategoryController.cs" />
     <Compile Include="Api\ProductController.cs" />
+    <Compile Include="Api\SlideController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -251,7 +252,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -308,6 +308,13 @@
     <Content Include="app\components\product_categories\productCategoryEditView.html" />
     <Content Include="app\components\product_categories\productCategoryListController.js" />
     <Content Include="app\components\product_categories\productCategoryListView.html" />
+    <Content Include="app\components\slides\slideAddController.js" />
+    <Content Include="app\components\slides\slideAddView.html" />
+    <Content Include="app\components\slides\slideEditController.js" />
+    <Content Include="app\components\slides\slideEditView.html" />
+    <Content Include="app\components\slides\slideListController.js" />
+    <Content Include="app\components\slides\slideListView.html" />
+    <Content Include="app\components\slides\slides.module.js" />
     <Content Include="app\shared\directives\asDateDirective.js" />
     <Content Include="app\shared\directives\fileUpload.directive.js" />
     <Content Include="app\shared\directives\pagerDirective.html" />
@@ -3785,7 +3792,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadedFiles\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -4053,6 +4059,7 @@
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Home\MenuPartial.cshtml" />
+    <Content Include="Views\Home\SlidePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
