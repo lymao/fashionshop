@@ -11,12 +11,13 @@
     </div>
 </div>
 <!--banner-->
-<!--login-->
-<div class="login">
-    <div class="main-agileits">
-        <div class="form-w3agile">
-            <h3>Đăng nhập</h3>
-            @using (Html.BeginForm("Login", "Account", new { @returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+<div class="content">
+    <!--login-->
+    <div class="login">
+        <div class="main-agileits">
+            <div class="form-w3agile">
+                <h3>Đăng nhập</h3>
+                @using (Html.BeginForm("Login", "Account", new { @returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
             {
                 @Html.AntiForgeryToken();
                 @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "list-style-type:none;" })
@@ -38,15 +39,16 @@
                 </div>
 
                 <input type="submit" value="Đăng nhập">
-            }
-            @Html.Partial("_ExternalLoginsListPartial", new Web.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            <br />
-        </div>
-        <div class="forg">
-            <a href="#" class="forg-left">Quên mật khẩu</a>
-            <a href="/dang-ky.html" class="forg-right">Đăng ký</a>
-            <div class="clearfix"></div>
+                }
+                @Html.Partial("_ExternalLoginsListPartial", new Web.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                <br />
+            </div>
+            <div class="forg">
+                <a href="#" class="forg-left">Quên mật khẩu</a>
+                <a href="/dang-ky.html" class="forg-right">Đăng ký</a>
+                <div class="clearfix"></div>
+            </div>
         </div>
     </div>
+    <!--login-->
 </div>
-<!--login-->

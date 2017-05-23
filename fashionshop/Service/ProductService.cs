@@ -30,7 +30,7 @@ namespace Service
 
         IEnumerable<Product> GetHotProduct(int top);
 
-        IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId,int page,int pageSize,string sort,out int totalRow);
+        IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow);
 
         IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow);
 
@@ -58,12 +58,14 @@ namespace Service
         private IProductRepository _productRepository;
         private ITagRepository _tagRepository;
         private IProductTagRepository _productTagRepository;
+        private IProductCategoryRepository _productCategoryRepository;
 
         private IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository productRepository, IProductTagRepository productTagRepository,
+        public ProductService(IProductCategoryRepository productCategoryRepository, IProductRepository productRepository, IProductTagRepository productTagRepository,
             ITagRepository tagRepository, IUnitOfWork unitOfWork)
         {
+            this._productCategoryRepository = productCategoryRepository;
             this._productRepository = productRepository;
             this._productTagRepository = productTagRepository;
             this._tagRepository = tagRepository;
@@ -165,29 +167,64 @@ namespace Service
 
         public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
         {
-            var query = _productRepository.GetMulti(x => x.CategoryID == categoryId && x.Status);
-            totalRow = query.Count();
+            var productCategories = _productCategoryRepository.GetAll();
+            var listPro = new List<Product>();
+            var checkId = productCategories.Where(x => x.ParentID == categoryId);
+            if (checkId.Count() > 0)
+            {
+                foreach (var item in productCategories.Where(x => x.ParentID == categoryId))
+                {
+                    var child = productCategories.Where(x => x.ParentID == item.ID);
+                    if (child.Count() > 0)
+                    {
+                        foreach (var item1 in child)
+                        {
+                            var child1 = productCategories.Where(x => x.ParentID == item1.ID);
+                            if (child1.Count() > 0)
+                            {
+                                foreach (var item2 in child1)
+                                {
+                                    var query2 = _productRepository.GetMulti(x => x.CategoryID == item2.ID && x.Status);
+                                    listPro.AddRange(query2);
+                                }
+                            }
+                            var query1 = _productRepository.GetMulti(x => x.CategoryID == item1.ID && x.Status);
+                            listPro.AddRange(query1);
+                        }
+                    }
+                    var query = _productRepository.GetMulti(x => x.CategoryID == item.ID && x.Status);
+                    listPro.AddRange(query);
+                }
+            }
+            else
+            {
+                var query0 = _productRepository.GetMulti(x => x.CategoryID == categoryId && x.Status);
+                listPro.AddRange(query0);
+            }
+
+
+            totalRow = listPro.Count();
             switch (sort)
             {
                 case "popular":
-                    query = query.OrderByDescending(x => x.ViewCount);
+                    listPro = listPro.OrderByDescending(x => x.ViewCount).ToList();
                     break;
                 case "discount":
-                    query = query.OrderByDescending(m => m.PromotionPrice.HasValue);
+                    listPro = listPro.OrderByDescending(m => m.PromotionPrice.HasValue).ToList();
                     break;
                 case "price":
-                    query = query.OrderBy(m => m.Price);
+                    listPro = listPro.OrderBy(m => m.Price).ToList();
                     break;
                 default:
-                    query = query.OrderByDescending(m => m.CreatedDate);
+                    listPro = listPro.OrderByDescending(m => m.CreatedDate).ToList();
                     break;
             }
-            return query.Skip((page - 1) * pageSize).Take(pageSize);
+            return listPro.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
         public IEnumerable<string> GetListProductByName(string name)
         {
-            return _productRepository.GetMulti(x => x.Status && x.Name.Contains(name)).Select(y=>y.Name);
+            return _productRepository.GetMulti(x => x.Status && x.Name.Contains(name)).Select(y => y.Name);
         }
 
         public IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow)
@@ -220,7 +257,7 @@ namespace Service
 
         public IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, out int totalRow)
         {
-            var model = _productRepository.GetListProductByTag(tagId, page, pageSize,out totalRow);
+            var model = _productRepository.GetListProductByTag(tagId, page, pageSize, out totalRow);
             return model;
         }
 

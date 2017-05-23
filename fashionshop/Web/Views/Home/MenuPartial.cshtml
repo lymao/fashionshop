@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Web.Models.ProductCategoryViewModel> 
+﻿@model IEnumerable<Web.Models.ProductCategoryViewModel>
 
 <div class="heder-bottom">
     <div class="container">
@@ -23,64 +23,67 @@
                             <!-- Mega Menu -->
                             @foreach (var item in Model.Where(x => x.ParentID == null))
                             {
+                                var url = "/" + item.Alias + ".pc-" + item.ID + ".html";
                                 var childProductCategory1 = Model.Where(x => x.ParentID == item.ID);
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.Name<b class="caret"></b></a>
-                                        <ul class="dropdown-menu multi-column columns-3">
-                                            @if (childProductCategory1.Count() > 0)
-                                            {                                              
-                                                    <div class="row">
-                                                        @foreach (var item1 in childProductCategory1)
-                                                        {
-                                                            var childProductCategory2 = Model.Where(x => x.ParentID == item1.ID);
-                                                            <div class="col-sm-3  multi-gd-img">
-                                                                <ul class="multi-column-dropdown">
-                                                                    <h6>@item1.Name</h6>
-                                                                    @foreach (var item2 in childProductCategory2)
-                                                                    {
-                                                                        <li><a href="products.html">@item2.Name</a></li>
-                                                                    }
-                                                                                                                                  
-                                                                </ul>
-                                                            </div>
-                                                        }
-                                                       @if (item.ID == 27)
-                                                       {
-                                                        <div class="col-sm-3  multi-gd-img">
-                                                            <a href="products.html"><img src="/Assets/client/images/woo.jpg" alt="" /></a>
-                                                        </div>
-                                                        <div class="col-sm-3  multi-gd-img">
-                                                            <a href="products.html"><img src="/Assets/client/images/woo1.jpg" alt="" /></a>
-                                                        </div>
-                                                       }
-                                                        @if (item.ID == 28)
-                                                        {
-                                                            <div class="col-sm-3  multi-gd-img">
-                                                                <a href="products.html"><img src="/Assets/client/images/woo3.jpg" alt="" /></a>
-                                                            </div>
-                                                            <div class="col-sm-3  multi-gd-img">
-                                                                <a href="products.html"><img src="/Assets/client/images/woo4.jpg" alt="" /></a>
-                                                            </div>
-                                                        }
-                                                        @if (item.ID == 29)
-                                                        {
-                                                            <div class="col-sm-3  multi-gd-img">
-                                                                <a href="products.html"><img src="/Assets/client/images/p23.jpg" alt="" /></a>
-                                                            </div>
-                                                            <div class="col-sm-3  multi-gd-img">
-                                                                <a href="products.html"><img src="/Assets/client/images/p25.jpg" alt="" /></a>
-                                                            </div>
-                                                        }
-                                                       
-                                                        <div class="clearfix"></div>
+                                <li class="dropdown">
+                                    <a href="@url" class="dropdown-toggle" data-toggle="dropdown">@item.Name<b class="caret"></b></a>
+                                    <ul class="dropdown-menu multi-column columns-3">
+                                        @if (childProductCategory1.Count() > 0)
+                                        {
+                                            <div class="row">
+                                                @foreach (var item1 in childProductCategory1)
+                                                {
+                                                    var url1 = "/" + item1.Alias + ".pc-" + item1.ID + ".html";
+                                                    var childProductCategory2 = Model.Where(x => x.ParentID == item1.ID);
+                                                    <div class="col-sm-3  multi-gd-img">
+                                                        <ul class="multi-column-dropdown">
+                                                            <a href="@url1"><h6>@item1.Name</h6></a>
+                                                            @foreach (var item2 in childProductCategory2)
+                                                            {
+                                                                var url2 = "/" + item2.Alias + ".pc-" + item2.ID + ".html";
+                                                                <li><a href="@url2">@item2.Name</a></li>
+                                                            }
+
+                                                        </ul>
                                                     </div>
-                                            }
-                                           
-                                        </ul>
-                                    </li>
+                                                }
+                                                @if (item.ID == 28)
+                                                {
+                                                    <div class="col-sm-3  multi-gd-img">
+                                                        <a href="@url"><img src="/Assets/client/images/woo.jpg" alt="" /></a>
+                                                    </div>
+                                                        <div class="col-sm-3  multi-gd-img">
+                                                            <a href="@url"><img src="/Assets/client/images/woo1.jpg" alt="" /></a>
+                                                        </div>
+                                                }
+                                                @if (item.ID == 27)
+                                                {
+                                                    <div class="col-sm-3  multi-gd-img">
+                                                        <a href="@url"><img src="/Assets/client/images/woo3.jpg" alt="" /></a>
+                                                    </div>
+                                                            <div class="col-sm-3  multi-gd-img">
+                                                                <a href="@url"><img src="/Assets/client/images/woo4.jpg" alt="" /></a>
+                                                            </div>
+                                                }
+                                                @if (item.ID == 29)
+                                                {
+                                                    <div class="col-sm-3  multi-gd-img">
+                                                        <a href="@url"><img src="/Assets/client/images/p23.jpg" alt="" /></a>
+                                                    </div>
+                                                            <div class="col-sm-3  multi-gd-img">
+                                                                <a href="@url"><img src="/Assets/client/images/p25.jpg" alt="" /></a>
+                                                            </div>
+                                                }
+
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        }
+
+                                    </ul>
+                                </li>
 
                             }
-                           
+
                             <li><a href="#">Liên hệ</a></li>
                             <li><a href="#">Khuyến mãi</a></li>
                         </ul>

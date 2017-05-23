@@ -4,7 +4,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-
+<!--slide-->
+@{ Html.RenderAction("SlidePartial", "Home");}
 
 <div class="content">
     <!--new-arrivals-->
@@ -42,7 +43,12 @@
                                         <div class="women">
                                             <h6><a href="single.html">@item.Name</a></h6>
                                             <span class="size">@item.Size</span>
-                                            <p><del>@item.Price</del><em class="item_price">@item.PromotionPrice</em></p>
+                                            <p><del>@(item.Price == 0?"Liên hệ":item.Price.ToString("N0"))</del>
+                                            @if (item.PromotionPrice.HasValue)
+                                            {
+                                                <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                            }
+                                            </p>
                                             <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
                                         </div>
                                     </div>

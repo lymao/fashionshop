@@ -12,22 +12,23 @@
 </div>
 <!--banner-->
 <!--login-->
-<div class="login">
-    <div class="main-agileits">
-        <div class="form-w3agile form1">
-            <h3>Tạo tài khoản</h3>
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+<div class="content">
+    <div class="login">
+        <div class="main-agileits">
+            <div class="form-w3agile form1">
+                <h3>Tạo tài khoản</h3>
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post))
             {
                 @Html.AntiForgeryToken();
-                @Html.ValidationSummary(true,"", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                if (ViewData["SuccessMsg"] != null)
-                {
-                    <div class="alert alert-success" role="alert">
-                        <strong>Chúc mừng bạn! </strong> đã <span>@ViewData["SuccessMsg"]</span>
-                        <br />Vui lòng click <a href="/dang-nhap.html">vào đây </a>để đăng nhập.
-                    </div>
-                }
+                    if (ViewData["SuccessMsg"] != null)
+                    {
+                <div class="alert alert-success" role="alert">
+                    <strong>Chúc mừng bạn! </strong> đã <span>@ViewData["SuccessMsg"]</span>
+                    <br />Vui lòng click <a href="/dang-nhap.html">vào đây </a>để đăng nhập.
+                </div>
+                    }
 
                 @Html.LabelFor(m => m.FullName, new { @class = "control-label" })
                 <div class="key">
@@ -83,21 +84,22 @@
                     <div class="clearfix"></div>
                 </div>
                 <div>
-                   
+
                     @{MvcCaptcha exampleCaptcha = new MvcCaptcha("ExampleCaptcha");
                     }
                     @Html.Captcha(exampleCaptcha)<br />
                     @Html.TextBox("CaptchaCode")<br />
                     @Html.ValidationMessage("CaptchaCode", "", new { @class = "text-danger" })
                 </div><br />
-               
+
                 <div class="clearfix"></div>
 
                 <input type="submit" value="Đăng ký">
 
-            }
-        </div>
+                            }
+            </div>
 
+        </div>
     </div>
+    <!--login-->
 </div>
-<!--login-->
