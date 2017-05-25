@@ -204,22 +204,26 @@ namespace Service
 
 
             totalRow = listPro.Count();
+            var pagination = listPro.Skip((page - 1) * pageSize).Take(pageSize);
             switch (sort)
             {
                 case "popular":
-                    listPro = listPro.OrderByDescending(x => x.ViewCount).ToList();
+                    pagination = pagination.OrderByDescending(x => x.ViewCount);
                     break;
-                case "discount":
-                    listPro = listPro.OrderByDescending(m => m.PromotionPrice.HasValue).ToList();
+                case "de_price":
+                    pagination = pagination.OrderByDescending(m => m.Price);
                     break;
-                case "price":
-                    listPro = listPro.OrderBy(m => m.Price).ToList();
+                case "in_price":
+                    pagination = pagination.OrderBy(m => m.Price);
+                    break;
+                case "name":
+                    pagination = pagination.OrderBy(m => m.Name);
                     break;
                 default:
-                    listPro = listPro.OrderByDescending(m => m.CreatedDate).ToList();
+                    pagination = pagination.OrderByDescending(m => m.CreatedDate);
                     break;
             }
-            return listPro.Skip((page - 1) * pageSize).Take(pageSize);
+            return pagination;
         }
 
         public IEnumerable<string> GetListProductByName(string name)
@@ -231,22 +235,23 @@ namespace Service
         {
             var query = _productRepository.GetMulti(x => x.Name.Contains(keyword) && x.Status);
             totalRow = query.Count();
+            var pagination= query.Skip((page - 1) * pageSize).Take(pageSize);
             switch (sort)
             {
                 case "popular":
-                    query = query.OrderByDescending(x => x.ViewCount);
+                    pagination = pagination.OrderByDescending(x => x.ViewCount);
                     break;
                 case "discount":
-                    query = query.OrderByDescending(m => m.PromotionPrice.HasValue);
+                    pagination = pagination.OrderByDescending(m => m.PromotionPrice.HasValue);
                     break;
                 case "price":
-                    query = query.OrderBy(m => m.Price);
+                    pagination = pagination.OrderBy(m => m.Price);
                     break;
                 default:
-                    query = query.OrderByDescending(m => m.CreatedDate);
+                    pagination = pagination.OrderByDescending(m => m.CreatedDate);
                     break;
             }
-            return query.Skip((page - 1) * pageSize).Take(pageSize);
+            return pagination;
         }
 
         public IEnumerable<Product> GetRelatedProduct(int id, int top)

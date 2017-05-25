@@ -48,7 +48,9 @@ namespace Web.Controllers
         [ChildActionOnly]
         public ActionResult CategoryPartial()
         {
-            return PartialView();
+            var model = _productCategoryService.GetAll();
+            var listProductCategory = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
+            return PartialView(listProductCategory);
         }
     }
 }
