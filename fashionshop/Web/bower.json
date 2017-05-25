@@ -16,7 +16,8 @@
     "angular-ui-select": "~0.19.8",
     "angular-sanitize": "~1.6.4",
     "ckeditor": "4.6.2",
-    "ng-ckeditor": "~0.2.1"
+    "ng-ckeditor": "~0.2.1",
+    "jquery-ui": "~1.12.1"
   },
   "resolutions": {
     "jquery": "1.9.1 - 3",

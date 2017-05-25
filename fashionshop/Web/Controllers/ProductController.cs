@@ -52,5 +52,36 @@ namespace Web.Controllers
             var listProductCategory = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
             return PartialView(listProductCategory);
         }
+
+        public JsonResult GetListProductByName(string keyword)
+        {
+            var model = _productService.GetListProductByName(keyword);
+            return Json(new
+            {
+                data = model
+            },JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Search(string keyword, int page = 1, string sort = "")
+
+        {
+            ViewBag.keyword = keyword;
+            int pageSize = int.Parse(ConfigHelper.GetByKey("pageSize"));
+            int totalRow = 0;
+            var productModel = _productService.Search(keyword, page, pageSize, sort, out totalRow);
+            var productViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(productModel);
+            int totalPage = (int)Math.Ceiling((double)(totalRow / pageSize));
+
+            var paginationSet = new PaginationSet<ProductViewModel>()
+            {
+                Page = page,
+                PageSize = pageSize,
+                TotalPages = totalPage,
+                TotalCount = totalRow,
+                MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+                Items = productViewModel
+            };
+            return View(paginationSet);
+        }
     }
 }

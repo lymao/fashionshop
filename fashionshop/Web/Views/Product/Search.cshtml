@@ -1,0 +1,512 @@
+﻿@model Web.Infrastructure.Core.PaginationSet<Web.Models.ProductViewModel>
+
+@{
+    var keyword = (string)ViewBag.keyword;
+    ViewBag.Title = "Kết quả tìm kiếm của từ khóa " + keyword;
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<!--banner-->
+<div class="banner1">
+    <div class="container">
+        <h3><a href="/">Trang chủ</a> / <span>Sản phẩm</span></h3>
+    </div>
+</div>
+<!--banner-->
+<!--content-->
+<div class="content">
+    <div class="products-agileinfo">
+        <h2 class="tittle">Kết quả tìm kiếm cho: @keyword</h2>
+        <div class="container">
+            <div class="product-agileinfo-grids w3l">
+                @{ Html.RenderAction("CategoryPartial", "Product");}
+                <div class="col-md-9 product-agileinfon-grid1">
+                    <div class="mens-toolbar">
+                        <ul class="list-inline">
+                            <li>Đang hiển thị @Model.PageSize của @Model.TotalCount kết quả</li>
+                        </ul><br />
+                        <ul class="list-inline">
+                            <li>Sắp sếp : </li>
+                            <li><a class="active" href="?page=@Model.Page&sort=name&keyword=@keyword">Tên</a></li> |
+                            <li><a href="?page=@Model.Page&sort=popular&keyword=@keyword">Phổ biến</a></li> |
+                            <li><a href="?page=@Model.Page&sort=new&keyword=@keyword">Mới </a></li> |
+                            <li><a href="?page=@Model.Page&sort=in_price&keyword=@keyword">Giá: thấp -> cao </a></li>
+                            <li><a href="?page=@Model.Page&sort=de_price&keyword=@keyword">Giá: cao -> thấp </a></li>
+                            <div class="clearfix"> </div>
+                        </ul>
+                    </div>
+                    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                        <div id="myTab" class="nav1 nav1-tabs left-tab" role="tablist">
+                            <ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><img src="/Assets/client/images/menu1.png"></a></li>
+                                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"><img src="/Assets/client/images/menu.png"></a></li>
+                            </ul>
+                            @if (Model.Count > 0)
+                            {
+                                <div id="myTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                                        <div class="product-tab">
+                                            @foreach (var item in Model.Items.Take(3))
+                                            {
+                                                <div class="col-md-4 product-tab-grid simpleCart_shelfItem">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@item.Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@item.Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                        <div class="block">
+                                                            <div class="starbox small ghosting"> </div>
+                                                        </div>
+                                                        <div class="women">
+                                                            <h6><a href="single.html">@item.Name</a></h6>
+                                                            <span class="size">@item.Size</span>
+                                                            <p>
+                                                                <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                                                @if (item.PromotionPrice.HasValue)
+                                                                {
+                                                                    <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                                }
+                                                            </p>
+                                                            <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="product-tab prod1">
+                                            @foreach (var item in Model.Items.Skip(3).Take(3))
+                                            {
+                                                <div class="col-md-4 product-tab-grid simpleCart_shelfItem">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@item.Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@item.Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                        <div class="block">
+                                                            <div class="starbox small ghosting"> </div>
+                                                        </div>
+                                                        <div class="women">
+                                                            <h6><a href="single.html">@item.Name</a></h6>
+                                                            <span class="size">XL / XXL / S </span>
+                                                            <p>
+                                                                <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                                                @if (item.PromotionPrice.HasValue)
+                                                                {
+                                                                    <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                                }
+                                                            </p>
+                                                            <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="product-tab">
+                                            @foreach (var item in Model.Items.Skip(6).Take(3))
+                                            {
+                                                <div class="col-md-4 product-tab-grid simpleCart_shelfItem">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@item.Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@item.Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                        <div class="block">
+                                                            <div class="starbox small ghosting"> </div>
+                                                        </div>
+                                                        <div class="women">
+                                                            <h6><a href="single.html">@item.Name</a></h6>
+                                                            <span class="size">@item.Size</span>
+                                                            <p>
+                                                                <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                                                @if (item.PromotionPrice.HasValue)
+                                                                {
+                                                                    <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                                }
+                                                            </p>
+                                                            <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="product-tab prod2">
+                                            @foreach (var item in Model.Items.Skip(9).Take(3))
+                                            {
+                                                <div class="col-md-4 product-tab-grid simpleCart_shelfItem">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@item.Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@item.Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                        <div class="block">
+                                                            <div class="starbox small ghosting"> </div>
+                                                        </div>
+                                                        <div class="women">
+                                                            <h6><a href="single.html">@item.Name</a></h6>
+                                                            <span class="size">@item.Price</span>
+                                                            <p>
+                                                                <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                                                @if (item.PromotionPrice.HasValue)
+                                                                {
+                                                                    <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                                }
+                                                            </p>
+                                                            <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                                        @if (Model.Items.Count() > 0)
+                                        {
+                                            <div class="product-tab1">
+                                                <div class="col-md-4 product-tab1-grid">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(0).Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(0).Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 product-tab1-grid1 simpleCart_shelfItem">
+                                                    <div class="block">
+                                                        <div class="starbox small ghosting"> </div>
+                                                    </div>
+                                                    <div class="women">
+                                                        <h6><a href="single.html">@Model.Items.ElementAt(0).Name</a></h6>
+                                                        <span class="size">@Model.Items.ElementAt(0).Size</span>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Atqui iste locus est, Piso, tibi etiam atque etiam confirmandus, inquam; Refert tamen, quo modo. Quod autem meum munus dicis non equidem recuso, sed te adiungo socium. </p>
+                                                        <p>
+                                                            <del>@(Model.Items.ElementAt(0).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(0).Price.ToString("N0"))</del>
+                                                            @if (Model.Items.ElementAt(0).PromotionPrice.HasValue)
+                                                            {
+                                                                <em class="item_price">@Model.Items.ElementAt(0).PromotionPrice.Value.ToString("N0")</em>
+                                                            }
+                                                        </p>
+
+                                                        <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        }
+                                        @if (Model.Items.Count() > 1)
+                                        {
+                                            <div class="product-tab1 prod3">
+                                                <div class="col-md-4 product-tab1-grid">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(1).Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(1).Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 product-tab1-grid1 simpleCart_shelfItem">
+                                                    <div class="block">
+                                                        <div class="starbox small ghosting"> </div>
+                                                    </div>
+                                                    <div class="women">
+                                                        <h6><a href="single.html">@Model.Items.ElementAt(1).Name</a></h6>
+                                                        <span class="size">@Model.Items.ElementAt(1).Size</span>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Atqui iste locus est, Piso, tibi etiam atque etiam confirmandus, inquam; Refert tamen, quo modo. Quod autem meum munus dicis non equidem recuso, sed te adiungo socium. </p>
+                                                        <p>
+                                                            <del>@(Model.Items.ElementAt(1).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(1).Price.ToString("N0"))</del>
+                                                            @if (Model.Items.ElementAt(1).PromotionPrice.HasValue)
+                                                            {
+                                                                <em class="item_price">@Model.Items.ElementAt(1).PromotionPrice.Value.ToString("N0")</em>
+                                                            }
+                                                        </p>
+                                                        <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        }
+                                        @if (Model.Items.Count() > 2)
+                                        {
+                                            <div class="product-tab1">
+                                                <div class="col-md-4 product-tab1-grid">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(2).Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(2).Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 product-tab1-grid1 simpleCart_shelfItem">
+                                                    <div class="block">
+                                                        <div class="starbox small ghosting"> </div>
+                                                    </div>
+                                                    <div class="women">
+                                                        <h6><a href="single.html">@Model.Items.ElementAt(2).Name</a></h6>
+                                                        <span class="size">@Model.Items.ElementAt(2).Size</span>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Atqui iste locus est, Piso, tibi etiam atque etiam confirmandus, inquam; Refert tamen, quo modo. Quod autem meum munus dicis non equidem recuso, sed te adiungo socium. </p>
+                                                        <p>
+                                                            <del>@(Model.Items.ElementAt(2).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(2).Price.ToString("N0"))</del>
+                                                            @if (Model.Items.ElementAt(2).PromotionPrice.HasValue)
+                                                            {
+                                                                <em class="item_price">@Model.Items.ElementAt(2).PromotionPrice.Value.ToString("N0")</em>
+                                                            }
+                                                        </p>
+
+                                                        <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        }
+                                        @if (Model.Items.Count() > 3)
+                                        {
+                                            <div class="product-tab1 prod3">
+                                                <div class="col-md-4 product-tab1-grid">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(3).Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(3).Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 product-tab1-grid1 simpleCart_shelfItem">
+                                                    <div class="block">
+                                                        <div class="starbox small ghosting"> </div>
+                                                    </div>
+                                                    <div class="women">
+                                                        <h6><a href="single.html">@Model.Items.ElementAt(3).Name</a></h6>
+                                                        <span class="size">@Model.Items.ElementAt(3).Size</span>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Atqui iste locus est, Piso, tibi etiam atque etiam confirmandus, inquam; Refert tamen, quo modo. Quod autem meum munus dicis non equidem recuso, sed te adiungo socium. </p>
+                                                        <p>
+                                                            <del>@(Model.Items.ElementAt(3).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(3).Price.ToString("N0"))</del>
+                                                            @if (Model.Items.ElementAt(3).PromotionPrice.HasValue)
+                                                            {
+                                                                <em class="item_price">@Model.Items.ElementAt(3).PromotionPrice.Value.ToString("N0")</em>
+                                                            }
+                                                        </p>
+                                                        <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        }
+                                        @if (Model.Items.Count() > 4)
+                                        {
+                                            <div class="product-tab1">
+                                                <div class="col-md-4 product-tab1-grid">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(4).Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(4).Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 product-tab1-grid1 simpleCart_shelfItem">
+                                                    <div class="block">
+                                                        <div class="starbox small ghosting"> </div>
+                                                    </div>
+                                                    <div class="women">
+                                                        <h6><a href="single.html">@Model.Items.ElementAt(4).Name</a></h6>
+                                                        <span class="size">@Model.Items.ElementAt(4).Size</span>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Atqui iste locus est, Piso, tibi etiam atque etiam confirmandus, inquam; Refert tamen, quo modo. Quod autem meum munus dicis non equidem recuso, sed te adiungo socium. </p>
+                                                        <p>
+                                                            <del>@(Model.Items.ElementAt(4).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(4).Price.ToString("N0"))</del>
+                                                            @if (Model.Items.ElementAt(4).PromotionPrice.HasValue)
+                                                            {
+                                                                <em class="item_price">@Model.Items.ElementAt(4).PromotionPrice.Value.ToString("N0")</em>
+                                                            }
+                                                        </p>
+
+                                                        <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        }
+                                        @if (Model.Items.Count() > 5)
+                                        {
+                                            <div class="product-tab1 prod3">
+                                                <div class="col-md-4 product-tab1-grid">
+                                                    <div class="grid-arr">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(5).Image1" class="img-responsive" alt="">
+                                                                    </div>
+                                                                    <div class="grid-img">
+                                                                        <img src="@Model.Items.ElementAt(5).Image" class="img-responsive" alt="">
+                                                                    </div>
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 product-tab1-grid1 simpleCart_shelfItem">
+                                                    <div class="block">
+                                                        <div class="starbox small ghosting"> </div>
+                                                    </div>
+                                                    <div class="women">
+                                                        <h6><a href="single.html">@Model.Items.ElementAt(5).Name</a></h6>
+                                                        <span class="size">@Model.Items.ElementAt(5).Size</span>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Atqui iste locus est, Piso, tibi etiam atque etiam confirmandus, inquam; Refert tamen, quo modo. Quod autem meum munus dicis non equidem recuso, sed te adiungo socium. </p>
+                                                        <p>
+                                                            <del>@(Model.Items.ElementAt(5).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(5).Price.ToString("N0"))</del>
+                                                            @if (Model.Items.ElementAt(5).PromotionPrice.HasValue)
+                                                            {
+                                                                <em class="item_price">@Model.Items.ElementAt(5).PromotionPrice.Value.ToString("N0")</em>
+                                                            }
+                                                        </p>
+                                                        <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        }
+
+
+
+                                    </div>
+                                </div>
+
+                                if (Model.TotalPages > 1)
+                                {
+                                    // Create numeric links
+                                    var startPageIndex = Math.Max(1, Model.Page - Model.MaxPage / 2);
+                                    var endPageIndex = Math.Min(Model.TotalPages, Model.Page + Model.MaxPage / 2);
+
+                                    <nav>
+                                        <ul class="pagination">
+                                            @if (Model.Page > 1)
+                                            {
+                                                <li>
+                                                    <a href="?page=1" aria-label="First">
+                                                        <i class="fa fa-angle-double-left"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="?page=@(Model.Page-1)" aria-label="Previous">
+                                                        <i class="fa fa-angle-double-left"></i>
+                                                    </a>
+                                                </li>
+                                            }
+                                            @for (int i = startPageIndex; i <= endPageIndex; i++)
+                                            {
+                                                if (Model.Page == i)
+                                                {
+                                                    <li class="active"><a href="?page=@i" title="Trang @i">@i</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="?page=@i" title="Trang @i">@i</a></li>
+                                                }
+                                            }
+                                            @if (Model.Page < Model.TotalPages)
+                                            {
+                                                <li>
+                                                    <a href="?page=@(Model.Page+1)" aria-label="Next">
+                                                        <i class="fa fa-angle-double-right"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="?page=@Model.TotalPages" aria-label="Last">
+                                                        <i class="fa fa-angle-double-right"></i>
+                                                    </a>
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </nav>
+                                }
+                            }
+                            else
+                            {
+                                <div class="text-center">Không có bản ghi nào được tìm thấy.</div>
+                            }
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

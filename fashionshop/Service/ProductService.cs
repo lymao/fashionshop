@@ -241,11 +241,14 @@ namespace Service
                 case "popular":
                     pagination = pagination.OrderByDescending(x => x.ViewCount);
                     break;
-                case "discount":
-                    pagination = pagination.OrderByDescending(m => m.PromotionPrice.HasValue);
+                case "de_price":
+                    pagination = pagination.OrderByDescending(m => m.Price);
                     break;
-                case "price":
+                case "in_price":
                     pagination = pagination.OrderBy(m => m.Price);
+                    break;
+                case "name":
+                    pagination = pagination.OrderBy(m => m.Name);
                     break;
                 default:
                     pagination = pagination.OrderByDescending(m => m.CreatedDate);

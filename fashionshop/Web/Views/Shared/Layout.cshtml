@@ -8,11 +8,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Fashion Shop</title>
+    <title>@ViewBag.Title</title>
     <!--css-->
     <link href="~/Assets/admin/libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Assets/client/css/style.css" rel="stylesheet" />
     <link href="~/Assets/client/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Assets/admin/libs/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Assets/client/css/common.autocomplete.css" rel="stylesheet" />
     <!--css-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,6 +49,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--start-rate-->
     <script src="/Assets/client/js/jstarbox.js"></script>
     <link href="~/Assets/client/css/jstarbox.css" rel="stylesheet" />
+    <script src="~/Assets/admin/libs/jquery-ui/jquery-ui.js"></script>
+
     <script type="text/javascript">
 			jQuery(function() {
 			jQuery('.starbox').each(function() {
@@ -82,8 +86,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!---footer--->
     @{Html.RenderAction("FooterPartial", "Home");}
     <!---footer--->
-    <!--copy-->
-    <!--copy-->
-
 </body>
 </html>
