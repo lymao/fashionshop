@@ -15,6 +15,7 @@ namespace Service
     {
         Footer GetFooter();
         SystemConfig GetSystemConfig(string code);
+        Tag GetTagById(string tagId);
     }
     public class CommonService : ICommonService
     {
@@ -22,12 +23,14 @@ namespace Service
         IFooterRepository _footerRepository;
         IUnitOfWork _unitOfWork;
         ISlideRepository _slideRepository;
-        public CommonService(ISystemConfigRepository systemConfigRepository, IFooterRepository footerRepository, IUnitOfWork unitOfWork,ISlideRepository slideRepository)
+        ITagRepository _tagRepository;
+        public CommonService(ITagRepository tagRepository, ISystemConfigRepository systemConfigRepository, IFooterRepository footerRepository, IUnitOfWork unitOfWork,ISlideRepository slideRepository)
         {
             _footerRepository = footerRepository;
             _unitOfWork = unitOfWork;
             _slideRepository = slideRepository;
             _systemConfigRepository = systemConfigRepository;
+            _tagRepository = tagRepository;
         }
         public Footer GetFooter()
         {
@@ -37,6 +40,11 @@ namespace Service
         public SystemConfig GetSystemConfig(string code)
         {
             return _systemConfigRepository.GetSingleByCondition(x => x.Code == code);
+        }
+
+        public Tag GetTagById(string tagId)
+        {
+            return _tagRepository.GetSingleByCondition(x=>x.ID==tagId);
         }
     }
 }

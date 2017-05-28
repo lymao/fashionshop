@@ -1,0 +1,11 @@
+﻿.tag{
+    margin-top: 7px;
+}
+.taglist li{
+    margin:3px;
+    display:inline;
+    text-decoration:none;
+}
+.taglist li a:link{
+    text-decoration:none;
+}

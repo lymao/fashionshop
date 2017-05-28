@@ -26,9 +26,11 @@ namespace Service
 
         IEnumerable<Product> GetLastest(int top);
 
-        IEnumerable<Product> GetTrend(int top);
-
         IEnumerable<Product> GetHotProduct(int top);
+
+        IEnumerable<Product> GetTrendProduct(int top);
+
+        IEnumerable<Product> GetViewProduct(int top);
 
         IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow);
 
@@ -40,7 +42,7 @@ namespace Service
 
         IEnumerable<Product> GetRelatedProduct(int id, int top);
 
-        IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, out int totalRow);
+        IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, string sort, out int totalRow);
 
         Tag GetTags(string tagId);
 
@@ -165,64 +167,55 @@ namespace Service
             return _productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
-        public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
+        public List<int> GetIdRecursive(IEnumerable<ProductCategory> productCategories, int id)
         {
-            var productCategories = _productCategoryRepository.GetAll();
-            var listPro = new List<Product>();
-            var checkId = productCategories.Where(x => x.ParentID == categoryId);
-            if (checkId.Count() > 0)
+            var arr = new List<int>();
+            if ((productCategories.Where(x => x.ParentID == id).Count()) > 0)
             {
-                foreach (var item in productCategories.Where(x => x.ParentID == categoryId))
+                foreach (var item in productCategories.Where(x => x.ParentID == id))
                 {
                     var child = productCategories.Where(x => x.ParentID == item.ID);
                     if (child.Count() > 0)
                     {
-                        foreach (var item1 in child)
-                        {
-                            var child1 = productCategories.Where(x => x.ParentID == item1.ID);
-                            if (child1.Count() > 0)
-                            {
-                                foreach (var item2 in child1)
-                                {
-                                    var query2 = _productRepository.GetMulti(x => x.CategoryID == item2.ID && x.Status);
-                                    listPro.AddRange(query2);
-                                }
-                            }
-                            var query1 = _productRepository.GetMulti(x => x.CategoryID == item1.ID && x.Status);
-                            listPro.AddRange(query1);
-                        }
+                        var arrsub = GetIdRecursive(child, item.ID);
+                        arr.AddRange(arrsub);
                     }
-                    var query = _productRepository.GetMulti(x => x.CategoryID == item.ID && x.Status);
-                    listPro.AddRange(query);
+                    arr.Add(item.ID);
                 }
             }
             else
             {
-                var query0 = _productRepository.GetMulti(x => x.CategoryID == categoryId && x.Status);
-                listPro.AddRange(query0);
+                arr.Add(id);
             }
+            return arr;
+        }
 
+        public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
+        {
+            var productCategories = _productCategoryRepository.GetAll();
+            var listId = GetIdRecursive(productCategories, categoryId);
+            var query = _productRepository.GetAll().Where(x => listId.Contains(x.CategoryID));
+            totalRow = query.Count();
 
-            totalRow = listPro.Count();
-            var pagination = listPro.Skip((page - 1) * pageSize).Take(pageSize);
             switch (sort)
             {
                 case "popular":
-                    pagination = pagination.OrderByDescending(x => x.ViewCount);
+                    query = query.OrderByDescending(x => x.ViewCount);
                     break;
                 case "de_price":
-                    pagination = pagination.OrderByDescending(m => m.Price);
+                    query = query.OrderByDescending(m => m.Price);
                     break;
                 case "in_price":
-                    pagination = pagination.OrderBy(m => m.Price);
+                    query = query.OrderBy(m => m.Price);
                     break;
                 case "name":
-                    pagination = pagination.OrderBy(m => m.Name);
+                    query = query.OrderBy(m => m.Name);
                     break;
                 default:
-                    pagination = pagination.OrderByDescending(m => m.CreatedDate);
+                    query = query.OrderByDescending(m => m.CreatedDate);
                     break;
             }
+            var pagination = query.Skip((page - 1) * pageSize).Take(pageSize);
             return pagination;
         }
 
@@ -235,25 +228,25 @@ namespace Service
         {
             var query = _productRepository.GetMulti(x => x.Name.Contains(keyword) && x.Status);
             totalRow = query.Count();
-            var pagination= query.Skip((page - 1) * pageSize).Take(pageSize);
             switch (sort)
             {
                 case "popular":
-                    pagination = pagination.OrderByDescending(x => x.ViewCount);
+                    query = query.OrderByDescending(x => x.ViewCount);
                     break;
                 case "de_price":
-                    pagination = pagination.OrderByDescending(m => m.Price);
+                    query = query.OrderByDescending(m => m.Price);
                     break;
                 case "in_price":
-                    pagination = pagination.OrderBy(m => m.Price);
+                    query = query.OrderBy(m => m.Price);
                     break;
                 case "name":
-                    pagination = pagination.OrderBy(m => m.Name);
+                    query = query.OrderBy(m => m.Name);
                     break;
                 default:
-                    pagination = pagination.OrderByDescending(m => m.CreatedDate);
+                    query = query.OrderByDescending(m => m.CreatedDate);
                     break;
             }
+            var pagination = query.Skip((page - 1) * pageSize).Take(pageSize);
             return pagination;
         }
 
@@ -263,10 +256,30 @@ namespace Service
             return _productRepository.GetMulti(x => x.Status && x.ID != id && x.CategoryID == product.CategoryID).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
-        public IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, out int totalRow)
+        public IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, string sort, out int totalRow)
         {
-            var model = _productRepository.GetListProductByTag(tagId, page, pageSize, out totalRow);
-            return model;
+            var query = _productRepository.GetListProductByTag(tagId);
+            totalRow = query.Count();
+            switch (sort)
+            {
+                case "popular":
+                    query = query.OrderByDescending(x => x.ViewCount);
+                    break;
+                case "de_price":
+                    query = query.OrderByDescending(m => m.Price);
+                    break;
+                case "in_price":
+                    query = query.OrderBy(m => m.Price);
+                    break;
+                case "name":
+                    query = query.OrderBy(m => m.Name);
+                    break;
+                default:
+                    query = query.OrderByDescending(m => m.CreatedDate);
+                    break;
+            }
+            var pagination = query.Skip((page - 1) * pageSize).Take(pageSize);
+            return pagination;
         }
 
         public Tag GetTags(string tagId)
@@ -309,7 +322,12 @@ namespace Service
             return query;
         }
 
-        public IEnumerable<Product> GetTrend(int top)
+        public IEnumerable<Product> GetViewProduct(int top)
+        {
+            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.ViewCount).Take(top);
+        }
+
+        public IEnumerable<Product> GetTrendProduct(int top)
         {
             return _productRepository.GetMulti(x => x.Status && x.TrendFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
         }

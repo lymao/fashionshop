@@ -46,6 +46,19 @@ namespace Web
             );
 
             routes.MapRoute(
+                name: "ProductDetail",
+                url: "{alias}.p-{productId}.html",
+                defaults: new { controller = "Product", action = "Detail", id = UrlParameter.Optional },
+                namespaces: new string[] { "Web.Controllers" }
+            );
+
+            routes.MapRoute(
+                   name: "ProductByTag",
+                   url: "tag/{tagId}.html",
+                   defaults: new { controller = "Product", action = "ListProductByTag", tagId = UrlParameter.Optional },
+                   namespaces: new string[] { "Web.Controllers" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

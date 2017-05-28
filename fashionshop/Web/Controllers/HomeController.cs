@@ -32,7 +32,7 @@ namespace Web.Controllers
             var lastestProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestProductModel);
             homeViewModel.LastestProducts = lastestProductViewModel;
 
-            var trendProductModel = _productService.GetHotProduct(6);
+            var trendProductModel = _productService.GetTrendProduct(6);
             var trendProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(trendProductModel);
             homeViewModel.TrendProducts = trendProductViewModel;
 

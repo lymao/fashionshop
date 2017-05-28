@@ -4282,6 +4282,7 @@
     <Content Include="Assets\client\css\bootstrap.css" />
     <Content Include="Assets\client\css\common.autocomplete.css" />
     <Content Include="Assets\client\css\coreSlider.css" />
+    <Content Include="Assets\client\css\custom.css" />
     <Content Include="Assets\client\css\flexslider.css" />
     <Content Include="Assets\client\css\font-awesome.css" />
     <Content Include="Assets\client\css\jquery-ui.css" />
@@ -4706,6 +4707,8 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\CategoryPartial.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Product\ListProductByTag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

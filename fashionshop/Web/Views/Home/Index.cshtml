@@ -23,36 +23,43 @@
                             <div class="caption">
                                 @foreach (var item in Model.LastestProducts.Take(4))
                                 {
-                                <div class="col-md-3 cap-left simpleCart_shelfItem">
-                                    <div class="grid-arr">
-                                        <div class="grid-arrival">
-                                            <figure>
-                                                <a href="single.html">
-                                                    <div class="grid-img">
-                                                        <img src="@item.Image1" class="img-responsive" alt="">
-                                                    </div>
-                                                    <div class="grid-img">
-                                                        <img src="@item.Image" class="img-responsive" alt="">
-                                                    </div>
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="block">
-                                            <div class="starbox small ghosting"> </div>
-                                        </div>
-                                        <div class="women">
-                                            <h6><a href="single.html">@item.Name</a></h6>
-                                            <span class="size">@item.Size</span>
-                                            <p><del>@(item.Price == 0?"Liên hệ":item.Price.ToString("N0"))</del>
-                                            @if (item.PromotionPrice.HasValue)
-                                            {
-                                                <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
-                                            }
-                                            </p>
-                                            <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                    var url = "/" + item.Alias + ".p-" + item.ID + ".html";
+                                    <div class="col-md-3 cap-left simpleCart_shelfItem">
+                                        <div class="grid-arr">
+                                            <div class="grid-arrival">
+                                                <figure>
+                                                    <a href="@url">
+                                                        <div class="grid-img">
+                                                            <img src="@item.Image1" class="img-responsive" alt="">
+                                                        </div>
+                                                        <div class="grid-img">
+                                                            <img src="@item.Image" class="img-responsive" alt="">
+                                                        </div>
+                                                    </a>
+                                                </figure>
+                                            </div>
+                                            <div class="block">
+                                                <div class="starbox small ghosting"> </div>
+                                            </div>
+                                            <div class="women">
+                                                <h6><a href="@url">@item.Name</a></h6>
+                                                <span class="size">@item.Size</span>
+                                                <p>
+                                                    @if (item.PromotionPrice.HasValue)
+                                                    {
+                                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                    }
+                                                    else
+                                                    {
+                                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
+                                                    }
+                                                </p>
+
+                                                <a href="/gio-hang.html" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 }
 
                                 <div class="clearfix"></div>
@@ -62,37 +69,43 @@
                             <div class="caption">
                                 @foreach (var item in Model.LastestProducts.Skip(4))
                                 {
-                                <div class="col-md-3 cap-left simpleCart_shelfItem">
-                                    <div class="grid-arr">
-                                        <div class="grid-arrival">
-                                            <figure>
-                                                <a href="single.html">
-                                                    <div class="grid-img">
-                                                        <img src="@item.Image1" class="img-responsive" alt="">
-                                                    </div>
-                                                    <div class="grid-img">
-                                                        <img src="@item.Image" class="img-responsive" alt="">
-                                                    </div>
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="block">
-                                            <div class="starbox small ghosting"> </div>
-                                        </div>
-                                        <div class="women">
-                                            <h6><a href="single.html">@item.Name</a></h6>
-                                            <span class="size">@item.Size</span>
-                                            <p><del>@item.Price.ToString("N0")</del>
-                                            @if (item.PromotionPrice.HasValue)
-                                            {
-                                                <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
-                                            }
-                                            
-                                            </p>
-                                            <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                    var url = "/" + item.Alias + ".p-" + item.ID + ".html";
+                                    <div class="col-md-3 cap-left simpleCart_shelfItem">
+                                        <div class="grid-arr">
+                                            <div class="grid-arrival">
+                                                <figure>
+                                                    <a href="@url">
+                                                        <div class="grid-img">
+                                                            <img src="@item.Image1" class="img-responsive" alt="">
+                                                        </div>
+                                                        <div class="grid-img">
+                                                            <img src="@item.Image" class="img-responsive" alt="">
+                                                        </div>
+                                                    </a>
+                                                </figure>
+                                            </div>
+                                            <div class="block">
+                                                <div class="starbox small ghosting"> </div>
+                                            </div>
+                                            <div class="women">
+                                                <h6><a href="@url">@item.Name</a></h6>
+                                                <span class="size">@item.Size</span>
+                                                <p>
+                                                    @if (item.PromotionPrice.HasValue)
+                                                    {
+                                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                    }
+                                                    else
+                                                    {
+                                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
+                                                    }
+                                                </p>
+
+                                                <a href="/gio-hang.html" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 }
 
                                 <div class="clearfix"></div>
@@ -187,11 +200,12 @@
             <div class="arrivals-grids">
                 @foreach (var item in Model.TopSaleProducts)
                 {
+                    var url = "/" + item.Alias + ".p-" + item.ID + ".html";
                     <div class="col-md-3 arrival-grid simpleCart_shelfItem">
                         <div class="grid-arr">
                             <div class="grid-arrival">
                                 <figure>
-                                    <a href="single.html">
+                                    <a href="@url">
                                         <div class="grid-img">
                                             <img src="@item.Image1" class="img-responsive" alt="">
                                         </div>
@@ -211,15 +225,21 @@
                                 <div class="starbox small ghosting"> </div>
                             </div>
                             <div class="women">
-                                <h6><a href="single.html">@item.Name</a></h6>
+                                <h6><a href="@url">@item.Name</a></h6>
                                 <span class="size">@item.Size</span>
-                                <p><del>@item.Price.ToString("N0")</del>
-                                @if (item.PromotionPrice.HasValue)
-                                {
-                                    <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
-                                }
+                                <p>
+                                    @if (item.PromotionPrice.HasValue)
+                                    {
+                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                    }
+                                    else
+                                    {
+                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
+                                    }
                                 </p>
-                                <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+
+                                <a href="/gio-hang.html" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
                             </div>
                         </div>
                     </div>
@@ -231,4 +251,3 @@
     </div>
     <!--new-arrivals-->
 </div>
-

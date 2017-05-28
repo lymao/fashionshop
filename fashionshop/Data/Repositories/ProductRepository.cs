@@ -8,7 +8,7 @@ namespace Data.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {
-        IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, out int totalRow);
+        IEnumerable<Product> GetListProductByTag(string tagId);
     }
 
     public class ProductRepository : RepositoryBase<Product>, IProductRepository
@@ -17,15 +17,14 @@ namespace Data.Repositories
         {
         }
 
-        public IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, out int totalRow)
+        public IEnumerable<Product> GetListProductByTag(string tagId)
         {
             var query = from p in DbContext.Products
                         join pt in DbContext.ProductTags
                         on p.ID equals pt.ProductID
                         where pt.TagID == tagId
                         select p;
-            totalRow = query.Count();
-            return query.OrderByDescending(x => x.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize);
+            return query;
         }
     }
 }

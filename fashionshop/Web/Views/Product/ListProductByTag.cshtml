@@ -1,10 +1,9 @@
 ﻿@model Web.Infrastructure.Core.PaginationSet<Web.Models.ProductViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách sản phẩm theo tag";
     Layout = "~/Views/Shared/Layout.cshtml";
 
-    var category = (Web.Models.ProductCategoryViewModel)ViewBag.category;
 }
 
 <!--banner-->
@@ -15,9 +14,10 @@
 </div>
 <!--banner-->
 <!--content-->
+@{ var tag = ViewBag.Tag as Web.Models.TagViewModel;}
 <div class="content">
     <div class="products-agileinfo">
-        <h2 class="tittle">@category.Name</h2>
+        <h2 class="tittle">Sản phẩm theo tag: @tag.Name</h2>
         <div class="container">
             <div class="product-agileinfo-grids w3l">
                 @{ Html.RenderAction("CategoryPartial", "Product");}
@@ -559,3 +559,4 @@
         </div>
     </div>
 </div>
+

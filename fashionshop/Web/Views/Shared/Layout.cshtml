@@ -15,6 +15,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href="~/Assets/client/css/font-awesome.css" rel="stylesheet" />
     <link href="~/Assets/admin/libs/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet" />
     <link href="~/Assets/client/css/common.autocomplete.css" rel="stylesheet" />
+    <link href="~/Assets/client/css/custom.css" rel="stylesheet" />
     <!--css-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,15 +31,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--search jQuery-->
     <script src="~/Assets/client/js/responsiveslides.min.js"></script>
     <script>
-    $(function () {
-      $("#slider").responsiveSlides({
-      	auto: true,
-      	nav: true,
-      	speed: 500,
-        namespace: "callbacks",
-        pager: true,
-      });
-    });
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                pager: true,
+            });
+        });
     </script>
     <!--mycart-->
     @*<script src="~/Assets/admin/libs/bootstrap/dist/js/bootstrap.js"></script>*@
@@ -50,29 +51,54 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="/Assets/client/js/jstarbox.js"></script>
     <link href="~/Assets/client/css/jstarbox.css" rel="stylesheet" />
     <script src="~/Assets/admin/libs/jquery-ui/jquery-ui.js"></script>
-
+    <script src="~/Assets/client/js/jquery.flexslider.js"></script>
+    <link href="~/Assets/client/css/flexslider.css" rel="stylesheet" />
+    <script src="~/Assets/client/js/imagezoom.js"></script>
+    <script>
+        // Can also be used with $(document).ready()
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
     <script type="text/javascript">
-			jQuery(function() {
-			jQuery('.starbox').each(function() {
-				var starbox = jQuery(this);
-					starbox.starbox({
-					average: starbox.attr('data-start-value'),
-					changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
-					ghosting: starbox.hasClass('ghosting'),
-					autoUpdateAverage: starbox.hasClass('autoupdate'),
-					buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
-					stars: starbox.attr('data-star-count') || 5
-					}).bind('starbox-value-changed', function(event, value) {
-					if(starbox.hasClass('random')) {
-					var val = Math.random();
-					starbox.next().text(' '+val);
-					return val;
-					}
-				})
-			});
-		});
+        jQuery(function () {
+            jQuery('.starbox').each(function () {
+                var starbox = jQuery(this);
+                starbox.starbox({
+                    average: starbox.attr('data-start-value'),
+                    changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
+                    ghosting: starbox.hasClass('ghosting'),
+                    autoUpdateAverage: starbox.hasClass('autoupdate'),
+                    buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
+                    stars: starbox.attr('data-star-count') || 5
+                }).bind('starbox-value-changed', function (event, value) {
+                    if (starbox.hasClass('random')) {
+                        var val = Math.random();
+                        starbox.next().text(' ' + val);
+                        return val;
+                    }
+                })
+            });
+        });
     </script>
     <!--//End-rate-->
+    <link href="~/Assets/client/css/owl.carousel.css" rel="stylesheet" />
+    <script src="~/Assets/client/js/owl.carousel.js"></script>
+    <script>
+		$(document).ready(function() {
+		$("#owl-demo").owlCarousel({
+			items : 1,
+			lazyLoad : true,
+			autoPlay : true,
+			navigation : false,
+			navigationText :  false,
+			pagination : true,
+		});
+		});
+    </script>
 </head>
 <body>
     <!--header-->
