@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Web.Models
 {
+    [Serializable]
     public class ShoppingCartViewModel
     {
         public int ProductId { set; get; }

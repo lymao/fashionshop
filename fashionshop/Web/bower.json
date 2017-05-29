@@ -17,7 +17,9 @@
     "angular-sanitize": "~1.6.4",
     "ckeditor": "4.6.2",
     "ng-ckeditor": "~0.2.1",
-    "jquery-ui": "~1.12.1"
+    "jquery-ui": "~1.12.1",
+    "mustache": "~2.3.0",
+    "numeral": "~2.0.6"
   },
   "resolutions": {
     "jquery": "1.9.1 - 3",

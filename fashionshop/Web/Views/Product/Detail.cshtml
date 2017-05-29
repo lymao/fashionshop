@@ -68,7 +68,7 @@
                         </div>
                         <div class="women">
                             <span class="size">@Model.Size</span>
-                            <a href="/gio-hang.html" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                            <a href="#" data-id="@Model.ID" data-text="Add To Cart" class="my-cart-b item_add btnAddToCart">Thêm giỏ hàng</a>
                         </div>
                         @{ var listTags = ViewBag.Tag as IEnumerable<Web.Models.TagViewModel>;}
                         <div class="tag">
@@ -305,7 +305,7 @@
                                 }
                             </p>
 
-                            <a href="/gio-hang.html" data-text="Add To Cart" class="my-cart-b item_add">Thêm giỏ hàng</a>
+                            <a href="#" data-id="@item.ID" data-text="Add To Cart" class="my-cart-b item_add btnAddToCart">Thêm giỏ hàng</a>
                         </div>
                     </div>
                 </div>

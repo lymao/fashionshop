@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<!--banner-->
+<div class="banner1">
+    <div class="container">
+        <h3><a href="/">Trang chủ</a> / <span>Giỏ hàng</span></h3>
+    </div>
+</div>
+<!--banner-->
+
+<div class="cart-items">
+    <div class="container">
+        <h2>Giỏ hàng</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Mã SP</td>
+                    <td>Tên sản phẩm</td>
+                    <td>Hình ảnh</td>
+                    <td>Giá</td>
+                    <td>Số lượng</td>
+                    <td>Thành tiền</td>
+                    <td>#</td>
+                </tr>
+            </thead>
+            <tbody id="cartBody"></tbody>
+        </table>
+        <button class="btn btn-success" id="btnContinue">Tiếp tục mua hàng</button>
+        <button class="btn btn-danger" id="btnDeleteAll">Xóa giỏ hàng</button>
+        <button class="btn btn-default" id="btnCheckout">Thanh toán</button>
+        <div class="pull-right">
+            Tổng tiền: <span id="lblTotalOrder"></span>
+        </div>
+    </div>
+</div>
+
+<script id="template" type="x-tmpl-mustache">
+    <tr>
+        <td>{{ProductId}}</td>
+        <td>{{ProductName}}</td>
+        <td><img src="{{Image}}" height="50" /></td>
+        <td>{{PriceF}}</td>
+        <td><input type="number" data-id="{{ProductId}}" data-price="{{Price}}" class="txtQuantity" value="{{Quantity}}" /></td>
+        <td id="amount_{{ProductId}}">{{Amount}}</td>
+        <td><button class="btn btn-danger btnDeleteItem" data-id="{{ProductId}}"><i class="fa fa-close"></i></button></td>
+    </tr>
+
+</script>
+<style>
+    table {
+        counter-reset: rowNumber;
+    }
+
+        table tr {
+            counter-increment: rowNumber;
+        }
+</style>
