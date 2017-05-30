@@ -44,17 +44,25 @@
                                             <div class="women">
                                                 <h6><a href="@url">@item.Name</a></h6>
                                                 <span class="size">@item.Size</span>
-                                                <p>
-                                                    @if (item.PromotionPrice.HasValue)
-                                                    {
-                                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
-                                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
-                                                    }
-                                                    else
-                                                    {
-                                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
-                                                    }
-                                                </p>
+                                                @if (item.Quantity > 0)
+                                                {
+                                                    <p>
+                                                        @if (item.PromotionPrice.HasValue)
+                                                        {
+                                                            <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                                            <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                        }
+                                                        else
+                                                        {
+                                                            <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
+                                                        }
+                                                    </p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:red;">Hết hàng</p>
+                                                }
+
 
                                                 <a href="#" data-id="@item.ID" data-text="Add To Cart" class="my-cart-b item_add btnAddToCart">Thêm giỏ hàng</a>
                                             </div>
@@ -90,17 +98,24 @@
                                             <div class="women">
                                                 <h6><a href="@url">@item.Name</a></h6>
                                                 <span class="size">@item.Size</span>
-                                                <p>
-                                                    @if (item.PromotionPrice.HasValue)
-                                                    {
-                                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
-                                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
-                                                    }
-                                                    else
-                                                    {
-                                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
-                                                    }
-                                                </p>
+                                                @if (item.Quantity > 0)
+                                                {
+                                                    <p>
+                                                        @if (item.PromotionPrice.HasValue)
+                                                        {
+                                                            <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                                            <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                        }
+                                                        else
+                                                        {
+                                                            <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
+                                                        }
+                                                    </p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:red;">Hết hàng</p>
+                                                }
 
                                                 <a href="#" data-id="@item.ID" data-text="Add To Cart" class="my-cart-b item_add btnAddToCart">Thêm giỏ hàng</a>
                                             </div>
@@ -227,17 +242,24 @@
                             <div class="women">
                                 <h6><a href="@url">@item.Name</a></h6>
                                 <span class="size">@item.Size</span>
-                                <p>
-                                    @if (item.PromotionPrice.HasValue)
-                                    {
-                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
-                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
-                                    }
-                                    else
-                                    {
-                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
-                                    }
-                                </p>
+                                @if (item.Quantity > 0)
+                                {
+                                    <p>
+                                        @if (item.PromotionPrice.HasValue)
+                                        {
+                                            <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
+                                            <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                        }
+                                        else
+                                        {
+                                            <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
+                                        }
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p style="color:red;">Hết hàng</p>
+                                }
 
                                 <a href="#" data-id="@item.ID" data-text="Add To Cart" class="my-cart-b item_add btnAddToCart">Thêm giỏ hàng</a>
                             </div>

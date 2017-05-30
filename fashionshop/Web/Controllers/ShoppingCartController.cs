@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common;
+using Microsoft.AspNet.Identity;
 using Model.Models;
 using Service;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Web.Infrastructure.Extensions;
 using Web.Models;
 
 namespace Web.Controllers
@@ -15,9 +17,13 @@ namespace Web.Controllers
     public class ShoppingCartController : Controller
     {
         IProductService _productService;
-        public ShoppingCartController(IProductService productService)
+        ApplicationUserManager _userManager;
+        IOrderService _orderService;
+        public ShoppingCartController(IOrderService orderService, IProductService productService, ApplicationUserManager userManager)
         {
             this._productService = productService;
+            this._userManager = userManager;
+            this._orderService = orderService;
         }
         // GET: ShoppingCart
         public ActionResult Index()
@@ -36,13 +42,13 @@ namespace Web.Controllers
             {
                 data = cart,
                 status = true
-            },JsonRequestBehavior.AllowGet);
+            }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult Add(int productId)
         {
             var cart = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
-            if (cart.Count() == 0)
+            if (cart == null)
             {
                 cart = new List<ShoppingCartViewModel>();
             }
@@ -57,7 +63,7 @@ namespace Web.Controllers
             }
             if (cart.Any(x => x.ProductId == productId))
             {
-                foreach(var item in cart)
+                foreach (var item in cart)
                 {
                     if (item.ProductId == productId)
                     {
@@ -84,9 +90,9 @@ namespace Web.Controllers
         {
             var cartViewModel = new JavaScriptSerializer().Deserialize<List<ShoppingCartViewModel>>(cartData);
             var cartSession = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
-            foreach(var item in cartSession)
+            foreach (var item in cartSession)
             {
-                foreach(var jitem in cartViewModel)
+                foreach (var jitem in cartViewModel)
                 {
                     if (item.ProductId == jitem.ProductId)
                     {
@@ -108,13 +114,97 @@ namespace Web.Controllers
                 cart.RemoveAll(x => x.ProductId == productId);
                 return Json(new
                 {
-                    status=true
+                    status = true
                 });
             }
             return Json(new
             {
-                status=false
+                status = false
             });
+        }
+
+        [HttpPost]
+        public JsonResult DeleteAll()
+        {
+            Session[CommonConstants.SessionCart] = new List<ShoppingCartViewModel>();
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        [HttpPost]
+        public JsonResult GetUserLogin()
+        {
+            if (Request.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = _userManager.FindById(userId);
+                return Json(new
+                {
+                    data = user,
+                    status = true
+                });
+            }
+            return Json(new
+            {
+                status = false
+            });
+        }
+
+        [HttpPost]
+        public JsonResult CreateOrder(string orderViewModel)
+        {
+            var order = new JavaScriptSerializer().Deserialize<OrderViewModel>(orderViewModel);
+            var orderNew = new Order();
+            orderNew.UpdateOrder(order);
+            if (Request.IsAuthenticated)
+            {
+                orderNew.CustomerId = User.Identity.GetUserId();
+                orderNew.CustomerName = User.Identity.GetUserName();
+            }
+            List<OrderDetail> orderDetails = new List<OrderDetail>();
+            bool isEnough = true;
+            var cartSession = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
+            var productName = "";
+            var quantity = 0;
+            var productId = 0;
+            foreach (var item in cartSession)
+            {
+                var orderDetail = new OrderDetail();
+                orderDetail.ProductID = item.ProductId;
+                orderDetail.Quantity = item.Quantity;
+                orderDetail.Price = item.Product.Price;
+                orderDetails.Add(orderDetail);
+                isEnough = _productService.SellProduct(item.ProductId, item.Quantity);
+                if (isEnough == false)
+                {
+                    productId = item.ProductId;
+                    quantity = item.Product.Quantity;
+                    productName = item.Product.Name;
+                    break;
+                }
+                
+            }
+            if (isEnough)
+            {
+                _orderService.Create(orderNew, orderDetails);
+                _productService.Save();
+                return Json(new
+                {
+                    status = true
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = "" + productName + ". Mã SP("+productId+")"+" hiện chỉ còn: ("+quantity+") sản phẩm."
+                });
+            }
+
+
         }
     }
 }
