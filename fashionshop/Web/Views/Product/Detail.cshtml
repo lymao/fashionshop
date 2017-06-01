@@ -28,17 +28,18 @@
                         <div class="block">
                             <div class="starbox small ghosting"> </div>
                         </div><br />
-                        @if (Model.PromotionPrice.HasValue)
+                        @if (Model.Quantity > 0)
                         {
-                            <p><del>@(Model.Price == 0 ? "Liên hệ" : Model.Price.ToString("N0"))</del></p>
-                            <p class="price item_price">@Model.PromotionPrice.Value.ToString("N0")</p>
+                            if (Model.PromotionPrice.HasValue)
+                            {
+                                <p><del>@Model.PromotionPrice.Value.ToString("N0")</del></p>
+                            }
+                            <p class="price item_price">@Model.Price.ToString("N0")</p>
                         }
                         else
                         {
-                            <p class="price item_price">@(Model.Price == 0 ? "Liên hệ" : Model.Price.ToString("N0"))</p>
+                            <p style="color:red;">Hết hàng</p>
                         }
-
-
 
                         <div class="description">
                             <p><span>Tổng quan nhanh : </span> @Html.Raw(Model.Description)</p>
@@ -48,23 +49,10 @@
                             <div class="quantity">
                                 <div class="quantity-select">
                                     <div class="entry value-minus1">&nbsp;</div>
-                                    <div class="entry value1"><span>1</span></div>
+                                    <div id="quantityDetail" class="entry value1"><span>1</span></div>
                                     <div class="entry value-plus1 active">&nbsp;</div>
                                 </div>
                             </div>
-                            <!--quantity-->
-                            <script>
-                                $('.value-plus1').on('click', function () {
-                                    var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) + 1;
-                                    divUpd.text(newVal);
-                                });
-
-                                $('.value-minus1').on('click', function () {
-                                    var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) - 1;
-                                    if (newVal >= 1) divUpd.text(newVal);
-                                });
-                            </script>
-                            <!--quantity-->
                         </div>
                         <div class="women">
                             <span class="size">@Model.Size</span>
@@ -90,7 +78,7 @@
                     <div class="clearfix"> </div>
                 </div>
             </div>
-            @{ var topViewProducts= ViewBag.TopViewProducts as List<Web.Models.ProductViewModel>;}
+            @{ var topViewProducts = ViewBag.TopViewProducts as List<Web.Models.ProductViewModel>;}
             @if (topViewProducts != null)
             {
                 <div class="col-md-3 single-grid1">
@@ -107,14 +95,7 @@
                                 <div class="block">
                                     <div class="starbox small ghosting"> </div>
                                 </div>
-                                @if (item.PromotionPrice.HasValue)
-                                {
-                                    <span class="price-in1">@item.PromotionPrice.Value.ToString("N0")</span>
-                                }
-                                else
-                                {
-                                    <span class="price-in1">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</span>
-                                }
+                                <span class="price-in1">@item.Price.ToString("N0")</span>
                             </div>
                             <div class="clearfix"> </div>
                         </div>
@@ -148,14 +129,7 @@
                                             <div class="block">
                                                 <div class="starbox small ghosting"> </div>
                                             </div>
-                                            @if (item.PromotionPrice.HasValue)
-                                            {
-                                                <span class="price-in1">@item.PromotionPrice.Value.ToString("N0")</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="price-in1">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</span>
-                                            }
+                                            <span class="price-in1">@item.Price.ToString("N0")</span>
                                         </div>
                                         <div class="clearfix"> </div>
                                     </div>
@@ -176,14 +150,7 @@
                                                 <div class="block">
                                                     <div class="starbox small ghosting"> </div>
                                                 </div>
-                                                @if (item.PromotionPrice.HasValue)
-                                                {
-                                                    <span class="price-in1">@item.PromotionPrice.Value.ToString("N0")</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="price-in1">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</span>
-                                                }
+                                                <span class="price-in1">@item.Price.ToString("N0")</span>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
@@ -205,7 +172,7 @@
                             <div id="myTabContent" class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                                     <div class="descr">
-                                        <p>@Html.Raw(Model.Content)</p>                                    
+                                        <p>@Html.Raw(Model.Content)</p>
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
@@ -297,14 +264,21 @@
                         <div class="women">
                             <h6><a href="@url">@item.Name</a></h6>
                             <span class="size">@item.Size </span>
-                            <p>
-                                <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
-                                @if (item.PromotionPrice.HasValue)
-                                {
-                                    <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
-                                }
-                            </p>
-
+                            @if (item.Quantity > 0)
+                            {
+                                <p>
+                                    @if (item.PromotionPrice.HasValue)
+                                    {
+                                        <del>@item.PromotionPrice.Value.ToString("N0")</del>
+                                    }
+                                    <em class="item_price">@item.Price.ToString("N0")</em>
+                                </p>
+                            }
+                            else
+                            {
+                                <p style="color:red;">Hết hàng</p>
+                            }
+                            
                             <a href="#" data-id="@item.ID" data-text="Add To Cart" class="my-cart-b item_add btnAddToCart">Thêm giỏ hàng</a>
                         </div>
                     </div>

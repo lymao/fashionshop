@@ -45,7 +45,7 @@ namespace Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult Add(int productId)
+        public JsonResult Add(int productId, int quanlity = 0)
         {
             var cart = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
             if (cart == null)
@@ -67,7 +67,14 @@ namespace Web.Controllers
                 {
                     if (item.ProductId == productId)
                     {
-                        item.Quantity += 1;
+                        if (quanlity > 0)
+                        {
+                            item.Quantity += quanlity;
+                        }
+                        else
+                        {
+                            item.Quantity += 1;
+                        }
                     }
                 }
             }
@@ -76,7 +83,14 @@ namespace Web.Controllers
                 ShoppingCartViewModel newItem = new ShoppingCartViewModel();
                 newItem.ProductId = productId;
                 newItem.Product = Mapper.Map<Product, ProductViewModel>(product);
-                newItem.Quantity = 1;
+                if (quanlity > 0)
+                {
+                    newItem.Quantity = quanlity;
+                }
+                else
+                {
+                    newItem.Quantity = 1;
+                }
                 cart.Add(newItem);
             }
             Session[CommonConstants.SessionCart] = cart;
@@ -184,7 +198,7 @@ namespace Web.Controllers
                     productName = item.Product.Name;
                     break;
                 }
-                
+
             }
             if (isEnough)
             {
@@ -200,7 +214,7 @@ namespace Web.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = "" + productName + ". Mã SP("+productId+")"+" hiện chỉ còn: ("+quantity+") sản phẩm."
+                    message = "" + productName + ". Mã SP(" + productId + ")" + " hiện chỉ còn: (" + quantity + ") sản phẩm."
                 });
             }
 

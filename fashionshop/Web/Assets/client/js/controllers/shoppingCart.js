@@ -7,14 +7,27 @@
     registerEvents: function () {
         $('.btnAddToCart').off('click').on('click', function (e) {
             e.preventDefault();
+            var quantity = 0;
+            quantity = $('#quantityDetail').text();
             var productId = parseInt($(this).data('id'));
-            cart.addItem(productId);
+            cart.addItem(productId, quantity);
         });
 
         $('.simpleCart_empty').off('click').on('click', function (e) {
             e.preventDefault();
             cart.deleteAll();
         });
+
+        //--quantity Detail page
+        $('.value-plus1').off('click').on('click', function () {
+            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) + 1;
+            divUpd.text(newVal);
+        });
+        $('.value-minus1').off('click').on('click', function () {
+            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) - 1;
+            if (newVal >= 1) divUpd.text(newVal);
+        });
+        //--quantity Detail page
 
         $('.btnDeleteItem').off('click').on('click', function (e) {
             e.preventDefault();
@@ -176,13 +189,14 @@
         });
     },
 
-    addItem: function (productId) {
+    addItem: function (productId,quantity) {
         $.ajax({
             url: '/ShoppingCart/Add',
             type: 'POST',
             dataType: 'json',
             data: {
-                productId: productId
+                productId: productId,
+                quanlity:quantity
             },
             success: function (res) {
                 if (res.status) {
@@ -253,7 +267,7 @@
                         });
                     });
                     if (rendered == '')
-                        $('#cartContent').html('<h2 style="text-align:center;color:blue;">Không có sản phẩm trong giỏ hàng.</h2>');
+                        $('#cartContent').html('<div align="center"><h4 style="color:blue;">Giỏ hàng của bạn còn trống.</h4><br /> <button class="btn btn-block" style="color:blue;"><a href="/">Tiếp tục mua hàng</a></button></div>');
                     $('#cartBody').html(rendered);
                     $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0'));
                     cart.registerEvents();

@@ -75,13 +75,9 @@
                                                                 <p>
                                                                     @if (item.PromotionPrice.HasValue)
                                                                     {
-                                                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
-                                                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                                        <del>@item.PromotionPrice.Value.ToString("N0")</del>
                                                                     }
-                                                                    else
-                                                                    {
-                                                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
-                                                                    }
+                                                                    <em class="item_price">@(item.Price.ToString("N0"))</em>
                                                                 </p>
                                                             }
                                                             else
@@ -125,13 +121,9 @@
                                                                 <p>
                                                                     @if (item.PromotionPrice.HasValue)
                                                                     {
-                                                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
-                                                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                                        <del>@item.PromotionPrice.Value.ToString("N0")</del>
                                                                     }
-                                                                    else
-                                                                    {
-                                                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
-                                                                    }
+                                                                    <em class="item_price">@(item.Price.ToString("N0"))</em>
                                                                 </p>
                                                             }
                                                             else
@@ -175,13 +167,9 @@
                                                                 <p>
                                                                     @if (item.PromotionPrice.HasValue)
                                                                     {
-                                                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
-                                                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                                        <del>@item.PromotionPrice.Value.ToString("N0")</del>
                                                                     }
-                                                                    else
-                                                                    {
-                                                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
-                                                                    }
+                                                                    <em class="item_price">@(item.Price.ToString("N0"))</em>
                                                                 </p>
                                                             }
                                                             else
@@ -225,13 +213,9 @@
                                                                 <p>
                                                                     @if (item.PromotionPrice.HasValue)
                                                                     {
-                                                                        <del>@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</del>
-                                                                        <em class="item_price">@item.PromotionPrice.Value.ToString("N0")</em>
+                                                                        <del>@item.PromotionPrice.Value.ToString("N0")</del>
                                                                     }
-                                                                    else
-                                                                    {
-                                                                        <em class="item_price">@(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</em>
-                                                                    }
+                                                                    <em class="item_price">@(item.Price.ToString("N0"))</em>
                                                                 </p>
                                                             }
                                                             else
@@ -281,13 +265,9 @@
                                                             <p>
                                                                 @if (Model.Items.ElementAt(0).PromotionPrice.HasValue)
                                                                 {
-                                                                    <del>@(Model.Items.ElementAt(0).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(0).Price.ToString("N0"))</del>
-                                                                    <em class="item_price">@Model.Items.ElementAt(0).PromotionPrice.Value.ToString("N0")</em>
+                                                                    <del>@Model.Items.ElementAt(0).PromotionPrice.Value.ToString("N0")</del>
                                                                 }
-                                                                else
-                                                                {
-                                                                    <em class="item_price">@(Model.Items.ElementAt(0).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(0).Price.ToString("N0"))</em>
-                                                                }
+                                                                <em class="item_price">@(Model.Items.ElementAt(0).Price.ToString("N0"))</em>
                                                             </p>
                                                         }
                                                         else
@@ -333,13 +313,9 @@
                                                             <p>
                                                                 @if (Model.Items.ElementAt(1).PromotionPrice.HasValue)
                                                                 {
-                                                                    <del>@(Model.Items.ElementAt(1).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(1).Price.ToString("N0"))</del>
-                                                                    <em class="item_price">@Model.Items.ElementAt(1).PromotionPrice.Value.ToString("N0")</em>
+                                                                    <del>@Model.Items.ElementAt(1).PromotionPrice.Value.ToString("N0")</del>
                                                                 }
-                                                                else
-                                                                {
-                                                                    <em class="item_price">@(Model.Items.ElementAt(1).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(1).Price.ToString("N0"))</em>
-                                                                }
+                                                                <em class="item_price">@(Model.Items.ElementAt(0).Price.ToString("N0"))</em>
                                                             </p>
                                                         }
                                                         else
@@ -385,13 +361,9 @@
                                                             <p>
                                                                 @if (Model.Items.ElementAt(2).PromotionPrice.HasValue)
                                                                 {
-                                                                    <del>@(Model.Items.ElementAt(0).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(2).Price.ToString("N0"))</del>
-                                                                    <em class="item_price">@Model.Items.ElementAt(2).PromotionPrice.Value.ToString("N0")</em>
+                                                                    <del>@Model.Items.ElementAt(2).PromotionPrice.Value.ToString("N0")</del>
                                                                 }
-                                                                else
-                                                                {
-                                                                    <em class="item_price">@(Model.Items.ElementAt(2).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(2).Price.ToString("N0"))</em>
-                                                                }
+                                                                <em class="item_price">@(Model.Items.ElementAt(2).Price.ToString("N0"))</em>
                                                             </p>
                                                         }
                                                         else
@@ -437,13 +409,9 @@
                                                             <p>
                                                                 @if (Model.Items.ElementAt(3).PromotionPrice.HasValue)
                                                                 {
-                                                                    <del>@(Model.Items.ElementAt(3).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(3).Price.ToString("N0"))</del>
-                                                                    <em class="item_price">@Model.Items.ElementAt(3).PromotionPrice.Value.ToString("N0")</em>
+                                                                    <del>@Model.Items.ElementAt(3).PromotionPrice.Value.ToString("N0")</del>
                                                                 }
-                                                                else
-                                                                {
-                                                                    <em class="item_price">@(Model.Items.ElementAt(3).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(3).Price.ToString("N0"))</em>
-                                                                }
+                                                                <em class="item_price">@(Model.Items.ElementAt(3).Price.ToString("N0"))</em>
                                                             </p>
                                                         }
                                                         else
@@ -489,13 +457,9 @@
                                                             <p>
                                                                 @if (Model.Items.ElementAt(4).PromotionPrice.HasValue)
                                                                 {
-                                                                    <del>@(Model.Items.ElementAt(4).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(4).Price.ToString("N0"))</del>
-                                                                    <em class="item_price">@Model.Items.ElementAt(4).PromotionPrice.Value.ToString("N0")</em>
+                                                                    <del>@Model.Items.ElementAt(4).PromotionPrice.Value.ToString("N0")</del>
                                                                 }
-                                                                else
-                                                                {
-                                                                    <em class="item_price">@(Model.Items.ElementAt(4).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(4).Price.ToString("N0"))</em>
-                                                                }
+                                                                <em class="item_price">@(Model.Items.ElementAt(4).Price.ToString("N0"))</em>
                                                             </p>
                                                         }
                                                         else
@@ -541,13 +505,9 @@
                                                             <p>
                                                                 @if (Model.Items.ElementAt(5).PromotionPrice.HasValue)
                                                                 {
-                                                                    <del>@(Model.Items.ElementAt(5).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(5).Price.ToString("N0"))</del>
-                                                                    <em class="item_price">@Model.Items.ElementAt(5).PromotionPrice.Value.ToString("N0")</em>
+                                                                    <del>@Model.Items.ElementAt(5).PromotionPrice.Value.ToString("N0")</del>
                                                                 }
-                                                                else
-                                                                {
-                                                                    <em class="item_price">@(Model.Items.ElementAt(5).Price == 0 ? "Liên hệ" : Model.Items.ElementAt(5).Price.ToString("N0"))</em>
-                                                                }
+                                                                <em class="item_price">@(Model.Items.ElementAt(5).Price.ToString("N0"))</em>
                                                             </p>
                                                         }
                                                         else
