@@ -20,6 +20,7 @@ namespace Web.Mappings
                 cfg.CreateMap<Footer, FooterViewModel>();
                 cfg.CreateMap<Slide, SlideViewModel>();
                 cfg.CreateMap<Tag, TagViewModel>();
+                cfg.CreateMap<ContactDetail, ContactDetailViewModel>();
 
             });
         }

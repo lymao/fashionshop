@@ -15,11 +15,6 @@
             templateUrl: '/app/components/slides/slideAddView.html',
             controller: 'slideAddController',
             parent: 'base'
-        }).state('slide_import', {
-            url: "/slide_import",
-            parent: 'base',
-            templateUrl: "/app/components/slides/slideImportView.html",
-            controller: "slideImportController"
         }).state('slide_edit', {
             url: '/slide_edit/:id',
             templateUrl: '/app/components/slides/slideEditView.html',

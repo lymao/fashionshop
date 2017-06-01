@@ -3,6 +3,7 @@
     angular.module('fashionshop', ['fashionshop.products',
         'fashionshop.product_categories',
         'fashionshop.slides',
+        'fashionshop.contacts',
         'fashionshop.common']).config(config).config(configAuthentication);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];

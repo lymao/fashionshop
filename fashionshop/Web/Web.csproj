@@ -239,6 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\ContactDetailController.cs" />
     <Compile Include="Api\PostCategoryController.cs" />
     <Compile Include="Api\ProductCategoryController.cs" />
     <Compile Include="Api\ProductController.cs" />
@@ -251,6 +252,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ContactDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -289,6 +291,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\components\contacts\contactAddController.js" />
+    <Content Include="app\components\contacts\contactAddView.html" />
+    <Content Include="app\components\contacts\contactEditController.js" />
+    <Content Include="app\components\contacts\contactEditView.html" />
+    <Content Include="app\components\contacts\contactListController.js" />
+    <Content Include="app\components\contacts\contactListView.html" />
+    <Content Include="app\components\contacts\contact.module.js" />
     <Content Include="app\components\home\homeController.js" />
     <Content Include="app\components\home\homeView.html" />
     <Content Include="app\components\home\rootController.js" />
@@ -4675,6 +4684,7 @@
     <Content Include="Assets\client\js\bootstrap-3.1.1.min.js" />
     <Content Include="Assets\client\js\bootstrap.js" />
     <Content Include="Assets\client\js\common.js" />
+    <Content Include="Assets\client\js\controllers\contact.js" />
     <Content Include="Assets\client\js\controllers\shoppingCart.js" />
     <Content Include="Assets\client\js\coreSlider.js" />
     <Content Include="Assets\client\js\imagezoom.js" />
@@ -4690,6 +4700,7 @@
     <Content Include="Assets\client\js\owl.carousel.js" />
     <Content Include="Assets\client\js\responsiveslides.min.js" />
     <Content Include="Assets\client\js\simpleCart.min.js" />
+    <Content Include="Assets\client\templates\contact_template.html" />
     <Content Include="Assets\client\templates\newuser.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -5031,6 +5042,7 @@
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Product\ListProductByTag.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\ContactDetail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

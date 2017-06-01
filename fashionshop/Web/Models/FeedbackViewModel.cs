@@ -22,7 +22,6 @@ namespace Web.Models
 
         public DateTime CreatedDate { set; get; }
 
-        [Required(ErrorMessage = "Phải nhập trạng thái")]
         public bool Status { set; get; }
 
         public ContactDetailViewModel ContactDetail { set; get; }

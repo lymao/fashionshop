@@ -65,6 +65,7 @@ namespace Web.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [CaptchaValidation("CaptchaCode", "ExampleCaptcha", "Mã Captcha không đúng!")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {

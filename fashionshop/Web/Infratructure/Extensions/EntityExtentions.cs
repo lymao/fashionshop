@@ -115,6 +115,20 @@ namespace Web.Infrastructure.Extensions
             slide.Content = slideVm.Content;
         }
 
+        public static void UpdateContactDetail(this ContactDetail contactDetail, ContactDetailViewModel contactDetailVm)
+        {
+            contactDetail.ID = contactDetailVm.ID;
+            contactDetail.Name = contactDetailVm.Name;
+            contactDetail.Phone = contactDetailVm.Phone;
+            contactDetail.Email = contactDetailVm.Email;
+            contactDetail.Website = contactDetailVm.Website;
+            contactDetail.Address = contactDetailVm.Address;
+            contactDetail.Other = contactDetailVm.Other;
+            contactDetail.Lat = contactDetailVm.Lat;
+            contactDetail.Lng = contactDetailVm.Lng;
+            contactDetail.Status = contactDetailVm.Status;
+        }
+
         public static void UpdatePage(this Page page, PageViewModel pageVm)
         {
             page.ID = pageVm.ID;
