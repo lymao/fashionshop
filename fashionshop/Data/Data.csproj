@@ -77,6 +77,10 @@
     <Compile Include="Migrations\201705151042446_AddColumnSize.Designer.cs">
       <DependentUpon>201705151042446_AddColumnSize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706020823117_RevenueStatisticSP.cs" />
+    <Compile Include="Migrations\201706020823117_RevenueStatisticSP.Designer.cs">
+      <DependentUpon>201706020823117_RevenueStatisticSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationGroupRepository.cs" />
@@ -127,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705151042446_AddColumnSize.resx">
       <DependentUpon>201705151042446_AddColumnSize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706020823117_RevenueStatisticSP.resx">
+      <DependentUpon>201706020823117_RevenueStatisticSP.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

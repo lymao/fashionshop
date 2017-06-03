@@ -81,6 +81,7 @@ namespace Web.Infrastructure.Extensions
             product.Content = productVm.Content;
             product.Image = productVm.Image;
             product.MoreImages = productVm.MoreImages;
+            product.OriginalPrice = productVm.OriginalPrice;
             product.Price = productVm.Price;
             product.PromotionPrice = productVm.PromotionPrice;
             product.Warranty = productVm.Warranty;

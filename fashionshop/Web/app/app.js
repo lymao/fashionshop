@@ -4,6 +4,7 @@
         'fashionshop.product_categories',
         'fashionshop.slides',
         'fashionshop.contacts',
+        'fashionshop.statistics',
         'fashionshop.common']).config(config).config(configAuthentication);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
