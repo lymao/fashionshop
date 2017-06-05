@@ -50,7 +50,9 @@ namespace Service
         public ApplicationGroup Add(ApplicationGroup appGroup)
         {
             if (_appGroupRepository.CheckContains(x => x.Name == appGroup.Name))
-                throw new NameDuplicatedException("Tên không được trùng");
+                throw new NameDuplicatedException("Tên nhóm không được trùng");
+            if (_appGroupRepository.CheckContains(x => x.Description == appGroup.Description))
+                throw new NameDuplicatedException("Tên mô tả không được trùng");
             return _appGroupRepository.Add(appGroup);
         }
 
@@ -69,7 +71,7 @@ namespace Service
         {
             var query = _appGroupRepository.GetAll();
             if (!string.IsNullOrEmpty(filter))
-                query = query.Where(x => x.Name.Contains(filter));
+                query = query.Where(x => x.Name.Contains(filter)||x.Description.Contains(filter));
 
             totalRow = query.Count();
             return query.OrderBy(x => x.Name).Skip(page * pageSize).Take(pageSize);
@@ -88,7 +90,9 @@ namespace Service
         public void Update(ApplicationGroup appGroup)
         {
             if (_appGroupRepository.CheckContains(x => x.Name == appGroup.Name && x.ID != appGroup.ID))
-                throw new NameDuplicatedException("Tên không được trùng");
+                throw new NameDuplicatedException("Tên nhóm không được trùng");
+            if (_appGroupRepository.CheckContains(x => x.Description == appGroup.Description && x.ID != appGroup.ID))
+                throw new NameDuplicatedException("Tên mô tả không được trùng");
             _appGroupRepository.Update(appGroup);
         }
 

@@ -3,6 +3,9 @@
     angular.module('fashionshop', ['fashionshop.products',
         'fashionshop.product_categories',
         'fashionshop.slides',
+        'fashionshop.application_roles',
+        'fashionshop.application_users',
+        'fashionshop.application_groups',
         'fashionshop.contacts',
         'fashionshop.statistics',
         'fashionshop.common']).config(config).config(configAuthentication);

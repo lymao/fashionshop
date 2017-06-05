@@ -21,6 +21,9 @@ namespace Web.Mappings
                 cfg.CreateMap<Slide, SlideViewModel>();
                 cfg.CreateMap<Tag, TagViewModel>();
                 cfg.CreateMap<ContactDetail, ContactDetailViewModel>();
+                cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
+                cfg.CreateMap<ApplicationGroup, ApplicationGroupViewModel>();
+                cfg.CreateMap<ApplicationRole, ApplicationRoleViewModel>();
 
             });
         }

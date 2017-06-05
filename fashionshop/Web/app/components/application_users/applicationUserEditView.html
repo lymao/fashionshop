@@ -1,0 +1,90 @@
+﻿
+<section class="content-header">
+    <h1>
+        Cập nhật người dùng
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/admin"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a ui-sref="accounts">Danh mục người dùng</a></li>
+        <li class="active"><a href="#">Cập nhật</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{account.FullName}}</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal" role="form" novalidate name="frmUpdateAccount" ng-submit="updateAccount()">
+                    <div class="box-body">
+                        <div class="col-md-8">
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.name.$invalid && frmUpdateAccount.name.$touched }">
+                                <label class="col-sm-2 control-label">Họ tên</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="name" class="form-control" ng-maxlength="50" required ng-model="account.FullName">
+                                    <span style="color:red" ng-show="frmUpdateAccount.name.$touched && frmUpdateAccount.name.$invalid">
+                                        <span ng-show="frmUpdateAccount.name.$error.required">Yêu cầu nhập họ tên người dùng.</span>
+                                        <span ng-show="frmUpdateAccount.name.$error.maxlength">Ký tự tối đa là 50.</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.userName.$invalid && frmUpdateAccount.userName.$touched }">
+                                <label class="col-sm-2 control-label">Tài khoản</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="userName" class="form-control" ng-maxlength="50" required ng-model="account.UserName">
+                                    <span style="color:red" ng-show="frmUpdateAccount.userName.$touched && frmUpdateAccount.userName.$invalid">
+                                        <span ng-show="frmUpdateAccount.userName.$error.required">Yêu cầu nhập tên tài khoản.</span>
+                                        <span ng-show="frmUpdateAccount.userName.$error.maxlength">Ký tự tối đa là 50.</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.email.$invalid && frmUpdateAccount.email.$touched }">
+                                <label class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" name="email" class="form-control" required ng-model="account.Email">
+                                    <span style="color:red" ng-show="frmUpdateAccount.email.$touched && frmUpdateAccount.email.$invalid">
+                                        <span ng-show="frmUpdateAccount.email.$error.required">Yêu cầu nhập tên email.</span>
+                                        <span ng-show="frmUpdateAccount.email.$error.email">Email chưa đúng định dạng</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Điện thoại</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="phone" class="form-control" ng-model="account.PhoneNumber">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.birthDay.$invalid && frmUpdateAccount.birthDay.$touched }">
+                                <label class="col-sm-2 control-label">Ngày sinh</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="birthDay" id="datepicker" class="form-control" ng-maxlength="50" required ng-model="account.BirthDay">
+                                    <span style="color:red" ng-show="frmUpdateAccount.birthDay.$touched && frmUpdateAccount.email.$invalid">
+                                        <span ng-show="frmUpdateAccount.birthDay.$error.required">Yêu cầu nhập ngày sinh.</span>
+                                        <span ng-show="frmUpdateAccount.birthDay.$error.maxlength">Ký tự tối đa là 50.</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="well">
+                                    <label ng-repeat="group in groups">
+                                        <input type="checkbox" checklist-model="account.Groups" checklist-value="group"> {{group.Name}}
+                                    </label><br />
+                                    <input type="button" value="Chọn hết" ng-click="checkAll()">
+                                    <input type="button" value="Bỏ chọn hết" ng-click="uncheckAll()">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <a ui-sref="application_users" class="btn btn-default">Hủy bỏ</a>
+                                    <input type="submit" ng-disabled="frmUpdateAccount.$invalid" class="btn btn-primary" value="Lưu lại" />
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </form>
+            </div><!-- /.box -->
+        </div>
+    </div>
+</section>

@@ -49,8 +49,10 @@ namespace Service
 
         public ApplicationRole Add(ApplicationRole appRole)
         {
+            if (_appRoleRepository.CheckContains(x => x.Name == appRole.Name))
+                throw new NameDuplicatedException("Tên quyền không được trùng");
             if (_appRoleRepository.CheckContains(x => x.Description == appRole.Description))
-                throw new NameDuplicatedException("Tên không được trùng");
+                throw new NameDuplicatedException("Tên mô tả không được trùng");
             return _appRoleRepository.Add(appRole);
         }
 
@@ -78,7 +80,7 @@ namespace Service
         {
             var query = _appRoleRepository.GetAll();
             if (!string.IsNullOrEmpty(filter))
-                query = query.Where(x => x.Description.Contains(filter));
+                query = query.Where(x => x.Description.Contains(filter)||x.Name.Contains(filter));
 
             totalRow = query.Count();
             return query.OrderBy(x => x.Description).Skip(page * pageSize).Take(pageSize);
@@ -97,7 +99,9 @@ namespace Service
         public void Update(ApplicationRole AppRole)
         {
             if (_appRoleRepository.CheckContains(x => x.Description == AppRole.Description && x.Id != AppRole.Id))
-                throw new NameDuplicatedException("Tên không được trùng");
+                throw new NameDuplicatedException("Tên mô tả không được trùng");
+            if (_appRoleRepository.CheckContains(x => x.Name == AppRole.Name && x.Id != AppRole.Id))
+                throw new NameDuplicatedException("Tên quyền không được trùng");
             _appRoleRepository.Update(AppRole);
         }
 
