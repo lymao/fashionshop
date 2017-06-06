@@ -52,6 +52,27 @@ namespace Web
             );
 
             routes.MapRoute(
+                name: "Account",
+                url: "tai-khoan.html",
+                defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "Web.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "ChangeAccount",
+                url: "cap-nhat-tai-khoan.html",
+                defaults: new { controller = "Account", action = "ChangeAccount", id = UrlParameter.Optional },
+                namespaces: new string[] { "Web.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "ChangePassword",
+                url: "doi-mat-khau.html",
+                defaults: new { controller = "Account", action = "ChangePassword", id = UrlParameter.Optional },
+                namespaces: new string[] { "Web.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Product",
                 url: "{alias}.pc-{id}.html",
                 defaults: new { controller = "Product", action = "Index", id = UrlParameter.Optional },

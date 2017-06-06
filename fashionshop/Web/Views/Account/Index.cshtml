@@ -1,0 +1,63 @@
+﻿@model Web.Models.ApplicationUserViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="banner1">
+    <div class="container">
+        <h3><a href="/">Trang chủ</a> / <span>Tài khoản</span></h3>
+    </div>
+</div>
+<!--banner-->
+<!--login-->
+<div class="content">
+    <div class="typo-w3">
+        <div class="container">
+            <div class="grid_3 grid_5">
+                <div class="col-lg-6">
+                    <h3>Thông tin tài khoản</h3>
+                    <table class="table table-bordered">                       
+                        <tbody>
+                            <tr>
+                                <td>Họ tên</td>
+                                <td>@Model.FullName</td>
+                            </tr>
+                            <tr>
+                                <td>Tên tài khoản</td>
+                                <td>@Model.UserName</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>@Model.Email</td>
+                            </tr>
+                            <tr>
+                                <td>Điện thoại</td>
+                                <td>@Model.PhoneNumber</td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ</td>
+                                <td>@Model.Address</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày sinh</td>
+                                <td>@Html.DisplayFor(x => x.BirthDay)</td>
+                            </tr>
+                            <tr>
+                                <td>Mật khẩu</td>
+                                <td><a href="/doi-mat-khau.html">Đổi mật khẩu</a></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><a class="btn btn-success" href="/cap-nhat-tai-khoan.html"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Chỉnh sửa thông tin</a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--login-->
+    </div>
+</div>
+

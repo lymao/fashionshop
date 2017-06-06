@@ -194,6 +194,7 @@ namespace Web.Infrastructure.Extensions
             appUser.Email = appUserViewModel.Email;
             appUser.UserName = appUserViewModel.UserName;
             appUser.PhoneNumber = appUserViewModel.PhoneNumber;
+            appUser.Address = appUserViewModel.Address;
         }
     }
 }

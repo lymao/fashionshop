@@ -156,7 +156,7 @@ namespace Web.Api
                     {
                         if (checkmail.Id != applicationUserViewModel.Id)
                         {
-                            throw new NameDuplicatedException("Email này đã tồn tại.");
+                            throw new NameDuplicatedException("Email này đã được sử dụng.");
                         }
                     }
                     appUser.UpdateUser(applicationUserViewModel);

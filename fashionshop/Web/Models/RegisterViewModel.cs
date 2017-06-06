@@ -15,7 +15,7 @@ namespace Web.Models
         public string UserName { set; get; }
 
         [Required(ErrorMessage = "Bạn cần nhập mật khẩu."), Display(Name = "Mật khẩu")]
-        [StringLength(100, ErrorMessage = "{0} phải ít nhất là {2} ký tự.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Mật khẩu phải ít nhất là {2} ký tự.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

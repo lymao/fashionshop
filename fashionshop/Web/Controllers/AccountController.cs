@@ -1,5 +1,7 @@
-﻿using BotDetect.Web.Mvc;
+﻿using AutoMapper;
+using BotDetect.Web.Mvc;
 using Common;
+using Common.Exceptions;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -7,10 +9,12 @@ using Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Web.Infrastructure.Extensions;
 using Web.Models;
 
 namespace Web.Controllers
@@ -57,6 +61,94 @@ namespace Web.Controllers
         // GET: Account
         public ActionResult Index()
         {
+            var userId = User.Identity.GetUserId();
+            var model = _userManager.FindById(userId);
+            var modelViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(model);
+            return View(modelViewModel);
+        }
+
+        public ActionResult ChangeAccount()
+        {
+            var userId = User.Identity.GetUserId();
+            var model = _userManager.FindById(userId);
+            var modelViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(model);
+            return View(modelViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeAccount(ApplicationUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.Id);
+                try
+                {
+                    var checkmail = await _userManager.FindByEmailAsync(model.Email);
+                    if (checkmail != null)
+                    {
+                        if (checkmail.Id != model.Id)
+                        {
+                            throw new NameDuplicatedException("Email này đã được sử dụng.");
+                        }
+                    }
+                    user.UpdateUser(model);
+                    var result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        ViewData["success"] = "Cập nhật thành công.";
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", string.Join(",", result.Errors));
+                    }
+
+                }
+                catch (NameDuplicatedException dex)
+                {
+                    ModelState.AddModelError("", dex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View();
+        }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var userId = User.Identity.GetUserId();
+            var user = await _userManager.FindByIdAsync(userId);
+            var userCheck = _userManager.Find(user.UserName, model.OldPassword);
+            if (userCheck == null)
+            {
+                ModelState.AddModelError("", "Mật khẩu của bạn không đúng.");
+                return View();
+            }
+            var result = await _userManager.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+                authenticationManager.SignOut();
+                TempData["success"] = "Mật khẩu đã được thay đổi";
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ModelState.AddModelError("", string.Join(",", result.Errors));
+            }
             return View();
         }
 
@@ -89,7 +181,7 @@ namespace Web.Controllers
                     UserName = model.UserName,
                     Email = model.Email,
                     EmailConfirmed = true,
-                    BirthDay=DateTime.Now,
+                    BirthDay = DateTime.Now,
                     Address = model.Address,
                     PhoneNumber = model.PhoneNumber
                 };
@@ -139,7 +231,7 @@ namespace Web.Controllers
                     props.IsPersistent = model.RememberMe;
                     authenticationManager.SignIn(props, identity);
                     //if (Url.IsLocalUrl(returnUrl))
-                    if(returnUrl!=null)
+                    if (returnUrl != null)
                     {
                         return Redirect(returnUrl);
                     }

@@ -1,0 +1,87 @@
+﻿@model Web.Models.ApplicationUserViewModel
+
+@{
+    ViewBag.Title = "ChangeAccount";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="banner1">
+    <div class="container">
+        <h3><a href="/">Trang chủ</a> / <span>Cập nhật tài khoản</span></h3>
+    </div>
+</div>
+<!--banner-->
+<!--login-->
+<div class="content">
+    <div class="typo-w3">
+        <div class="container">
+            <div class="grid_3 grid_5">
+                <div class="col-lg-6">                  
+                    <h3>Cập nhật tài khoản</h3>
+                    @using (Html.BeginForm())
+                    {
+                        if (ViewData["success"] != null)
+                        {
+                            <label class="alert alert-success"><strong>@ViewData["success"]</strong></label><br />
+                        }
+
+                        @Html.AntiForgeryToken();
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.TextBoxFor(m=>m.Id,new { @type="hidden"})
+                        <label>Họ tên</label>
+                        <div class="key">
+                            @Html.TextBoxFor(m => m.FullName, new { @placeholder = "Họ tên" })
+                            <div class="clearfix"></div>
+                            @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <label>Tên tài khoản</label>
+                        <div class="key">
+                            @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Tài khoản" })
+                            <div class="clearfix"></div>
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <label>Email</label>
+                        <div class="key">
+                            @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email" })
+                            <div class="clearfix"></div>
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <label>Địa chỉ</label>
+                        <div class="key">
+                            @Html.TextBoxFor(m => m.Address, new { @placeholder = "Địa chỉ" })
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <label>Điện thoại</label>
+                        <div class="key">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @placeholder = "Số điện thoại" })
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <label>Ngày sinh</label>
+                        <div class="key">
+                            @Html.TextBoxFor(m => m.BirthDay, new { @placeholder = "Ngày sinh", @id = "datepicker" })
+                            <div class="clearfix"></div>
+                        </div>
+                        <input class="btn btn-success" type="submit" value="Cập nhật">
+                    }
+                </div>
+            </div>
+        </div>
+        <!--login-->
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+</script>
+
