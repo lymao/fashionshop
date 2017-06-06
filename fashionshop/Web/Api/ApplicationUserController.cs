@@ -61,15 +61,15 @@ namespace Web.Api
         {
             if (ModelState.IsValid)
             {
-                var checkmail = await _userManager.FindByEmailAsync(applicationUserViewModel.Email);
-                if (checkmail != null)
-                {
-                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Email này đã tồn tại.");
-                }
                 var newAppUser = new ApplicationUser();
                 newAppUser.UpdateUser(applicationUserViewModel);
                 try
                 {
+                    var checkmail = await _userManager.FindByEmailAsync(applicationUserViewModel.Email);
+                    if (checkmail != null)
+                    {
+                        throw new NameDuplicatedException("Email này đã tồn tại.");
+                    }
                     newAppUser.Id = Guid.NewGuid().ToString();
                     var result = await _userManager.CreateAsync(newAppUser, applicationUserViewModel.Password);
                     if (result.Succeeded)
@@ -148,18 +148,17 @@ namespace Web.Api
         {
             if (ModelState.IsValid)
             {
-                var checkmail = await _userManager.FindByEmailAsync(applicationUserViewModel.Email);
-                if (checkmail != null)
-                {
-                    if (checkmail.Id != applicationUserViewModel.Id)
-                    {
-                        return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Email này đã tồn tại.");
-                    }
-
-                }
                 var appUser = await _userManager.FindByIdAsync(applicationUserViewModel.Id);
                 try
                 {
+                    var checkmail = await _userManager.FindByEmailAsync(applicationUserViewModel.Email);
+                    if (checkmail != null)
+                    {
+                        if (checkmail.Id != applicationUserViewModel.Id)
+                        {
+                            throw new NameDuplicatedException("Email này đã tồn tại.");
+                        }
+                    }
                     appUser.UpdateUser(applicationUserViewModel);
                     var result = await _userManager.UpdateAsync(appUser);
                     if (result.Succeeded)

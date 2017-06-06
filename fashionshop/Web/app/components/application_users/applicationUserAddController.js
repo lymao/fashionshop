@@ -45,5 +45,13 @@
         }
         loadGroups();
 
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+
     }
 })(angular.module('fashionshop.application_users'));
