@@ -53,6 +53,7 @@ namespace Web.Controllers
                 var content = System.IO.File.ReadAllText(Server.MapPath("/Assets/client/templates/contact_template.html"));
                 content = content.Replace("{{Name}}", feedbackVm.Name);
                 content = content.Replace("{{Email}}", feedbackVm.Email);
+                content = content.Replace("{{Phone}}", feedbackVm.Phone);
                 content = content.Replace("{{Message}}", feedbackVm.Message);
 
                 var adminEmail = ConfigHelper.GetByKey("AdminEmail");

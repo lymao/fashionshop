@@ -18,6 +18,9 @@ namespace Model.Models
         [StringLength(250)]
         public string Email { set; get; }
 
+        [StringLength(50)]
+        public string Phone { set; get; }
+
         [StringLength(500)]
         public string Message { set; get; }
 
