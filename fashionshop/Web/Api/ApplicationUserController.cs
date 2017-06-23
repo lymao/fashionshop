@@ -13,6 +13,7 @@ using Model.Models;
 using System.Threading.Tasks;
 using Web.Infrastructure.Extensions;
 using Common.Exceptions;
+using System.Globalization;
 
 namespace Web.Api
 {
@@ -57,25 +58,25 @@ namespace Web.Api
         [HttpPost]
         [Route("add")]
         //[Authorize(Roles = "AddUser")]
-        public async Task<HttpResponseMessage> Create(HttpRequestMessage request, ApplicationUserViewModel applicationUserViewModel)
+        public async Task<HttpResponseMessage> Create(HttpRequestMessage request, AppUserViewModel appUserViewModel)
         {
             if (ModelState.IsValid)
             {
                 var newAppUser = new ApplicationUser();
-                newAppUser.UpdateUser(applicationUserViewModel);
+                newAppUser.UpdateUser1(appUserViewModel);
                 try
                 {
-                    var checkmail = await _userManager.FindByEmailAsync(applicationUserViewModel.Email);
+                    var checkmail = await _userManager.FindByEmailAsync(appUserViewModel.Email);
                     if (checkmail != null)
                     {
                         throw new NameDuplicatedException("Email này đã tồn tại.");
                     }
                     newAppUser.Id = Guid.NewGuid().ToString();
-                    var result = await _userManager.CreateAsync(newAppUser, applicationUserViewModel.Password);
+                    var result = await _userManager.CreateAsync(newAppUser, appUserViewModel.Password);
                     if (result.Succeeded)
                     {
                         var listAppUserGroup = new List<ApplicationUserGroup>();
-                        foreach (var group in applicationUserViewModel.Groups)
+                        foreach (var group in appUserViewModel.Groups)
                         {
                             listAppUserGroup.Add(new ApplicationUserGroup()
                             {
@@ -94,7 +95,7 @@ namespace Web.Api
                         _appGroupService.Save();
 
 
-                        return request.CreateResponse(HttpStatusCode.OK, applicationUserViewModel);
+                        return request.CreateResponse(HttpStatusCode.OK, appUserViewModel);
 
                     }
                     else
@@ -144,22 +145,22 @@ namespace Web.Api
         [HttpPut]
         [Route("update")]
         //[Authorize(Roles = "UpdateUser")]
-        public async Task<HttpResponseMessage> Update(HttpRequestMessage request, ApplicationUserViewModel applicationUserViewModel)
+        public async Task<HttpResponseMessage> Update(HttpRequestMessage request, AppUserViewModel appUserViewModel)
         {
             if (ModelState.IsValid)
             {
-                var appUser = await _userManager.FindByIdAsync(applicationUserViewModel.Id);
+                var appUser = await _userManager.FindByIdAsync(appUserViewModel.Id);
                 try
                 {
-                    var checkmail = await _userManager.FindByEmailAsync(applicationUserViewModel.Email);
+                    var checkmail = await _userManager.FindByEmailAsync(appUserViewModel.Email);
                     if (checkmail != null)
                     {
-                        if (checkmail.Id != applicationUserViewModel.Id)
+                        if (checkmail.Id != appUserViewModel.Id)
                         {
                             throw new NameDuplicatedException("Email này đã được sử dụng.");
                         }
                     }
-                    appUser.UpdateUser(applicationUserViewModel);
+                    appUser.UpdateUser1(appUserViewModel);
                     var result = await _userManager.UpdateAsync(appUser);
                     if (result.Succeeded)
                     {
@@ -170,12 +171,12 @@ namespace Web.Api
                         }
                         //then add role checked in Groups
                         var listAppUserGroup = new List<ApplicationUserGroup>();
-                        foreach (var group in applicationUserViewModel.Groups)
+                        foreach (var group in appUserViewModel.Groups)
                         {
                             listAppUserGroup.Add(new ApplicationUserGroup()
                             {
                                 GroupId = group.ID,
-                                UserId = applicationUserViewModel.Id
+                                UserId = appUserViewModel.Id
                             });
                             //add role to user
                             var listRole = _appRoleService.GetListRoleByGroupId(group.ID);
@@ -185,9 +186,9 @@ namespace Web.Api
                                 await _userManager.AddToRoleAsync(appUser.Id, role.Name);
                             }
                         }
-                        _appGroupService.AddUserToGroups(listAppUserGroup, applicationUserViewModel.Id);
+                        _appGroupService.AddUserToGroups(listAppUserGroup, appUserViewModel.Id);
                         _appGroupService.Save();
-                        return request.CreateResponse(HttpStatusCode.OK, applicationUserViewModel);
+                        return request.CreateResponse(HttpStatusCode.OK, appUserViewModel);
 
                     }
                     else

@@ -20,6 +20,7 @@
             apiService.get('/api/applicationUser/detail/' + $stateParams.id, null,
             function (result) {
                 $scope.account = result.data;
+                $scope.account.BirthDay = moment(new Date($scope.account.BirthDay)).format('DD/MM/YYYY');
             },
             function (result) {
                 notificationService.displayError(result.data);
@@ -55,6 +56,7 @@
 
         $(function () {
             $("#datepicker").datepicker({
+                dateFormat: "dd/mm/yy",
                 changeMonth: true,
                 changeYear: true
             });
