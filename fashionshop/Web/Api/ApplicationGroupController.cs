@@ -17,6 +17,7 @@ using Web.Models;
 
 namespace Web.Api
 {
+    [Authorize]
     [RoutePrefix("api/applicationGroup")]
     public class ApplicationGroupController : ApiControllerBase
     {
@@ -35,6 +36,7 @@ namespace Web.Api
         }
         [Route("getlistpaging")]
         [HttpGet]
+        [Authorize(Roles = "ViewGroup")]
         public HttpResponseMessage GetListPaging(HttpRequestMessage request, int page, int pageSize, string filter = null)
         {
 
@@ -60,6 +62,7 @@ namespace Web.Api
         }
         [Route("getlistall")]
         [HttpGet]
+        [Authorize(Roles = "ViewGroup")]
         public HttpResponseMessage GetAll(HttpRequestMessage request)
         {
             return CreateHttpResponse(request, () =>
@@ -75,6 +78,7 @@ namespace Web.Api
         }
         [Route("detail/{id:int}")]
         [HttpGet]
+        [Authorize(Roles = "ViewGroup")]
         public HttpResponseMessage Details(HttpRequestMessage request, int id)
         {
             if (id == 0)
@@ -94,6 +98,7 @@ namespace Web.Api
 
         [HttpPost]
         [Route("add")]
+        [Authorize(Roles = "CreateGroup")]
         public HttpResponseMessage Create(HttpRequestMessage request, ApplicationGroupViewModel appGroupViewModel)
         {
             if (ModelState.IsValid)
@@ -133,6 +138,7 @@ namespace Web.Api
 
         [HttpPut]
         [Route("update")]
+        [Authorize(Roles = "UpdateGroup")]
         public async Task<HttpResponseMessage> Update(HttpRequestMessage request, ApplicationGroupViewModel appGroupViewModel)
         {
             if (ModelState.IsValid)
@@ -185,6 +191,7 @@ namespace Web.Api
 
         [HttpDelete]
         [Route("delete")]
+        [Authorize(Roles = "DeleteGroup")]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
             var appGroup = _appGroupService.Delete(id);
@@ -194,6 +201,7 @@ namespace Web.Api
 
         [Route("deletemulti")]
         [HttpDelete]
+        [Authorize(Roles = "DeleteGroup")]
         public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedList)
         {
             return CreateHttpResponse(request, () =>

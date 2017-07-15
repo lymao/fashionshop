@@ -19,6 +19,7 @@ using Web.Models;
 
 namespace Web.Api
 {
+    [Authorize]
     [RoutePrefix("api/product")]
     public class ProductController : ApiControllerBase
     {
@@ -34,6 +35,7 @@ namespace Web.Api
 
         [Route("getbyid/{id:int}")]
         [HttpGet]
+        [Authorize(Roles = "ViewProduct")]
         public HttpResponseMessage GetById(HttpRequestMessage request, int id)
         {
             return CreateHttpResponse(request, () =>
@@ -50,6 +52,7 @@ namespace Web.Api
 
         [Route("getall")]
         [HttpGet]
+        [Authorize(Roles = "ViewProduct")]
         public HttpResponseMessage GetAll(HttpRequestMessage request, string keyword, int page, int pageSize = 20)
         {
             return CreateHttpResponse(request, () =>
@@ -77,6 +80,7 @@ namespace Web.Api
 
         [Route("create")]
         [HttpPost]
+        [Authorize(Roles = "CreateProduct")]
         public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productVm)
         {
             return CreateHttpResponse(request, () =>
@@ -105,6 +109,7 @@ namespace Web.Api
 
         [Route("update")]
         [HttpPut]
+        [Authorize(Roles = "UpdateProduct")]
         public HttpResponseMessage Update(HttpRequestMessage request, ProductViewModel productVm)
         {
             return CreateHttpResponse(request, () =>
@@ -134,6 +139,7 @@ namespace Web.Api
 
         [Route("delete")]
         [HttpDelete]
+        [Authorize(Roles = "DeleteProduct")]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
             return CreateHttpResponse(request, () =>
@@ -157,6 +163,7 @@ namespace Web.Api
         }
         [Route("deletemulti")]
         [HttpDelete]
+        [Authorize(Roles = "DeleteProduct")]
         public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedProducts)
         {
             return CreateHttpResponse(request, () =>

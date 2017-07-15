@@ -17,6 +17,7 @@ using System.Globalization;
 
 namespace Web.Api
 {
+    [Authorize]
     [RoutePrefix("api/applicationUser")]
     public class ApplicationUserController : ApiControllerBase
     {
@@ -32,6 +33,7 @@ namespace Web.Api
 
         [Route("getlistpaging")]
         [HttpGet]
+        [Authorize(Roles = "ViewUser")]
         public HttpResponseMessage GetListPaging(HttpRequestMessage request, int page, int pageSize)
         {
             return CreateHttpResponse(request, () =>
@@ -57,7 +59,7 @@ namespace Web.Api
 
         [HttpPost]
         [Route("add")]
-        //[Authorize(Roles = "AddUser")]
+        [Authorize(Roles = "CreateUser")]
         public async Task<HttpResponseMessage> Create(HttpRequestMessage request, AppUserViewModel appUserViewModel)
         {
             if (ModelState.IsValid)
@@ -118,7 +120,7 @@ namespace Web.Api
 
         [Route("detail/{id}")]
         [HttpGet]
-        //[Authorize(Roles = "ViewUser")]
+        [Authorize(Roles = "ViewUser")]
         public HttpResponseMessage Details(HttpRequestMessage request, string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -144,7 +146,7 @@ namespace Web.Api
 
         [HttpPut]
         [Route("update")]
-        //[Authorize(Roles = "UpdateUser")]
+        [Authorize(Roles = "UpdateUser")]
         public async Task<HttpResponseMessage> Update(HttpRequestMessage request, AppUserViewModel appUserViewModel)
         {
             if (ModelState.IsValid)
@@ -206,8 +208,8 @@ namespace Web.Api
         }
 
         [HttpDelete]
-        //[Route("delete")]
-        //[Authorize(Roles = "DeleteUser")]
+        [Route("delete")]
+        [Authorize(Roles = "DeleteUser")]
         public async Task<HttpResponseMessage> Delete(HttpRequestMessage request, string id)
         {
             var appUser = await _userManager.FindByIdAsync(id);

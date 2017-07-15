@@ -27,7 +27,7 @@
             controller: 'homeController',
             parent: 'base'
         });
-        $urlRouterProvider.otherwise('/admin');
+        $urlRouterProvider.otherwise('/login');
     }
 
     function configAuthentication($httpProvider) {

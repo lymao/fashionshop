@@ -105,20 +105,20 @@ namespace Web
                 }
                 if (user != null)
                 {
-                    //var applicationGroupService = ServiceFactory.Get<IApplicationGroupService>();
-                    //var listGroup = applicationGroupService.GetListGroupByUserId(user.Id);
-                    //if (listGroup.Any(x => x.Name == CommonConstants.Administrator))
-                    //{
+                    var applicationGroupService = ServiceFactory.Get<IApplicationGroupService>();
+                    var listGroup = applicationGroupService.GetListGroupByUserId(user.Id);
+                    if (listGroup.Any(x => x.Name == CommonConstants.Administrator || x.Name == CommonConstants.User))
+                    {
                         ClaimsIdentity identity = await userManager.CreateIdentityAsync(
                                        user,
                                        DefaultAuthenticationTypes.ExternalBearer);
                         context.Validated(identity);
-                    //}
-                    //else
-                    //{
-                    //    context.Rejected();
-                    //    context.SetError("invalid_group", "Bạn không phải là admin");
-                    //}
+                    }
+                    else
+                    {
+                        context.Rejected();
+                        context.SetError("invalid_group", "Bạn không có quyền truy cập quản trị");
+                    }
 
                 }
                 else

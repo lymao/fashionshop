@@ -2,7 +2,13 @@
 (function (app) {
     app.controller('homeController', homeController);
 
-    function homeController() {
+    homeController.inject = ['authData', '$injector'];
+
+    function homeController(authData, $injector) {
+        if (authData.authenticationData.IsAuthenticated == false) {
+            var stateService = $injector.get('$state');
+            stateService.go('login');
+        }
 
     }
 
