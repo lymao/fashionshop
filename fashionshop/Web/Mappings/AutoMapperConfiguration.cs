@@ -24,6 +24,11 @@ namespace Web.Mappings
                 cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
                 cfg.CreateMap<ApplicationGroup, ApplicationGroupViewModel>();
                 cfg.CreateMap<ApplicationRole, ApplicationRoleViewModel>();
+                cfg.CreateMap<Order, OrderViewModel>();
+                cfg.CreateMap<OrderDetail, OrderDetailViewModel>();
+                cfg.CreateMap<Size, SizeViewModel>();
+                cfg.CreateMap<ProductSize, ProductSizeViewModel>();
+                cfg.CreateMap<ProductTag, ProductTagViewModel>();
 
             });
         }

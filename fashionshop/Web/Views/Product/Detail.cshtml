@@ -55,7 +55,19 @@
                             </div>
                         </div>
                         <div class="women">
-                            <span class="size">@Model.Size</span>
+                            <label>Kích cỡ :</label>
+                            <span class="size">
+                                @if (Model.ProductSizes.Count() > 0)
+                                {
+                                    <select id="myselect">
+                                        <option value="">Chọn size</option>
+                                        @foreach (var size in Model.ProductSizes)
+                                        {
+                                            <option value="@size.Size.ID">@size.Size.Name</option>
+                                        }
+                                    </select>
+                                }
+                            </span>
                             <a href="#" data-id="@Model.ID" data-text="Add To Cart" class="my-cart-b item_add btnAddToCart">Thêm giỏ hàng</a>
                         </div>
                         @{ var listTags = ViewBag.Tag as IEnumerable<Web.Models.TagViewModel>;}
@@ -263,7 +275,16 @@
                         </div>
                         <div class="women">
                             <h6><a href="@url">@item.Name</a></h6>
-                            <span class="size">@item.Size </span>
+                            <span class="size">
+                                @if (item.ProductSizes.Count() > 0)
+                                {
+                                    foreach (var size in item.ProductSizes)
+                                    {
+                                        <text>@size.Size.Name  &nbsp;</text>
+                                    }
+                                }
+                            </span>
+
                             @if (item.Quantity > 0)
                             {
                                 <p>
@@ -278,7 +299,7 @@
                             {
                                 <p style="color:red;">Hết hàng</p>
                             }
-                            
+
                             <a href="#" data-id="@item.ID" data-text="Add To Cart" class="my-cart-b item_add btnAddToCart">Thêm giỏ hàng</a>
                         </div>
                     </div>

@@ -23,6 +23,7 @@
                             <th>Tên sản phẩm</th>
                             <th>Hình ảnh</th>
                             <th>Giá</th>
+                            <th>Kích cỡ</th>
                             <th>Số lượng</th>
                             <th>Thành tiền</th>
                             <th>#</th>
@@ -81,7 +82,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button id="btnCreateOrder" class="btn btn-default">Gửi</button>
+                                    <button id="btnCreateOrder" class="btn btn-info">Thanh toán</button>
                                 </div>
                             </div>
                         </form>
@@ -100,10 +101,19 @@
         <td>{{ProductName}}</td>
         <td><img src="{{Image}}" class="img-rounded" height="100" /></td>
         <td>{{PriceF}}</td>
+        <td>
+            <select id="myselected" data-id="{{ProductId}}">
+                <option value="{{SizeId}}" selected="selected">{{SizeName}}</option>
+                {{#ProductSize}}
+                {{#Size}}               
+                   <option value="{{ID}}">{{Name}}</option>
+                {{/Size}}
+                {{/ProductSize}}
+            </select>
+        </td>
         <td><input type="number" data-id="{{ProductId}}" data-price="{{Price}}" class="input-append txtQuantity" value="{{Quantity}}" /></td>
         <td id="amount_{{ProductId}}">{{Amount}}</td>
         <td><button class="btn btn-danger btnDeleteItem" data-id="{{ProductId}}"><i class="fa fa-close"></i></button></td>
     </tr>
-
 </script>
 

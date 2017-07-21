@@ -11,8 +11,5 @@ namespace Web.Models
 
         public string TagID { set; get; }
 
-        public virtual ProductViewModel Post { set; get; }
-
-        public virtual TagViewModel Tag { set; get; }
     }
 }

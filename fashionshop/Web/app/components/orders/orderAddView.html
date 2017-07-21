@@ -1,0 +1,206 @@
+﻿  <!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Thêm mới đơn hàng
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a ui-sref="orders">Đơn hàng</a></li>
+        <li class="active">Thêm mới</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thêm mới</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmAddOrder" role="form" ng-submit="AddOrder()">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tên khách hàng</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="200" required name="name" ng-model="order.CustomerName">
+                        <span style="color:red" ng-show="frmAddOrder.name.$dirty && frmAddOrder.name.$invalid">
+                            <span ng-show="frmAddOrder.name.$error.required">Yêu cầu nhập tên khách hàng.</span>
+                            <span ng-show="frmAddOrder.name.$error.maxlength">Tên khách hàng chỉ được 200 ký tự</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Địa chỉ</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="address" ng-maxlength="200" required ng-model="order.CustomerAddress"></textarea>
+                        <span style="color:red" ng-show="frmAddOrder.address.$dirty && frmAddOrder.address.$invalid">
+                            <span ng-show="frmAddOrder.address.$error.required">Yêu cầu nhập địa chỉ</span>
+                            <span ng-show="frmAddOrder.address.$error.maxlength">Địa chỉ chỉ được 200 ký tự</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" name="email" class="form-control" required ng-model="order.CustomerEmail">
+                        <span style="color:red" ng-show="frmAddOrder.email.$dirty && frmAddOrder.email.$invalid">
+                            <span ng-show="frmAddOrder.email.$error.required">Yêu cầu nhập tên email.</span>
+                            <span ng-show="frmAddOrder.email.$error.email">Email chưa đúng định dạng</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Điện thoại</label>
+                    <div class="col-sm-10">
+                        <input type="number" name="phone" class="form-control" required ng-model="order.CustomerMobile">
+                        <span style="color:red" ng-show="frmAddOrder.phone.$dirty && frmAddOrder.phone.$invalid">
+                            <span ng-show="frmAddOrder.phone.$error.required">Yêu cầu nhập số điện thoại</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Tin nhắn</label>
+                    <div class="col-sm-10">
+                        <textarea name="message" class="form-control" required ng-model="order.CustomerMessage"></textarea>
+                        <span style="color:red" ng-show="frmAddOrder.message.$dirty && frmAddOrder.message.$invalid">
+                            <span ng-show="frmAddOrder.message.$error.required">Yêu cầu nhập tin nhắn</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Phương thức thanh toán</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="paymentMethod" name="paymentMethod" ng-model="order.PaymentMethod">
+                            <option value="">--Chọn phương thức tahnh toán--</option>
+                            <option value="CASH">Tiền mặt</option>
+                            <option value="BANKING">Chuyển khoản</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Trạng thái thanh toán</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="paymentStatus" name="paymentStatus" ng-model="order.PaymentStatus">
+                            <option value="">--Trạng thái--</option>
+                            <option value="PAID">Đã thanh toán</option>
+                            <option value="UNPAID">Chưa thanh toán</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status" ng-model="order.Status" ng-checked="product.Status"> Hợp lệ
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addDetailOrder">Thêm chi tiết</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Sản phẩm
+                                    </th>
+                                    <th>
+                                        Số lượng
+                                    </th>
+                                    <th>Giá</th>
+                                    <th>Thành tiền</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in orderDetails">
+                                    <td>
+                                        {{item.Product.Name}}
+                                    </td>
+                                    <td>
+                                        {{item.Quantity | number}}
+                                    </td>
+                                    <td>{{item.Price | number}}</td>
+                                    <td>{{item.Price * item.Quantity | number}}</td>
+                                    <td>
+                                        <button class="btn btn-danger" ng-click="deleteDetail(item)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- /.box-body -->
+            <div class="box-footer">
+                <button ui-sref="orders" class="btn btn-default">Hủy</button>
+                <button type="submit" ng-disabled="frmAddOrder.$invalid" class="btn btn-success pull-right">Lưu hóa đơn</button>
+            </div><!-- /.box-footer -->
+        </form>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+
+<!--Modal thêm chi tiết hóa đơn-->
+ <!-- Modal -->
+<div class="modal fade" id="addDetailOrder" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm chi tiết hóa đơn</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-label-left input_mask" novalidate ng-submit="saveOrderDetail(detailForm)">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="product">Sản phẩm</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name="productID" id="product" required ng-model="detailEntity.ProductID">
+                                <option value="">--Chọn sản phẩm--</option>
+                                <option ng-repeat="x in products" value="x.ID">{{x.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="size">Kích cỡ</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" required  id="size" name="sizeId" ng-model="detailEntity.SizeId">
+                                <option value="">--Chọn cỡ--</option>
+                                <option ng-repeat="x in sizes" value="x.ID">{{x.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="quantity">Số lượng</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" id="quantity" ng-model="detailEntity.Quantity" required name="quantity" class="form-control">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Giá tiền</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" id="price" ng-model="detailEntity.Price" required name="price" class="form-control">
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button type="submit" class="btn btn-success pull-right" ng-disabled="!detailForm.form.valid">Cập nhật</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

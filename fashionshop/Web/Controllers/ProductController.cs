@@ -110,7 +110,7 @@ namespace Web.Controllers
             var query=_productService.GetAll().Where(x => keys.Contains(x.ID));
             ViewBag.Views = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(query);
 
-            var model = _productService.GetById(productId);
+            var model = _productService.GetDetail(productId);
             var productViewModel = Mapper.Map<Product, ProductViewModel>(model);
             List<string> moreImages = new JavaScriptSerializer().Deserialize<List<string>>(productViewModel.MoreImages);
             ViewBag.MoreImages = moreImages;

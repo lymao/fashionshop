@@ -65,10 +65,10 @@
                                 </span>
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-default" ng-click="exportPdf(item.ID)"><i class="fa fa-file-excel-o"></i></button>
-
-                                <button class="btn btn-sm btn-primary" ui-sref="product_edit({id:item.ID})"><i class="fa fa-pencil"></i></button>
-                                <button class="btn  btn-sm btn-danger" ng-click="deleteProduct(item.ID)"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Sửa sản phẩm" ui-sref="product_edit({id:item.ID})"><i class="fa fa-pencil"></i></button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#addEditSize" title="Quản lý số lượng" ng-click="getSizeByProductId(item.ID)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                <button class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="Xuất ra PDF" ng-click="exportPdf(item.ID)"><i class="fa fa-file-excel-o"></i></button>
+                                <button class="btn  btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa sản phẩm" ng-click="deleteProduct(item.ID)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                         <tfoot>
@@ -92,3 +92,80 @@
         </div><!-- /.box-footer-->
     </div><!-- /.box -->
 </section><!-- /.content -->
+<style>
+    .dropdown-header {
+        font-weight: bold;
+        font-size:18px;
+    }
+    .mt-24 {
+        margin-top: 24px;
+    
+    }
+</style>
+<!--Modal quản lý size sản phẩm-->
+<div class="modal fade" id="addEditSize" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Quản lý số lượng</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" name="frmAddEditSize" ng-submit="AddProductSize()" novalidate>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Kích cỡ</label>
+                            <div class="form-group">
+                                <ui-select ng-model="entity.SizeID" name="sizeId" theme="bootstrap" style="width: 90%;margin-left:15px;">
+                                    <ui-select-match placeholder="Chọn hoặc tìm kiếm size...">{{$select.selected.Name}}</ui-select-match>
+                                    <ui-select-choices group-by="'Code'" repeat="size.ID as size in sizes | filter: $select.search">
+                                        <div ng-bind-html="size.Name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <input type="hidden" ng-model="entity.SizeID" required />
+                                <span ng-show="frmAddEditSize.sizeId.$error.required">Bạn phải chọn kích cỡ</span>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <label>Số lượng</label>
+                            <div class="form-group">
+                                <input type="number" name="size" class="form-control" required pattern="[1-9]+" ng-model="entity.Quantity" placeholder="Vui lòng nhập số lượng..." />
+                                <span style="color:red" ng-show="frmAddEditSize.size.$dirty && frmAddEditSize.size.$invalid">
+                                    <span ng-show="frmAddEditSize.size.$error.pattern">Số lượng phải lơn hơn 0</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary mt-24" type="submit" ng-disabled="frmAddEditSize.$invalid"> Thêm </button>
+                        </div>
+                    </div>
+                </form>
+
+                <table class="table" ng-hide="showhideTable">
+                    <thead>
+                        <tr>
+                            <th>Kích cỡ</th>
+                            <th>Số lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in allSizeByProductId">
+                            <td>
+                                {{item.Size.Name}}
+                            </td>
+                            <td>
+                                {{item.Quantity}}
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="deleteSize(item.ProductId,item.SizeId,item.Quantity)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -259,6 +259,7 @@
     <Compile Include="Api\ApplicationRoleController.cs" />
     <Compile Include="Api\ApplicationUserController.cs" />
     <Compile Include="Api\ContactDetailController.cs" />
+    <Compile Include="Api\OrderController.cs" />
     <Compile Include="Api\PostCategoryController.cs" />
     <Compile Include="Api\ProductCategoryController.cs" />
     <Compile Include="Api\ProductController.cs" />
@@ -302,10 +303,12 @@
     <Compile Include="Models\PostTagViewModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\ProductCategoryViewModel.cs" />
+    <Compile Include="Models\ProductSizeViewModel.cs" />
     <Compile Include="Models\ProductTagViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ShoppingCartViewModel.cs" />
+    <Compile Include="Models\SizeViewModel.cs" />
     <Compile Include="Models\SlideViewModel.cs" />
     <Compile Include="Models\TagViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -346,6 +349,13 @@
     <Content Include="app\components\home\rootController.js" />
     <Content Include="app\components\login\loginController.js" />
     <Content Include="app\components\login\loginView.html" />
+    <Content Include="app\components\orders\oderEditView.html" />
+    <Content Include="app\components\orders\orderAddController.js" />
+    <Content Include="app\components\orders\orderAddView.html" />
+    <Content Include="app\components\orders\orderEditController.js" />
+    <Content Include="app\components\orders\orderListController.js" />
+    <Content Include="app\components\orders\orderListView.html" />
+    <Content Include="app\components\orders\orders.module.js" />
     <Content Include="app\components\products\productAddController.js" />
     <Content Include="app\components\products\productAddView.html" />
     <Content Include="app\components\products\productEditController.js" />

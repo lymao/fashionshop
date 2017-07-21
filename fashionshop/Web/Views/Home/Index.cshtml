@@ -43,7 +43,16 @@
                                             </div>
                                             <div class="women">
                                                 <h6><a href="@url">@item.Name</a></h6>
-                                                <span class="size">@item.Size</span>
+                                                <span class="size">
+                                                    @if (item.ProductSizes.Count() > 0)
+                                                    {
+                                                        foreach (var size in item.ProductSizes)
+                                                        {
+                                                            <text>@size.Size.Name  &nbsp;</text>
+                                                        }
+                                                    }
+                                                </span>
+
                                                 @if (item.Quantity > 0)
                                                 {
                                                     <p>
@@ -91,7 +100,15 @@
                                             </div>
                                             <div class="women">
                                                 <h6><a href="@url">@item.Name</a></h6>
-                                                <span class="size">@item.Size</span>
+                                                <span class="size">
+                                                    @if (item.ProductSizes.Count() > 0)
+                                                    {
+                                                        foreach (var size in item.ProductSizes)
+                                                        {
+                                                            <text>@size.Size.Name  &nbsp;</text>
+                                                        }
+                                                    }
+                                                </span>
                                                 @if (item.Quantity > 0)
                                                 {
                                                     <p>
@@ -231,7 +248,16 @@
                             </div>
                             <div class="women">
                                 <h6><a href="@url">@item.Name</a></h6>
-                                <span class="size">@item.Size</span>
+                                <span class="size">
+                                    @if (item.ProductSizes.Count() > 0)
+                                    {
+                                        foreach (var size in item.ProductSizes)
+                                        {
+                                            <text>@size.Size.Name  &nbsp;</text>
+                                        }
+                                    }
+                                </span>
+
                                 @if (item.Quantity > 0)
                                 {
                                     <p>

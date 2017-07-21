@@ -26,10 +26,14 @@ namespace Web.Api
     {
         #region Initialize
         private IProductService _productService;
-        public ProductController(IErrorService errorService, IProductService productService)
+        private ISizeService _sizeService;
+        private IProductSizeService _productSizeService;
+        public ProductController(IErrorService errorService, IProductService productService, ISizeService sizeService, IProductSizeService productSizeService)
             : base(errorService)
         {
             this._productService = productService;
+            this._sizeService = sizeService;
+            this._productSizeService = productSizeService;
         }
 
         #endregion
@@ -41,13 +45,89 @@ namespace Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                var model = _productService.GetById(id);
+                var model = _productService.GetDetail(id);
 
                 var responseData = Mapper.Map<Product, ProductViewModel>(model);
 
                 var response = request.CreateResponse(HttpStatusCode.OK, responseData);
 
                 return response;
+            });
+        }
+
+        [Route("getallsize")]
+        [HttpGet]
+        public HttpResponseMessage GetAllSize(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var query = _sizeService.GetAll();
+                var model = Mapper.Map<IEnumerable<Size>, IEnumerable<SizeViewModel>>(query);
+                var response = request.CreateResponse(HttpStatusCode.OK, model);
+                return response;
+            });
+        }
+
+        [Route("getsizebyproductid")]
+        [HttpGet]
+        public HttpResponseMessage GetSizeByProductId(HttpRequestMessage request, int productId)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var query = _productSizeService.GetAllSizeByProductId(productId);
+                var model = Mapper.Map<IEnumerable<ProductSize>, IEnumerable<ProductSizeViewModel>>(query);
+                var response = request.CreateResponse(HttpStatusCode.OK, model);
+                return response;
+            });
+        }
+
+        [Route("addproductsize")]
+        [HttpPost]
+        public HttpResponseMessage AddProductSize(HttpRequestMessage request, ProductSizeViewModel productSizeVM)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                try
+                {
+                    var newProductSize = new ProductSize();
+                    if (_productSizeService.CheckExist(productSizeVM.ProductId, productSizeVM.SizeId))
+                    {
+                        return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Kích cỡ này cho sản phẩm đã tồn tại");
+                    }
+                    else
+                    {
+                        newProductSize.UpdateProductSize(productSizeVM);
+                        _productSizeService.Add(newProductSize);
+                        _productSizeService.Save();
+                        return request.CreateResponse(HttpStatusCode.OK, productSizeVM);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+                }
+
+            });
+
+        }
+
+        [Route("deleteproductsize")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteProductSize(HttpRequestMessage request, int productId, int sizeId, int quantity)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                try
+                {
+                    _productSizeService.Delete(productId, sizeId, quantity);
+                    _productSizeService.Save();
+                    return request.CreateResponse(HttpStatusCode.OK);
+                }
+                catch (Exception ex)
+                {
+
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+                }
             });
         }
 
@@ -122,7 +202,7 @@ namespace Web.Api
                 }
                 else
                 {
-                    var dbProduct = _productService.GetById(productVm.ID);
+                    var dbProduct = _productService.GetDetail(productVm.ID);
 
                     dbProduct.UpdateProduct(productVm);
                     dbProduct.UpdatedDate = DateTime.Now;
@@ -292,7 +372,7 @@ namespace Web.Api
             {
                 var template = File.ReadAllText(HttpContext.Current.Server.MapPath("/Assets/admin/templates/product-detail.html"));
                 var replaces = new Dictionary<string, string>();
-                var product = _productService.GetById(id);
+                var product = _productService.GetDetail(id);
 
                 replaces.Add("{{ProductName}}", product.Name);
                 replaces.Add("{{Price}}", product.Price.ToString("N0"));

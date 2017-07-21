@@ -102,7 +102,13 @@ namespace Web.Infrastructure.Extensions
 
             product.Image1 = productVm.Image1;
             product.TrendFlag = productVm.TrendFlag;
-            product.Size = productVm.Size;
+        }
+
+        public static void UpdateProductSize(this ProductSize productSize, ProductSizeViewModel productSizeVM)
+        {
+            productSize.ProductId = productSizeVM.ProductId;
+            productSize.SizeId = productSizeVM.SizeId;
+            productSize.Quantity = productSizeVM.Quantity;
         }
 
         public static void UpdateSlide(this Slide slide, SlideViewModel slideVm)

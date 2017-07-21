@@ -29,8 +29,6 @@ namespace Web.Models
 
         public string Description { set; get; }
 
-        public string Size { set; get; }
-
         public string Detail { set; get; }
 
         public string Content { set; get; }
@@ -62,6 +60,11 @@ namespace Web.Models
         public int Quantity { set; get; }
 
         public decimal OriginalPrice { set; get; }
+
         public virtual ProductCategoryViewModel ProductCategory { set; get; }
+
+        public IEnumerable<ProductTagViewModel> ProductTags { set; get; }
+
+        public ICollection<ProductSizeViewModel> ProductSizes { get; set; }
     }
 }

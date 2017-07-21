@@ -19,11 +19,15 @@ namespace Web.Controllers
         IProductService _productService;
         ApplicationUserManager _userManager;
         IOrderService _orderService;
-        public ShoppingCartController(IOrderService orderService, IProductService productService, ApplicationUserManager userManager)
+        ISizeService _sizeService;
+        IProductSizeService _productSizeService;
+        public ShoppingCartController(IProductSizeService productSizeService, ISizeService sizeService, IOrderService orderService, IProductService productService, ApplicationUserManager userManager)
         {
             this._productService = productService;
             this._userManager = userManager;
             this._orderService = orderService;
+            this._sizeService = sizeService;
+            this._productSizeService = productSizeService;
         }
         // GET: ShoppingCart
         public ActionResult Index()
@@ -45,14 +49,14 @@ namespace Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult Add(int productId, int quanlity = 0)
+        public JsonResult Add(int productId, int quanlity = 0, int sizeId = 0)
         {
             var cart = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
-            if (cart == null)
+            if (cart == null || cart.Count() == 0)
             {
                 cart = new List<ShoppingCartViewModel>();
             }
-            var product = _productService.GetById(productId);
+            var product = _productService.GetDetail(productId);
             if (product.Quantity == 0)
             {
                 return Json(new
@@ -75,6 +79,12 @@ namespace Web.Controllers
                         {
                             item.Quantity += 1;
                         }
+                        if (sizeId > 0)
+                        {
+                            var query = _sizeService.GetDetail(sizeId);
+                            var size = Mapper.Map<Size, SizeViewModel>(query);
+                            item.Size = size;
+                        }
                     }
                 }
             }
@@ -91,6 +101,12 @@ namespace Web.Controllers
                 {
                     newItem.Quantity = 1;
                 }
+                if (sizeId > 0)
+                {
+                    var query = _sizeService.GetDetail(sizeId);
+                    var size = Mapper.Map<Size, SizeViewModel>(query);
+                    newItem.Size = size;
+                }
                 cart.Add(newItem);
             }
             Session[CommonConstants.SessionCart] = cart;
@@ -99,6 +115,7 @@ namespace Web.Controllers
                 status = true
             });
         }
+
         [HttpPost]
         public JsonResult Update(string cartData)
         {
@@ -119,6 +136,26 @@ namespace Web.Controllers
                 status = true
             });
         }
+
+        [HttpPost]
+        public JsonResult UpdateSize(int sizeIdSlected = 0, int productId = 0)
+        {
+            var cart = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
+            foreach (var item in cart)
+            {
+                if (item.ProductId == productId)
+                {
+                    var query = _sizeService.GetDetail(sizeIdSlected);
+                    var size = Mapper.Map<Size, SizeViewModel>(query);
+                    item.Size = size;
+                }
+            }
+            return Json(new
+            {
+                status = true
+            });
+        }
+
         [HttpPost]
         public JsonResult Delete(int productId)
         {
@@ -166,9 +203,17 @@ namespace Web.Controllers
             });
         }
 
+
         [HttpPost]
         public JsonResult CreateOrder(string orderViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(new
+                {
+                    status = false,
+                });
+            }
             var order = new JavaScriptSerializer().Deserialize<OrderViewModel>(orderViewModel);
             var orderNew = new Order();
             orderNew.UpdateOrder(order);
@@ -182,19 +227,21 @@ namespace Web.Controllers
             var cartSession = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
             var productName = "";
             var quantity = 0;
-            var productId = 0;
+            var size = "";
             foreach (var item in cartSession)
             {
+                var quantityBySizeId = _productSizeService.GetBySize(item.ProductId, item.Size.ID);
                 var orderDetail = new OrderDetail();
                 orderDetail.ProductID = item.ProductId;
                 orderDetail.Quantity = item.Quantity;
                 orderDetail.Price = item.Product.Price;
+                orderDetail.SizeId = item.Size.ID;
                 orderDetails.Add(orderDetail);
-                isEnough = _productService.SellProduct(item.ProductId, item.Quantity);
+                isEnough = _productSizeService.SellProduct(item.ProductId, item.Size.ID, item.Quantity);
                 if (isEnough == false)
                 {
-                    productId = item.ProductId;
-                    quantity = item.Product.Quantity;
+                    size = item.Size.Name;
+                    quantity = quantityBySizeId.Quantity;
                     productName = item.Product.Name;
                     break;
                 }
@@ -214,11 +261,9 @@ namespace Web.Controllers
                 return Json(new
                 {
                     status = false,
-                    message = "" + productName + ". Mã SP(" + productId + ")" + " hiện chỉ còn: (" + quantity + ") sản phẩm."
+                    message = "" + productName + ". Với kích cỡ (" + size + ")" + " hiện chỉ còn: (" + quantity + ") sản phẩm."
                 });
             }
-
-
         }
     }
 }

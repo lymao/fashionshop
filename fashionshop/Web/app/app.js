@@ -8,6 +8,7 @@
         'fashionshop.application_groups',
         'fashionshop.contacts',
         'fashionshop.statistics',
+        'fashionshop.orders',
         'fashionshop.common']).config(config).config(configAuthentication);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];

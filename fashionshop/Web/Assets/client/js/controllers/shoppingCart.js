@@ -8,9 +8,19 @@
         $('.btnAddToCart').off('click').on('click', function (e) {
             e.preventDefault();
             var quantity = 0;
+            var sizeId = 0;
             quantity = $('#quantityDetail').text();
             var productId = parseInt($(this).data('id'));
-            cart.addItem(productId, quantity);
+            sizeId = parseInt($('#myselect').val());
+            cart.addItem(productId, quantity, sizeId);
+        });
+
+        $('select').change(function () {
+            var sizeIdSlected = 0;
+            var productId = 0;
+            sizeIdSlected = $(this).find('option:selected').val();
+            productId = parseInt($(this).data('id'));
+            cart.updateSize(sizeIdSlected, productId);
         });
 
         $('.simpleCart_empty').off('click').on('click', function (e) {
@@ -39,7 +49,7 @@
             var productId = parseInt($(this).data('id'));
             var quantity = parseInt($(this).val());
             var price = parseFloat($(this).data('price'));
-            if (isNaN(quantity) == false) {
+            if (isNaN(quantity) === false) {
                 var amount = quantity * price;
 
                 $('#amount_' + productId).text(numeral(amount).format('0,0'));
@@ -93,6 +103,7 @@
             rules: {
                 name: 'required',
                 address: 'required',
+                message:'required',
                 email: {
                     required: true,
                     email: true
@@ -112,10 +123,51 @@
                 phone: {
                     required: "Bạn chưa nhập số điện thoại",
                     number: "Số điện thoại phải là số."
-                }
+                },
+                message:'Bạn phải nhập tin nhắn'
             }
         });
     },
+
+    addItem: function (productId, quantity, sizeId) {
+        $.ajax({
+            url: '/ShoppingCart/Add',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                productId: productId,
+                quanlity: quantity,
+                sizeId: sizeId
+            },
+            success: function (res) {
+                if (res.status) {
+                    alert('Thêm vào giỏ hàng thành công.');
+                    cart.loadData();
+                } else {
+                    alert(res.message);
+                    cart.loadData();
+                }
+
+            }
+        });
+    },
+
+    updateSize: function (sizeIdSlected, productId) {
+        $.ajax({
+            url: '/ShoppingCart/UpdateSize',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                sizeIdSlected: sizeIdSlected,
+                productId: productId
+            },
+            success: function (result) {
+                if (result.status)
+                    cart.loadData();
+            }
+        })
+    },
+
 
     createOrder: function () {
         var order = {
@@ -144,7 +196,7 @@
                 }
                 else {
                     $('#showMessage').show();
-                    $('#showMessage').html('<h4 style="text-align:center;color:blue;">' + res.message + '</h4>');
+                    $('#showMessage').html('<h4 style="text-align:center;color:red;">' + res.message + '</h4>');
                 }
             }
         });
@@ -185,28 +237,6 @@
                     $('#email').val(user.Email);
                     $('#phone').val(user.PhoneNumber);
                 }
-            }
-        });
-    },
-
-    addItem: function (productId,quantity) {
-        $.ajax({
-            url: '/ShoppingCart/Add',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                productId: productId,
-                quanlity:quantity
-            },
-            success: function (res) {
-                if (res.status) {
-                    alert('Thêm vào giỏ hàng thành công.');
-                    cart.loadData();
-                } else {
-                    alert(res.message);
-                    cart.loadData();
-                }
-
             }
         });
     },
@@ -256,17 +286,35 @@
                     var rendered = '';
                     var template = $('#template').html();
                     $.each(data, function (i, item) {
-                        rendered += Mustache.render(template, {
-                            ProductId: item.ProductId,
-                            ProductName: item.Product.Name,
-                            Image: item.Product.Image,
-                            Price: item.Product.Price,
-                            PriceF: numeral(item.Product.Price).format('0,0'),
-                            Quantity: item.Quantity,
-                            Amount: numeral(item.Product.Price * item.Quantity).format('0,0')
-                        });
+                        if (item.Size !== null) {
+                            rendered += Mustache.render(template, {
+                                ProductId: item.ProductId,
+                                ProductName: item.Product.Name,
+                                Image: item.Product.Image,
+                                SizeId: item.Size.ID,
+                                SizeName: item.Size.Name,
+                                ProductSize: item.Product.ProductSizes,
+                                Price: item.Product.Price,
+                                PriceF: numeral(item.Product.Price).format('0,0'),
+                                Quantity: item.Quantity,
+                                Amount: numeral(item.Product.Price * item.Quantity).format('0,0')
+                            });
+                        }
+                        else {
+                            rendered += Mustache.render(template, {
+                                ProductId: item.ProductId,
+                                ProductName: item.Product.Name,
+                                Image: item.Product.Image,
+                                ProductSize: item.Product.ProductSizes,
+                                Price: item.Product.Price,
+                                PriceF: numeral(item.Product.Price).format('0,0'),
+                                Quantity: item.Quantity,
+                                Amount: numeral(item.Product.Price * item.Quantity).format('0,0')
+                            });
+                        }
+
                     });
-                    if (rendered == '')
+                    if (rendered === '')
                         $('#cartContent').html('<div align="center"><h4 style="color:blue;">Giỏ hàng của bạn còn trống.</h4><br /> <button class="btn btn-block" style="color:blue;"><a href="/">Tiếp tục mua hàng</a></button></div>');
                     $('#cartBody').html(rendered);
                     $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0'));

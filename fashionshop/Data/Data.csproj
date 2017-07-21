@@ -85,6 +85,22 @@
     <Compile Include="Migrations\201706061125583_AddColumnPhoneToFeedback.Designer.cs">
       <DependentUpon>201706061125583_AddColumnPhoneToFeedback.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707171403020_DropClumnSizeInProduct.cs" />
+    <Compile Include="Migrations\201707171403020_DropClumnSizeInProduct.Designer.cs">
+      <DependentUpon>201707171403020_DropClumnSizeInProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707171407050_AddTableSizeAndProductSize.cs" />
+    <Compile Include="Migrations\201707171407050_AddTableSizeAndProductSize.Designer.cs">
+      <DependentUpon>201707171407050_AddTableSizeAndProductSize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707171601420_AddColumnCodeToTableSize.cs" />
+    <Compile Include="Migrations\201707171601420_AddColumnCodeToTableSize.Designer.cs">
+      <DependentUpon>201707171601420_AddColumnCodeToTableSize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707201838058_AddColumnSizeIdToOrderDetail.cs" />
+    <Compile Include="Migrations\201707201838058_AddColumnSizeIdToOrderDetail.Designer.cs">
+      <DependentUpon>201707201838058_AddColumnSizeIdToOrderDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationGroupRepository.cs" />
@@ -105,7 +121,9 @@
     <Compile Include="Repositories\PostTagRepository.cs" />
     <Compile Include="Repositories\ProductCategoryRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\ProductSizeRepository.cs" />
     <Compile Include="Repositories\ProductTagRepository.cs" />
+    <Compile Include="Repositories\SizeRepository.cs" />
     <Compile Include="Repositories\SlideRepository.cs" />
     <Compile Include="Repositories\SupportOnlineRepository.cs" />
     <Compile Include="Repositories\SystemConfigRepository.cs" />
@@ -141,6 +159,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706061125583_AddColumnPhoneToFeedback.resx">
       <DependentUpon>201706061125583_AddColumnPhoneToFeedback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707171403020_DropClumnSizeInProduct.resx">
+      <DependentUpon>201707171403020_DropClumnSizeInProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707171407050_AddTableSizeAndProductSize.resx">
+      <DependentUpon>201707171407050_AddTableSizeAndProductSize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707171601420_AddColumnCodeToTableSize.resx">
+      <DependentUpon>201707171601420_AddColumnCodeToTableSize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707201838058_AddColumnSizeIdToOrderDetail.resx">
+      <DependentUpon>201707201838058_AddColumnSizeIdToOrderDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

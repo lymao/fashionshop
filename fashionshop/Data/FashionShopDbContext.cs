@@ -41,6 +41,9 @@ namespace Data
         public DbSet<ApplicationRole> ApplicationRoles { set; get; }
         public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { set; get; }
         public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }
+        
+        public DbSet<Size> Sizes { set; get; }
+        public DbSet<ProductSize> ProductSizes { set; get; }
 
         public static FashionShopDbContext Create()
         {

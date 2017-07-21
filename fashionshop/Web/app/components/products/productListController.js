@@ -80,6 +80,71 @@
         }
         $scope.getProducts();
 
+        $scope.sizes = [];
+        $scope.loadSize = loadSize;
+        function loadSize() {
+            apiService.get('api/product/getallsize', null, function (result) {
+                $scope.sizes = result.data;
+
+            }, function (err) {
+                console.log(err);
+            });
+        }
+        $scope.loadSize();
+
+        $scope.entity = [];
+        $scope.showhideTable = true;
+        $scope.allSizeByProductId = [];
+        $scope.getSizeByProductId = getSizeByProductId;
+        function getSizeByProductId(productId) {
+            $scope.entity = { ProductId: productId };
+            var config = {
+                params: {
+                    productId: productId
+                }
+            }
+            apiService.get('api/product/getsizebyproductid', config, function (result) {
+                $scope.allSizeByProductId = result.data;
+                if ($scope.allSizeByProductId.length !== 0) {
+                    $scope.showhideTable = false;
+                }
+                else {
+                    $scope.showhideTable = true;
+                }
+            }, function (err) {
+                cosole.log(err);
+            });
+        }
+
+        $scope.AddProductSize = AddProductSize;
+        function AddProductSize() {
+            apiService.post('api/product/addproductsize', $scope.entity, function (result) {
+                notificationService.displaySuccess('Thêm thành công');
+                $scope.getSizeByProductId(result.data.ProductId);
+            }, function (err) {
+                notificationService.displayError(err.data.Message);
+            });
+        }
+
+        $scope.deleteSize = deleteSize;
+        function deleteSize(productId, sizeId,quantity) {
+            $ngBootbox.confirm('Bạn có chắc muốn xóa?').then(function () {
+                var config = {
+                    params: {
+                        ProductId: productId,
+                        SizeId: sizeId,
+                        Quantity: quantity
+                    }
+                }
+                apiService.del('api/product/deleteproductsize', config, function (result) {
+                    notificationService.displaySuccess('Xóa thành công');
+                    $scope.getSizeByProductId(productId);
+                }, function (err) {
+                    notificationService.displayError(err.data.Message);
+                });
+            });
+        }
+
         $scope.deleteProduct = deleteProduct;
         function deleteProduct(id) {
             $ngBootbox.confirm('Bạn có chắc muốn xóa?').then(function () {

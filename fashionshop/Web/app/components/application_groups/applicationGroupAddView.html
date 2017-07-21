@@ -23,7 +23,7 @@
                                 <label class="col-sm-2 control-label">Tên nhóm</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="name" class="form-control" required ng-model="group.Name">
-                                    <span style="color:red" ng-show="frmAddAppGroup.name.$touched && frmAddAppGroup.name.$invalid">
+                                    <span style="color:red" ng-show="frmAddAppGroup.name.$dirty&& frmAddAppGroup.name.$invalid">
                                         <span ng-show="frmAddAppGroup.name.$error.required">Yêu cầu nhập tên nhóm.</span>
                                         <span ng-show="frmAddAppGroup.name.$error.maxlength">Ký tự tối đa là 50.</span>
                                     </span>

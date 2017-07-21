@@ -20,31 +20,31 @@
                 <form class="form-horizontal" role="form" novalidate name="frmUpdateAccount" ng-submit="updateAccount()">
                     <div class="box-body">
                         <div class="col-md-8">
-                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.name.$invalid && frmUpdateAccount.name.$touched }">
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.name.$invalid && frmUpdateAccount.name.$dirty }">
                                 <label class="col-sm-2 control-label">Họ tên</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="name" class="form-control" ng-maxlength="50" required ng-model="account.FullName">
-                                    <span style="color:red" ng-show="frmUpdateAccount.name.$touched && frmUpdateAccount.name.$invalid">
+                                    <span style="color:red" ng-show="frmUpdateAccount.name.$dirty && frmUpdateAccount.name.$invalid">
                                         <span ng-show="frmUpdateAccount.name.$error.required">Yêu cầu nhập họ tên người dùng.</span>
                                         <span ng-show="frmUpdateAccount.name.$error.maxlength">Ký tự tối đa là 50.</span>
                                     </span>
                                 </div>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.userName.$invalid && frmUpdateAccount.userName.$touched }">
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.userName.$invalid && frmUpdateAccount.userName.$dirty }">
                                 <label class="col-sm-2 control-label">Tài khoản</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="userName" class="form-control" ng-maxlength="50" required ng-model="account.UserName">
-                                    <span style="color:red" ng-show="frmUpdateAccount.userName.$touched && frmUpdateAccount.userName.$invalid">
+                                    <span style="color:red" ng-show="frmUpdateAccount.userName.$dirty && frmUpdateAccount.userName.$invalid">
                                         <span ng-show="frmUpdateAccount.userName.$error.required">Yêu cầu nhập tên tài khoản.</span>
                                         <span ng-show="frmUpdateAccount.userName.$error.maxlength">Ký tự tối đa là 50.</span>
                                     </span>
                                 </div>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.email.$invalid && frmUpdateAccount.email.$touched }">
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.email.$invalid && frmUpdateAccount.email.$dirty }">
                                 <label class="col-sm-2 control-label">Email</label>
                                 <div class="col-sm-10">
                                     <input type="email" name="email" class="form-control" required ng-model="account.Email">
-                                    <span style="color:red" ng-show="frmUpdateAccount.email.$touched && frmUpdateAccount.email.$invalid">
+                                    <span style="color:red" ng-show="frmUpdateAccount.email.$dirty && frmUpdateAccount.email.$invalid">
                                         <span ng-show="frmUpdateAccount.email.$error.required">Yêu cầu nhập tên email.</span>
                                         <span ng-show="frmUpdateAccount.email.$error.email">Email chưa đúng định dạng</span>
                                     </span>
@@ -56,11 +56,11 @@
                                     <input type="text" name="phone" class="form-control" ng-model="account.PhoneNumber">
                                 </div>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.birthDay.$invalid && frmUpdateAccount.birthDay.$touched }">
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.birthDay.$invalid && frmUpdateAccount.birthDay.$dirty }">
                                 <label class="col-sm-2 control-label">Ngày sinh</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="birthDay" id="datepicker" class="form-control" ng-maxlength="50" required ng-model="account.BirthDay">
-                                    <span style="color:red" ng-show="frmUpdateAccount.birthDay.$touched && frmUpdateAccount.email.$invalid">
+                                    <span style="color:red" ng-show="frmUpdateAccount.birthDay.$dirty && frmUpdateAccount.email.$invalid">
                                         <span ng-show="frmUpdateAccount.birthDay.$error.required">Yêu cầu nhập ngày sinh.</span>
                                         <span ng-show="frmUpdateAccount.birthDay.$error.maxlength">Ký tự tối đa là 50.</span>
                                     </span>

@@ -22,7 +22,7 @@ namespace Service
 
         IEnumerable<Product> GetAll(string keyword);
 
-        Product GetById(int id);
+        Product GetDetail(int id);
 
         IEnumerable<Product> GetLastest(int top);
 
@@ -49,8 +49,6 @@ namespace Service
         void IncreaseView(int id);
 
         IEnumerable<Tag> GetListTagByProductId(int id);
-
-        bool SellProduct(int productId, int quantity);
 
         void Save();
     }
@@ -120,9 +118,9 @@ namespace Service
                 return _productRepository.GetAll();
         }
 
-        public Product GetById(int id)
+        public Product GetDetail(int id)
         {
-            return _productRepository.GetSingleById(id);
+            return _productRepository.GetSingleByCondition(x => x.ID == id, new string[] { "ProductSizes.Size" });
         }
 
         public void Save()
@@ -159,7 +157,7 @@ namespace Service
 
         public IEnumerable<Product> GetLastest(int top)
         {
-            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
+            return _productRepository.GetMulti(x => x.Status, new string[] { "ProductSizes.Size" }).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
         public IEnumerable<Product> GetHotProduct(int top)
@@ -253,7 +251,7 @@ namespace Service
         public IEnumerable<Product> GetRelatedProduct(int id, int top)
         {
             var product = _productRepository.GetSingleById(id);
-            return _productRepository.GetMulti(x => x.Status && x.ID != id && x.CategoryID == product.CategoryID).OrderByDescending(x => x.CreatedDate).Take(top);
+            return _productRepository.GetMulti(x => x.Status && x.ID != id && x.CategoryID == product.CategoryID, new string[] { "ProductSizes.Size" }).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
         public IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, string sort, out int totalRow)
@@ -300,16 +298,6 @@ namespace Service
         public IEnumerable<Tag> GetListTagByProductId(int id)
         {
             return _productTagRepository.GetMulti(x => x.ProductID == id, new string[] { "Tag" }).Select(y => y.Tag);
-        }
-
-        //Selling product
-        public bool SellProduct(int productId, int quantity)
-        {
-            var product = _productRepository.GetSingleById(productId);
-            if (product.Quantity < quantity)
-                return false;
-            product.Quantity -= quantity;
-            return true;
         }
 
         public IEnumerable<Product> GetListProduct(string keyword)

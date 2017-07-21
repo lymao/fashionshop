@@ -18,10 +18,15 @@ namespace Model.Models
 
         public decimal Price { set; get; }
 
+        public int SizeId { get; set; }
+
         [ForeignKey("OrderID")]
         public virtual Order Order { set; get; }
 
         [ForeignKey("ProductID")]
         public virtual Product Product { set; get; }
+
+        [ForeignKey("SizeId")]
+        public virtual Size Size { set; get; }
     }
 }

@@ -24,8 +24,10 @@
                     <label for="inputEmail3" class="col-sm-2 control-label">Tên slide</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" ng-maxlength="200" required name="name" ng-model="slide.Name">
-                        <span ng-show="frmAddSlide.name.$error.required" class="has-error">Phải nhập tên slide</span>
-                        <span ng-show="frmAddSlide.name.$error.maxlength" class="has-error">Tên slide chỉ được 200 ký tự</span>
+                        <span style="color:red" ng-show="frmAddSlide.name.$dirty && frmAddSlide.name.$invalid">
+                            <span ng-show="frmAddSlide.name.$error.required">Yêu cầu nhập tên slide.</span>
+                            <span ng-show="frmAddSlide.name.$error.maxlength">Ký tự tối đa là 200.</span>
+                        </span>
                     </div>
                 </div>
 
