@@ -170,6 +170,7 @@ namespace Web.Infrastructure.Extensions
             order.CustomerMobile = orderVm.CustomerMobile;
             order.CustomerMessage = orderVm.CustomerMessage;
             order.PaymentMethod = orderVm.PaymentMethod;
+            order.PaymentStatus = orderVm.PaymentStatus;
             order.CreatedDate = DateTime.Now;
             order.CreatedBy = orderVm.CreatedBy;
             order.Status = orderVm.Status;

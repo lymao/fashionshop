@@ -92,7 +92,7 @@
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="status" ng-model="order.Status" ng-checked="product.Status"> Hợp lệ
+                                <input type="checkbox" name="status" ng-model="order.Status" ng-checked="order.Status"> Hợp lệ
                             </label>
                         </div>
                     </div>
@@ -106,16 +106,13 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <table class="table">
+                        <table class="table" ng-hide="showOrderDetailTable">
                             <thead>
                                 <tr>
-                                    <th>
-                                        Sản phẩm
-                                    </th>
-                                    <th>
-                                        Số lượng
-                                    </th>
-                                    <th>Giá</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Kích cỡ</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá bán</th>
                                     <th>Thành tiền</th>
                                     <th></th>
                                 </tr>
@@ -125,13 +122,14 @@
                                     <td>
                                         {{item.Product.Name}}
                                     </td>
+                                    <td>{{item.Size.Name}}</td>
                                     <td>
                                         {{item.Quantity | number}}
                                     </td>
                                     <td>{{item.Price | number}}</td>
-                                    <td>{{item.Price * item.Quantity | number}}</td>
+                                    <td>{{item.Price * item.Quantity | currency:"":0}}</td>
                                     <td>
-                                        <button class="btn btn-danger" ng-click="deleteDetail(item)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        <button class="btn btn-danger" ng-click="deleteDetail($index)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -157,43 +155,52 @@
                 <h4 class="modal-title">Thêm chi tiết hóa đơn</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal form-label-left input_mask" novalidate ng-submit="saveOrderDetail(detailForm)">
+                <form class="form-horizontal form-label-left input_mask" name="frmAddDetailOrder" novalidate ng-submit="saveOrderDetail()">
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="product">Sản phẩm</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" name="productID" id="product" required ng-model="detailEntity.ProductID">
-                                <option value="">--Chọn sản phẩm--</option>
-                                <option ng-repeat="x in products" value="x.ID">{{x.Name}}</option>
-                            </select>
+                            <ui-select ng-model="entityOrderDetail.ProductId" ng-change="ChangeProduct()" name="productId" theme="bootstrap" style="width: 100%;">
+                                <ui-select-match placeholder="Chọn hoặc tìm kiếm sản phẩm ...">{{$select.selected.Name}}</ui-select-match>
+                                <ui-select-choices repeat="item.ID as item in products | filter: $select.search">
+                                    <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <input type="hidden" ng-model="entityOrderDetail.ProductId" required />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="size">Kích cỡ</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" required  id="size" name="sizeId" ng-model="detailEntity.SizeId">
-                                <option value="">--Chọn cỡ--</option>
-                                <option ng-repeat="x in sizes" value="x.ID">{{x.Name}}</option>
-                            </select>
+                                <ui-select ng-model="entityOrderDetail.SizeId" name="sizeId" theme="bootstrap" style="width: 50%;">
+                                    <ui-select-match placeholder="Chọn hoặc tìm kiếm size...">{{$select.selected.Name}}</ui-select-match>
+                                    <ui-select-choices repeat="size.ID as size in sizes | filter: $select.search">
+                                        <div ng-bind-html="size.Name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <input type="hidden" ng-model="entityOrderDetail.SizeId" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="quantity">Số lượng</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="number" id="quantity" ng-model="detailEntity.Quantity" required name="quantity" class="form-control">
+                            <input type="number" name="quantity" class="form-control" required pattern="[1-9]+" ng-model="entityOrderDetail.Quantity" />
+                            <span style="color:red" ng-show="frmAddDetailOrder.quantity.$dirty && frmAddDetailOrder.quantity.$invalid">
+                                <span ng-show="frmAddDetailOrder.quantity.$error.pattern">Số lượng phải lơn hơn 0</span>
+                            </span>
 
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Giá tiền</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="number" id="price" ng-model="detailEntity.Price" required name="price" class="form-control">
+                            <label class="form-control">{{entityOrderDetail.Price |currency:"":0}}</label>
                         </div>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success pull-right" ng-disabled="!detailForm.form.valid">Cập nhật</button>
+                            <button type="submit" class="btn btn-success pull-right" ng-disabled="frmAddDetailOrder.$invalid">Cập nhật</button>
                         </div>
                     </div>
                 </form>

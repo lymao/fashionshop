@@ -1,0 +1,118 @@
+﻿  <!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Chi tiết đơn hàng
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a ui-sref="orders">Đơn hàng</a></li>
+        <li class="active">Chi tiết đơn hàng</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Chi tiết</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmEditOrder" role="form" ng-submit="AddOrder()">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tên khách hàng</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-disabled="true" class="form-control" ng-maxlength="200" required name="name" ng-model="order.CustomerName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Địa chỉ</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-disabled="true" name="address" ng-maxlength="200" required ng-model="order.CustomerAddress"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" ng-disabled="true" name="email" class="form-control" required ng-model="order.CustomerEmail">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Điện thoại</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-disabled="true" name="phone" pattern="[0-9]*" class="form-control" required ng-model="order.CustomerMobile">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Tin nhắn</label>
+                    <div class="col-sm-10">
+                        <textarea name="message" ng-disabled="true" class="form-control" required ng-model="order.CustomerMessage"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Phương thức thanh toán</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-disabled="true" id="paymentMethod" name="paymentMethod" ng-model="order.PaymentMethod">
+                            <option value="">--Chọn phương thức tahnh toán--</option>
+                            <option value="CASH">Tiền mặt</option>
+                            <option value="BANKING">Chuyển khoản</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Trạng thái thanh toán</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-disabled="true" id="paymentStatus" name="paymentStatus" ng-model="order.PaymentStatus">
+                            <option value="">--Trạng thái--</option>
+                            <option value="PAID">Đã thanh toán</option>
+                            <option value="UNPAID">Chưa thanh toán</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status" ng-disabled="true" ng-model="order.Status" ng-checked="order.Status"> Hợp lệ
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            <hr style="align-content:center;" />
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <table class="table" ng-hide="showOrderDetailTable">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Kích cỡ</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá bán</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in orderDetails">
+                                    <td>
+                                        {{item.Product.Name}}
+                                    </td>
+                                    <td>{{item.Size.Name}}</td>
+                                    <td>
+                                        {{item.Quantity | number}}
+                                    </td>
+                                    <td>{{item.Price | number}}</td>
+                                    <td>{{item.Price * item.Quantity | currency:"":0}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- /.box-body -->
+            <div class="box-footer">
+                <button ui-sref="orders" class="btn btn-default">Quay lại</button>
+                <button type="button" ng-click="exportExcel()" class="btn btn-success pull-right">Xuất ra excel</button>
+            </div><!-- /.box-footer -->
+        </form>
+    </div><!-- /.box -->
+</section><!-- /.content -->

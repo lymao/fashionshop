@@ -280,7 +280,7 @@ namespace Web.Api
                 Request.CreateErrorResponse(HttpStatusCode.UnsupportedMediaType, "Định dạng không được server hỗ trợ");
             }
 
-            var root = HttpContext.Current.Server.MapPath("~/UploadedFiles/Excels");
+            var root = HttpContext.Current.Server.MapPath("~/Reports/Import");
             if (!Directory.Exists(root))
             {
                 Directory.CreateDirectory(root);
@@ -370,7 +370,7 @@ namespace Web.Api
             string fullPath = Path.Combine(filePath, fileName);
             try
             {
-                var template = File.ReadAllText(HttpContext.Current.Server.MapPath("/Assets/admin/templates/product-detail.html"));
+                var template = File.ReadAllText(HttpContext.Current.Server.MapPath("/Templates/product-detail.html"));
                 var replaces = new Dictionary<string, string>();
                 var product = _productService.GetDetail(id);
 
@@ -406,6 +406,7 @@ namespace Web.Api
                 bool showHome = false;
                 bool isHot = false;
                 int warranty;
+                int quantity;
 
                 for (int i = workSheet.Dimension.Start.Row + 1; i <= workSheet.Dimension.End.Row; i++)
                 {
@@ -434,19 +435,27 @@ namespace Web.Api
 
                     }
 
-                    productViewModel.Content = workSheet.Cells[i, 7].Value.ToString();
-                    productViewModel.MetaKeyword = workSheet.Cells[i, 8].Value.ToString();
-                    productViewModel.MetaDescription = workSheet.Cells[i, 9].Value.ToString();
+                    if (int.TryParse(workSheet.Cells[i, 7].Value.ToString(), out quantity))
+                    {
+                        productViewModel.Quantity = quantity;
+
+                    }
+
+                    productViewModel.Content = workSheet.Cells[i, 8].Value.ToString();
+
+                    productViewModel.MetaKeyword = workSheet.Cells[i, 9].Value.ToString();
+
+                    productViewModel.MetaDescription = workSheet.Cells[i, 10].Value.ToString();
 
                     productViewModel.CategoryID = categoryId;
 
-                    bool.TryParse(workSheet.Cells[i, 10].Value.ToString(), out status);
+                    bool.TryParse(workSheet.Cells[i, 11].Value.ToString(), out status);
                     productViewModel.Status = status;
 
-                    bool.TryParse(workSheet.Cells[i, 11].Value.ToString(), out showHome);
+                    bool.TryParse(workSheet.Cells[i, 12].Value.ToString(), out showHome);
                     productViewModel.HomeFlag = showHome;
 
-                    bool.TryParse(workSheet.Cells[i, 12].Value.ToString(), out isHot);
+                    bool.TryParse(workSheet.Cells[i, 13].Value.ToString(), out isHot);
                     productViewModel.HotFlag = isHot;
 
                     product.UpdateProduct(productViewModel);

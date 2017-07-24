@@ -13,18 +13,28 @@ namespace Service
     public interface IOrderService
     {
         bool Create(Order oder, List<OrderDetail> orderDetails);
+        Order CreateAll(Order order);
         List<Order> GetList(string startDate, string endDate, string filter, string pamentStatus, int page, int pageSize, out int totalRow);
+        IEnumerable<Product> GetAllProduct();
+        Order GetOrder(int id);
+        List<OrderDetail> GetOrderDetails(int orderId);
+        Product GetProductById(int id);
+        void Delete(int id);
+        void Save();
+
     }
     public class OrderService : IOrderService
     {
         IOrderRepository _orderRepository;
         IOrderDetailRepository _orderDetailRepository;
+        IProductRepository _productRepository;
         IUnitOfWork _unitOfWork;
-        public OrderService(IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IUnitOfWork unitOfWork)
+        public OrderService(IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IUnitOfWork unitOfWork)
         {
             this._orderRepository = orderRepository;
             this._orderDetailRepository = orderDetailRepository;
             this._unitOfWork = unitOfWork;
+            this._productRepository = productRepository;
         }
 
         public bool Create(Order oder, List<OrderDetail> orderDetails)
@@ -45,6 +55,30 @@ namespace Service
             {
                 throw;
             }
+        }
+
+        public Order CreateAll(Order order)
+        {
+            try
+            {
+                _orderRepository.Add(order);
+                _unitOfWork.Commit();
+                return order;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void Delete(int id)
+        {
+            _orderRepository.Delete(id);
+        }
+
+        public IEnumerable<Product> GetAllProduct()
+        {
+            return _productRepository.GetAll(new string[] { "ProductSizes.Size"});
         }
 
         public List<Order> GetList(string startDate, string endDate, string filter, string pamentStatus, int page, int pageSize, out int totalRow)
@@ -69,7 +103,27 @@ namespace Service
                 query = query.Where(x => x.PaymentStatus == pamentStatus);
             }
             totalRow = query.Count();
-            return query.OrderByDescending(x => x.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return query.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize).ToList();
+        }
+
+        public Order GetOrder(int id)
+        {
+            return _orderRepository.GetSingleByCondition(x => x.ID == id, new string[] { "OrderDetails", "OrderDetails.Product", "OrderDetails.Size" });
+        }
+
+        public List<OrderDetail> GetOrderDetails(int orderId)
+        {
+            return _orderDetailRepository.GetMulti(x => x.OrderID == orderId, new string[] { "Size", "Product" }).ToList();
+        }
+
+        public Product GetProductById(int id)
+        {
+            return _productRepository.GetSingleByCondition(x=>x.ID==id,new string[] { "ProductSizes.Size"});
+        }
+
+        public void Save()
+        {
+            _unitOfWork.Commit();
         }
     }
 }

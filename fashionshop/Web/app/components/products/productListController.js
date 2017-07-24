@@ -63,11 +63,11 @@
                 }
             }
             apiService.get('/api/product/getall', config, function (result) {
-                if (result.data.TotalCount == 0) {
+                if (result.data.TotalCount === 0) {
                     notificationService.displayWarning('Không có bản ghi nào được tìm thấy.');
                 }
-                else {
-                    notificationService.displaySuccess('Đã tìm thấy ' + result.data.TotalCount + ' bản ghi.');
+                if ($scope.keyword && $scope.keyword.length) {
+                    notificationService.displayInfo(result.data.TotalCount + ' bản ghi được tìm thấy');
                 }
                 $scope.products = result.data.Items;
                 $scope.page = result.data.Page;
@@ -172,7 +172,7 @@
                 });
                 var config = {
                     params: {
-                        checkedProduct: JSON.stringify(listId)
+                        checkedProducts: JSON.stringify(listId)
                     }
                 }
                 apiService.del('api/product/deletemulti', config, function (result) {

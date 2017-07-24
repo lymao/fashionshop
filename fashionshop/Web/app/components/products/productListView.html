@@ -32,7 +32,7 @@
                     </div><!-- /input-group -->
                 </div>
                 <div class="col-md-6">
-                    <a class="btn btn-warning" href="/Assets/admin/templates/ProductImportTemplate.xlsx">Download template</a>
+                    <a class="btn btn-warning" href="/Templates/ProductImportTemplate.xlsx">Download template</a>
                     <button class="btn btn-primary" ui-sref="product_import">Nhập</button>
 
                     <button class="btn btn-success" ui-sref="product_add">Thêm mới</button>
@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div><!-- /.box-body -->
-        <div class="box-footer">
+        <div class="box-footer" style="cursor:pointer;">
             <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="getProducts(page)"></pager-directive>
         </div><!-- /.box-footer-->
     </div><!-- /.box -->
@@ -129,9 +129,9 @@
                         <div class="col-md-5">
                             <label>Số lượng</label>
                             <div class="form-group">
-                                <input type="number" name="size" class="form-control" required pattern="[1-9]+" ng-model="entity.Quantity" placeholder="Vui lòng nhập số lượng..." />
-                                <span style="color:red" ng-show="frmAddEditSize.size.$dirty && frmAddEditSize.size.$invalid">
-                                    <span ng-show="frmAddEditSize.size.$error.pattern">Số lượng phải lơn hơn 0</span>
+                                <input type="number" name="quantity" class="form-control" required pattern="[1-9]+" ng-model="entity.Quantity" />
+                                <span style="color:red" ng-show="frmAddEditSize.quantity.$dirty && frmAddEditSize.quantity.$invalid">
+                                    <span ng-show="frmAddEditSize.quantity.$error.pattern">Số lượng phải lơn hơn 0</span>
                                 </span>
                             </div>
                         </div>

@@ -11,11 +11,11 @@ namespace Web.Models
 
         public int ProductID { set; get; }
 
-        public int Quantitty { set; get; }
+        public int Quantity { set; get; }
+
+        public decimal Price { set; get; }
 
         public int SizeID { get; set; }
-
-        public OrderViewModel Order { get; set; }
 
         public ProductViewModel Product { get; set; }
 

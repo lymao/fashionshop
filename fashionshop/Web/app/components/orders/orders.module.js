@@ -14,10 +14,10 @@
             templateUrl: '/app/components/orders/orderAddView.html',
             controller: 'orderAddController',
             parent: 'base'
-        }).state('order_edid', {
-            url: '/order_edid',
-            templateUrl: '/app/components/orders/orderEditView.html',
-            controller: 'orderEditController',
+            }).state('order_detail', {
+            url: '/order_detail/:id',
+            templateUrl: '/app/components/orders/orderDetailView.html',
+            controller: 'orderDetailController',
             parent: 'base'
         });
     }

@@ -349,10 +349,10 @@
     <Content Include="app\components\home\rootController.js" />
     <Content Include="app\components\login\loginController.js" />
     <Content Include="app\components\login\loginView.html" />
-    <Content Include="app\components\orders\oderEditView.html" />
+    <Content Include="app\components\orders\orderDetailView.html" />
     <Content Include="app\components\orders\orderAddController.js" />
     <Content Include="app\components\orders\orderAddView.html" />
-    <Content Include="app\components\orders\orderEditController.js" />
+    <Content Include="app\components\orders\orderDetailController.js" />
     <Content Include="app\components\orders\orderListController.js" />
     <Content Include="app\components\orders\orderListView.html" />
     <Content Include="app\components\orders\orders.module.js" />
@@ -5133,7 +5133,6 @@
     <Content Include="Assets\admin\libs\toastr\toastr.js" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
-    <Content Include="Assets\admin\templates\product-detail.html" />
     <Content Include="Assets\client\css\bootstrap.css" />
     <Content Include="Assets\client\css\common.autocomplete.css" />
     <Content Include="Assets\client\css\coreSlider.css" />
@@ -5284,6 +5283,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\admin\libs\checklist-model\test\" />
+    <Folder Include="Reports\" />
+    <Folder Include="Templates\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -5686,7 +5687,6 @@
     <Content Include="Assets\admin\libs\moment\CHANGELOG.md" />
     <Content Include="Assets\admin\libs\moment\LICENSE" />
     <Content Include="Assets\admin\libs\moment\README.md" />
-    <Content Include="Assets\admin\templates\ProductImportTemplate.xlsx" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\Layout.cshtml" />

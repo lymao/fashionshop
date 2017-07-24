@@ -52,8 +52,8 @@
                 notificationService.displaySuccess(result.data);
                 $state.go('products');
             },
-            function (data, status, headers, config) {
-                notificationService.displayError(data);
+                function (data, status, headers, config) {
+                    notificationService.displayError(data.data.Message);
             });
         }
         function loadProductCategory() {
